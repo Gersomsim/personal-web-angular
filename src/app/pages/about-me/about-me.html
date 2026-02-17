@@ -2,254 +2,375 @@
      1. HEADER - El Gancho Personal
      ============================================ -->
 <section class="py-24">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <!-- Imagen -->
-      <div class="relative">
-        <div class="aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/50 bg-slate-100 dark:border-slate-800/50 dark:bg-slate-800">
-          <img
-            src="/assets/images/38233407.jpg"
-            alt="Gersom Hernández"
-            class="size-full object-cover"
-          />
-        </div>
-        <!-- Decoración código -->
-        <div class="absolute -bottom-6 -right-6 hidden rounded-lg border border-slate-200/50 bg-white/90 p-4 font-mono text-xs backdrop-blur-sm lg:block dark:border-slate-700/50 dark:bg-slate-900/90">
-          <span class="text-slate-500">// status</span><br />
-          <span class="text-emerald-500">available</span>: <span class="text-blue-500">true</span>
-        </div>
-      </div>
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="grid items-center gap-12 lg:grid-cols-2">
+			<!-- Imagen -->
+			<div class="relative">
+				<div
+					class="aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/50 bg-slate-100 dark:border-slate-800/50 dark:bg-slate-800"
+				>
+					<img
+						src="/assets/images/38233407.jpg"
+						alt="Gersom Hernández"
+						class="size-full object-cover"
+					/>
+				</div>
+				<!-- Decoración código -->
+				<div
+					class="absolute -bottom-6 -right-6 hidden rounded-lg border border-slate-200/50 bg-white/90 p-4 font-mono text-xs backdrop-blur-sm lg:block dark:border-slate-700/50 dark:bg-slate-900/90"
+				>
+					<span class="text-slate-500">// status</span>
+					<br />
+					<span class="text-emerald-500">available</span>
+					:
+					<span class="text-blue-500">true</span>
+				</div>
+			</div>
 
-      <!-- Contenido -->
-      <div>
-        <p class="mb-4 font-mono text-sm text-emerald-500">
-          <span class="cursor">></span> about_me
-        </p>
+			<!-- Contenido -->
+			<div>
+				<p class="mb-4 font-mono text-sm text-emerald-500">
+					<span class="cursor">></span>
+					about_me
+				</p>
 
-        <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
-          Resolviendo problemas complejos con soluciones simples
-        </h1>
+				<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
+					Resolviendo problemas complejos con soluciones simples
+				</h1>
 
-        <p class="mt-6 text-lg text-slate-600 dark:text-slate-400">
-          Soy Gersom, desarrollador frontend con más de 10 años de experiencia construyendo aplicaciones web que importan. Me apasiona crear interfaces intuitivas y arquitecturas que escalan, siempre con el usuario final en mente.
-        </p>
+				<p class="mt-6 text-lg text-slate-600 dark:text-slate-400">
+					Soy Gersom, desarrollador frontend con más de 10 años de experiencia construyendo aplicaciones web
+					que importan. Me apasiona crear interfaces intuitivas y arquitecturas que escalan, siempre con el
+					usuario final en mente.
+				</p>
 
-        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
-          Actualmente trabajo con Angular y TypeScript, aunque mi stack se extiende al backend con Node.js y Laravel. Creo en el código limpio, las buenas prácticas y en compartir conocimiento.
-        </p>
-      </div>
-    </div>
-  </div>
+				<p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
+					Actualmente trabajo con Angular y TypeScript, aunque mi stack se extiende al backend con Node.js y
+					Laravel. Creo en el código limpio, las buenas prácticas y en compartir conocimiento.
+				</p>
+			</div>
+		</div>
+	</div>
 </section>
 
 <!-- ============================================
      2. HISTORIA - Timeline
      ============================================ -->
 <section class="border-y border-slate-200/50 bg-slate-50/50 py-24 dark:border-slate-800/50 dark:bg-slate-900/50">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <app-section-header
-      tag="// Mi trayectoria"
-      title="De dónde vengo, hacia dónde voy"
-      subtitle="Una evolución constante guiada por la curiosidad y el deseo de crear."
-    />
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Mi trayectoria"
+			title="De dónde vengo, hacia dónde voy"
+			subtitle="Una evolución constante guiada por la curiosidad y el deseo de crear."
+		/>
 
-    <div class="relative">
-      <!-- Línea central -->
-      <div class="absolute left-8 top-0 hidden h-full w-px bg-slate-200 md:left-1/2 md:block dark:bg-slate-800"></div>
+		<div class="relative">
+			<!-- Línea central -->
+			<div
+				class="absolute left-8 top-0 hidden h-full w-px bg-slate-200 md:left-1/2 md:block dark:bg-slate-800"
+			></div>
 
-      <div class="space-y-12">
-        @for (item of timeline(); track item.period; let i = $index) {
-          <div class="relative grid gap-4 md:grid-cols-2 md:gap-8">
-            <!-- Punto en la línea -->
-            <div class="absolute left-8 top-0 hidden size-4 -translate-x-1/2 rounded-full border-4 border-white bg-emerald-500 md:left-1/2 md:block dark:border-slate-950"></div>
+			<div class="space-y-12">
+				@for (item of timeline(); track item.period; let i = $index) {
+					<div class="relative grid gap-4 md:grid-cols-2 md:gap-8">
+						<!-- Punto en la línea -->
+						<div
+							class="absolute left-8 top-0 hidden size-4 -translate-x-1/2 rounded-full border-4 border-white bg-emerald-500 md:left-1/2 md:block dark:border-slate-950"
+						></div>
 
-            <!-- Contenido izquierda (impar) o derecha (par) -->
-            <div [class]="i % 2 === 0 ? 'md:text-right' : 'md:col-start-2'">
-              <div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
-                <span class="inline-block rounded-full bg-emerald-500/10 px-3 py-1 font-mono text-xs font-medium text-emerald-600 dark:text-emerald-400">
-                  {{ item.period }}
-                </span>
-                <h3 class="mt-3 text-lg font-semibold text-slate-900 dark:text-white">
-                  {{ item.title }}
-                </h3>
-                <p class="mt-2 text-slate-600 dark:text-slate-400">
-                  {{ item.description }}
-                </p>
-              </div>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  </div>
+						<!-- Contenido izquierda (impar) o derecha (par) -->
+						<div [class]="i % 2 === 0 ? 'md:text-right' : 'md:col-start-2'">
+							<div
+								class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+							>
+								<span
+									class="inline-block rounded-full bg-emerald-500/10 px-3 py-1 font-mono text-xs font-medium text-emerald-600 dark:text-emerald-400"
+								>
+									{{ item.period }}
+								</span>
+								<h3 class="mt-3 text-lg font-semibold text-slate-900 dark:text-white">
+									{{ item.title }}
+								</h3>
+								<p class="mt-2 text-slate-600 dark:text-slate-400">
+									{{ item.description }}
+								</p>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
 </section>
 
 <!-- ============================================
      3. CÓMO TRABAJO - Soft Skills
      ============================================ -->
 <section class="py-24">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <app-section-header
-      tag="// Mi enfoque"
-      title="Cómo Trabajo"
-      subtitle="Más allá de las habilidades técnicas, esto es lo que me define como profesional."
-    />
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Mi enfoque"
+			title="Cómo Trabajo"
+			subtitle="Más allá de las habilidades técnicas, esto es lo que me define como profesional."
+		/>
 
-    <div class="grid gap-6 sm:grid-cols-2">
-      @for (style of workStyles(); track style.title) {
-        <div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/50">
-          <div class="mb-4 flex size-12 items-center justify-center rounded-lg bg-emerald-500/10">
-            @switch (style.icon) {
-              @case ('communication') {
-                <svg class="size-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-                </svg>
-              }
-              @case ('problem-solving') {
-                <svg class="size-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-                </svg>
-              }
-              @case ('learning') {
-                <svg class="size-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
-                </svg>
-              }
-              @case ('quality') {
-                <svg class="size-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                </svg>
-              }
-            }
-          </div>
-          <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
-            {{ style.title }}
-          </h3>
-          <p class="mt-2 text-slate-600 dark:text-slate-400">
-            {{ style.description }}
-          </p>
-        </div>
-      }
-    </div>
-  </div>
+		<div class="grid gap-6 sm:grid-cols-2">
+			@for (style of workStyles(); track style.title) {
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/50"
+				>
+					<div class="mb-4 flex size-12 items-center justify-center rounded-lg bg-emerald-500/10">
+						@switch (style.icon) {
+							@case ('communication') {
+								<svg
+									class="size-6 text-emerald-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
+									/>
+								</svg>
+							}
+							@case ('problem-solving') {
+								<svg
+									class="size-6 text-emerald-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+									/>
+								</svg>
+							}
+							@case ('learning') {
+								<svg
+									class="size-6 text-emerald-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+									/>
+								</svg>
+							}
+							@case ('quality') {
+								<svg
+									class="size-6 text-emerald-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+									/>
+								</svg>
+							}
+						}
+					</div>
+					<h3 class="text-lg font-semibold text-slate-900 dark:text-white">
+						{{ style.title }}
+					</h3>
+					<p class="mt-2 text-slate-600 dark:text-slate-400">
+						{{ style.description }}
+					</p>
+				</div>
+			}
+		</div>
+	</div>
 </section>
 
 <!-- ============================================
      4. STACK TÉCNICO - Caja de Herramientas
      ============================================ -->
 <section class="border-y border-slate-200/50 bg-slate-50/50 py-24 dark:border-slate-800/50 dark:bg-slate-900/50">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <app-section-header
-      tag="// Tech Stack"
-      title="Mi Caja de Herramientas"
-      subtitle="Las tecnologías y metodologías con las que trabajo día a día."
-    />
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Tech Stack"
+			title="Mi Caja de Herramientas"
+			subtitle="Las tecnologías y metodologías con las que trabajo día a día."
+		/>
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      @for (category of skillCategories(); track category.name) {
-        <div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
-          <h3 class="mb-4 font-mono text-sm font-semibold text-emerald-500">
-            {{ category.name }}
-          </h3>
-          <div class="flex flex-wrap gap-2">
-            @for (skill of category.skills; track skill) {
-              <span class="rounded-md bg-slate-100 px-2.5 py-1 text-sm text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                {{ skill }}
-              </span>
-            }
-          </div>
-        </div>
-      }
-    </div>
-  </div>
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			@for (category of skillCategories(); track category.name) {
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
+					<h3 class="mb-4 font-mono text-sm font-semibold text-emerald-500">
+						{{ category.name }}
+					</h3>
+					<app-skills-list [skills]="category.skills"></app-skills-list>
+				</div>
+			}
+		</div>
+	</div>
 </section>
 
 <!-- ============================================
      5. LADO HUMANO - Fuera de la oficina
      ============================================ -->
 <section class="py-24">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <app-section-header
-      tag="// Fuera del código"
-      title="El Lado Humano"
-      subtitle="Porque no todo es programar. Estas son las cosas que me mantienen equilibrado."
-    />
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Fuera del código"
+			title="El Lado Humano"
+			subtitle="Porque no todo es programar. Estas son las cosas que me mantienen equilibrado."
+		/>
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      @for (hobby of hobbies(); track hobby.name) {
-        <div class="group rounded-lg border border-slate-200/50 bg-white p-6 text-center transition-colors hover:border-emerald-500/50 dark:border-slate-800/50 dark:bg-slate-900/50 dark:hover:border-emerald-500/50">
-          <div class="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-slate-100 transition-colors group-hover:bg-emerald-500/10 dark:bg-slate-800">
-            @switch (hobby.icon) {
-              @case ('chess') {
-                <svg class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5M18.364 5.636l-1.06 1.06M21 12h-1.5M18.364 18.364l-1.06-1.06M12 21v-1.5M5.636 18.364l1.06-1.06M3 12h1.5M5.636 5.636l1.06 1.06M12 9a3 3 0 100 6 3 3 0 000-6z" />
-                </svg>
-              }
-              @case ('reading') {
-                <svg class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                </svg>
-              }
-              @case ('gaming') {
-                <svg class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875S10.5 3.089 10.5 4.125c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.839 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" />
-                </svg>
-              }
-              @case ('music') {
-                <svg class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
-                </svg>
-              }
-            }
-          </div>
-          <h3 class="font-semibold text-slate-900 dark:text-white">
-            {{ hobby.name }}
-          </h3>
-          <p class="mt-1 text-sm text-slate-500">
-            {{ hobby.insight }}
-          </p>
-        </div>
-      }
-    </div>
-  </div>
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+			@for (hobby of hobbies(); track hobby.name) {
+				<div
+					class="group rounded-lg border border-slate-200/50 bg-white p-6 text-center transition-colors hover:border-emerald-500/50 dark:border-slate-800/50 dark:bg-slate-900/50 dark:hover:border-emerald-500/50"
+				>
+					<div
+						class="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-slate-100 transition-colors group-hover:bg-emerald-500/10 dark:bg-slate-800"
+					>
+						@switch (hobby.icon) {
+							@case ('chess') {
+								<svg
+									class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M12 3v1.5M18.364 5.636l-1.06 1.06M21 12h-1.5M18.364 18.364l-1.06-1.06M12 21v-1.5M5.636 18.364l1.06-1.06M3 12h1.5M5.636 5.636l1.06 1.06M12 9a3 3 0 100 6 3 3 0 000-6z"
+									/>
+								</svg>
+							}
+							@case ('reading') {
+								<svg
+									class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+									/>
+								</svg>
+							}
+							@case ('gaming') {
+								<svg
+									class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875S10.5 3.089 10.5 4.125c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.839 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z"
+									/>
+								</svg>
+							}
+							@case ('music') {
+								<svg
+									class="size-7 text-slate-600 transition-colors group-hover:text-emerald-500 dark:text-slate-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+									/>
+								</svg>
+							}
+						}
+					</div>
+					<h3 class="font-semibold text-slate-900 dark:text-white">
+						{{ hobby.name }}
+					</h3>
+					<p class="mt-1 text-sm text-slate-500">
+						{{ hobby.insight }}
+					</p>
+				</div>
+			}
+		</div>
+	</div>
 </section>
 
 <!-- ============================================
      6. DESCARGA CV + CTA
      ============================================ -->
 <section class="border-t border-slate-200/50 bg-slate-50/50 py-24 dark:border-slate-800/50 dark:bg-slate-900/50">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <div class="text-center">
-      <p class="mb-2 font-mono text-sm text-emerald-500">// Siguiente paso</p>
-      <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-        Ya conoces a la persona
-      </h2>
-      <p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-400">
-        Ahora descarga mi CV completo o explora los proyectos donde aplico todo esto.
-      </p>
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="text-center">
+			<p class="mb-2 font-mono text-sm text-emerald-500">// Siguiente paso</p>
+			<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+				Ya conoces a la persona
+			</h2>
+			<p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-400">
+				Ahora descarga mi CV completo o explora los proyectos donde aplico todo esto.
+			</p>
 
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a
-          href="/cv.pdf"
-          target="_blank"
-          class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600"
-        >
-          <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-          </svg>
-          Descargar CV (PDF)
-        </a>
+			<div class="mt-8 flex flex-wrap justify-center gap-4">
+				<a
+					href="/cv.pdf"
+					target="_blank"
+					class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600"
+				>
+					<svg
+						class="size-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+						/>
+					</svg>
+					Descargar CV (PDF)
+				</a>
 
-        <a
-          routerLink="/portfolio"
-          class="inline-flex items-center gap-2 rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
-        >
-          Ver Proyectos
-          <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
+				<a
+					routerLink="/portfolio"
+					class="inline-flex items-center gap-2 rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+				>
+					Ver Proyectos
+					<svg
+						class="size-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+						/>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
 </section>

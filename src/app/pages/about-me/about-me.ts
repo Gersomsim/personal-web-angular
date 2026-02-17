@@ -1,6 +1,9 @@
 import { Component, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
+import { SkillsList } from '@features/skills/components/skills-list/skills-list'
+import { Skill } from '@features/skills/models/skill.model'
+
 import { SectionHeader } from '../../shared/components/section-header/section-header'
 
 interface TimelineItem {
@@ -18,7 +21,7 @@ interface WorkStyle {
 
 interface SkillCategory {
 	name: string
-	skills: string[]
+	skills: Skill[]
 }
 
 interface Hobby {
@@ -29,7 +32,7 @@ interface Hobby {
 
 @Component({
 	selector: 'app-about-me',
-	imports: [RouterLink, SectionHeader],
+	imports: [RouterLink, SectionHeader, SkillsList],
 	templateUrl: './about-me.html',
 	styles: `
 		@keyframes blink {
@@ -117,33 +120,18 @@ export class AboutMe {
 		{
 			name: 'Frontend',
 			skills: [
-				'Angular',
-				'TypeScript',
-				'RxJS',
-				'NgRx',
-				'Tailwind CSS',
-				'SCSS',
-				'HTML5',
-				'JavaScript',
-				'React',
-				'Astro',
+				{
+					id: 'angular',
+					name: 'Angular',
+					slug: 'angular',
+					category: {
+						id: 'as',
+						slug: 'angular',
+						name: 'Angular',
+						count: 1,
+					},
+				},
 			],
-		},
-		{
-			name: 'Backend',
-			skills: ['Node.js', 'NestJS', 'Laravel', 'PHP', 'REST APIs', 'GraphQL'],
-		},
-		{
-			name: 'Bases de Datos',
-			skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis'],
-		},
-		{
-			name: 'DevOps & Tools',
-			skills: ['Git', 'Docker', 'CI/CD', 'Linux', 'Nginx'],
-		},
-		{
-			name: 'Metodologías',
-			skills: ['Scrum', 'Kanban', 'TDD', 'Clean Architecture', 'SOLID'],
 		},
 	])
 
