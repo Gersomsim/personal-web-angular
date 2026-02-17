@@ -1,3 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+/* Smooth color transitions for dark mode */
+html {
+	color-scheme: light dark;
+}
+
+* {
+	transition-property: background-color, border-color;
+	transition-duration: 150ms;
+	transition-timing-function: ease;
+}
+
+/* Disable transitions on page load */
+.no-transitions * {
+	transition: none !important;
+}
+
+@keyframes blink {
+	0%,
+	50% {
+		opacity: 1;
+	}
+	51%,
+	100% {
+		opacity: 0;
+	}
+}
+.cursor {
+	animation: blink 1.3s step-end infinite;
+}
