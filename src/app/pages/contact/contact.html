@@ -1,0 +1,325 @@
+<!-- ============================================
+     HERO - Contacto
+     ============================================ -->
+<section class="py-24">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Contacto"
+			title="Hablemos"
+			subtitle="¿Tienes un proyecto en mente o una oportunidad interesante? Me encantaría escucharte."
+		/>
+
+		<div class="grid gap-12 lg:grid-cols-[1fr_340px]">
+			<!-- ========== FORM ========== -->
+			<div>
+				@if (sent()) {
+					<!-- Success State -->
+					<div
+						class="flex flex-col items-center justify-center rounded-lg border border-emerald-200 bg-emerald-50 px-6 py-16 text-center dark:border-emerald-500/20 dark:bg-emerald-500/10"
+					>
+						<div class="flex size-12 items-center justify-center rounded-full bg-emerald-500/10">
+							<svg
+								class="size-6 text-emerald-500"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m4.5 12.75 6 6 9-13.5"
+								/>
+							</svg>
+						</div>
+						<h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-white">Mensaje enviado</h3>
+						<p class="mt-2 text-slate-600 dark:text-slate-400">
+							Gracias por escribirme. Te responderé lo antes posible.
+						</p>
+					</div>
+				} @else {
+					<form
+						(ngSubmit)="onSubmit()"
+						class="space-y-6"
+					>
+						<!-- Name & Email row -->
+						<div class="grid gap-6 sm:grid-cols-2">
+							<!-- Name -->
+							<div>
+								<label
+									for="name"
+									class="mb-2 block text-sm font-medium text-slate-900 dark:text-white"
+								>
+									Nombre
+								</label>
+								<input
+									id="name"
+									type="text"
+									placeholder="Tu nombre"
+									[ngModel]="name()"
+									(ngModelChange)="name.set($event)"
+									name="name"
+									required
+									class="w-full rounded-md border border-slate-200/50 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-800/50 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
+								/>
+							</div>
+
+							<!-- Email -->
+							<div>
+								<label
+									for="email"
+									class="mb-2 block text-sm font-medium text-slate-900 dark:text-white"
+								>
+									Email
+								</label>
+								<input
+									id="email"
+									type="email"
+									placeholder="tu@email.com"
+									[ngModel]="email()"
+									(ngModelChange)="email.set($event)"
+									name="email"
+									required
+									class="w-full rounded-md border border-slate-200/50 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-800/50 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
+								/>
+							</div>
+						</div>
+
+						<!-- Subject (Custom Select) -->
+						<div>
+							<label class="mb-2 block text-sm font-medium text-slate-900 dark:text-white">
+								Asunto
+							</label>
+							<div class="relative">
+								<button
+									#subjectTrigger
+									type="button"
+									(click)="toggleDropdown()"
+									class="flex w-full items-center justify-between rounded-md border border-slate-200/50 bg-slate-50 px-4 py-3 text-left text-sm outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-800/50 dark:bg-slate-900"
+									[class]="subject() ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-500'"
+								>
+									<span>{{ selectedLabel || 'Selecciona un asunto' }}</span>
+									<svg
+										class="size-4 text-slate-400 transition-transform"
+										[class.rotate-180]="dropdownOpen()"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="2"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="m19.5 8.25-7.5 7.5-7.5-7.5"
+										/>
+									</svg>
+								</button>
+
+								<!-- Dropdown -->
+								@if (dropdownOpen()) {
+									<div
+										class="absolute z-10 mt-1 w-full rounded-md border border-slate-200/50 bg-white py-1 dark:border-slate-800/50 dark:bg-slate-900"
+									>
+										@for (option of subjects; track option.value) {
+											<button
+												type="button"
+												(click)="selectSubject(option)"
+												class="flex w-full items-center px-4 py-2.5 text-left text-sm transition-colors hover:bg-slate-50 dark:hover:bg-slate-800"
+												[class]="
+													subject() === option.value
+														? 'text-emerald-500 font-medium'
+														: 'text-slate-700 dark:text-slate-300'
+												"
+											>
+												@if (subject() === option.value) {
+													<svg
+														class="mr-2 size-4 text-emerald-500"
+														fill="none"
+														viewBox="0 0 24 24"
+														stroke-width="2"
+														stroke="currentColor"
+													>
+														<path
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															d="m4.5 12.75 6 6 9-13.5"
+														/>
+													</svg>
+												}
+												{{ option.label }}
+											</button>
+										}
+									</div>
+								}
+							</div>
+						</div>
+
+						<!-- Message -->
+						<div>
+							<label
+								for="message"
+								class="mb-2 block text-sm font-medium text-slate-900 dark:text-white"
+							>
+								Mensaje
+							</label>
+							<textarea
+								id="message"
+								rows="6"
+								placeholder="Cuéntame sobre tu proyecto o idea..."
+								[ngModel]="message()"
+								(ngModelChange)="message.set($event)"
+								name="message"
+								required
+								class="w-full resize-none rounded-md border border-slate-200/50 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-800/50 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500"
+							></textarea>
+						</div>
+
+						<!-- Submit -->
+						<button
+							type="submit"
+							[disabled]="sending() || !name() || !email() || !subject() || !message()"
+							class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
+						>
+							@if (sending()) {
+								<svg
+									class="size-4 animate-spin"
+									fill="none"
+									viewBox="0 0 24 24"
+								>
+									<circle
+										class="opacity-25"
+										cx="12"
+										cy="12"
+										r="10"
+										stroke="currentColor"
+										stroke-width="4"
+									/>
+									<path
+										class="opacity-75"
+										fill="currentColor"
+										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+									/>
+								</svg>
+								Enviando...
+							} @else {
+								Enviar mensaje
+								<svg
+									class="size-4"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="2"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+									/>
+								</svg>
+							}
+						</button>
+					</form>
+				}
+			</div>
+
+			<!-- ========== SIDEBAR - Contact Info ========== -->
+			<aside class="space-y-6">
+				<!-- Direct Contact -->
+				<div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
+					<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Contacto directo</h3>
+					<div class="mt-4 space-y-4">
+						<a
+							href="mailto:gersomhernandez@outlook.com"
+							class="flex items-center gap-3 text-sm text-slate-600 transition-colors hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-500"
+						>
+							<div class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+								<svg
+									class="size-4 text-slate-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="2"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+									/>
+								</svg>
+							</div>
+							gersomhernandez&#64;outlook.com
+						</a>
+
+						<a
+							href="https://linkedin.com/in/gersomhernandez"
+							target="_blank"
+							rel="noopener"
+							class="flex items-center gap-3 text-sm text-slate-600 transition-colors hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-500"
+						>
+							<div class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+								<svg
+									class="size-4 text-slate-500"
+									fill="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+									/>
+								</svg>
+							</div>
+							LinkedIn
+						</a>
+
+						<a
+							href="https://github.com/gersomhernandez"
+							target="_blank"
+							rel="noopener"
+							class="flex items-center gap-3 text-sm text-slate-600 transition-colors hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-500"
+						>
+							<div class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+								<svg
+									class="size-4 text-slate-500"
+									fill="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+									/>
+								</svg>
+							</div>
+							GitHub
+						</a>
+					</div>
+				</div>
+
+				<!-- Availability -->
+				<div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
+					<div class="flex items-center gap-2">
+						<span class="relative flex size-2.5">
+							<span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+							<span class="relative inline-flex size-2.5 rounded-full bg-emerald-500"></span>
+						</span>
+						<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Disponible</h3>
+					</div>
+					<p class="mt-3 text-sm text-slate-600 dark:text-slate-400">
+						Actualmente acepto proyectos freelance y oportunidades full-time. Tiempo de respuesta habitual: 24-48 horas.
+					</p>
+				</div>
+
+				<!-- Preferred Stack -->
+				<div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
+					<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Stack preferido</h3>
+					<div class="mt-3 flex flex-wrap gap-2">
+						@for (tech of ['Angular', 'TypeScript', 'Tailwind', 'Node.js', 'PostgreSQL']; track tech) {
+							<span
+								class="rounded-md bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+							>
+								{{ tech }}
+							</span>
+						}
+					</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+</section>

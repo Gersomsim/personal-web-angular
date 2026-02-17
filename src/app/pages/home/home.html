@@ -1,0 +1,420 @@
+<!-- ============================================
+     1. HERO SECTION - Primera impresión
+     ============================================ -->
+<section class="relative flex min-h-[calc(100vh-4rem)] items-center">
+	<div class="mx-auto w-full max-w-5xl px-6 py-20 lg:px-8">
+		<div class="grid items-center gap-12 lg:grid-cols-2">
+			<!-- Content -->
+			<div>
+				<p class="mb-4 font-mono text-sm text-emerald-500">
+					<span class="cursor">></span>
+					Hola, soy
+				</p>
+
+				<h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">
+					Gersom
+				</h1>
+
+				<p class="mt-2 text-2xl font-semibold text-slate-600 dark:text-slate-400 sm:text-3xl">
+					Frontend Developer
+				</p>
+
+				<p class="mt-6 max-w-lg text-lg text-slate-600 dark:text-slate-400">
+					Creo interfaces escalables y experiencias de usuario excepcionales para productos digitales que
+					impactan.
+				</p>
+
+				<!-- CTAs -->
+				<div class="mt-8 flex flex-wrap gap-4">
+					<a
+						routerLink="/portfolio"
+						class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600"
+					>
+						Ver Proyectos
+						<svg
+							class="size-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+							/>
+						</svg>
+					</a>
+
+					<a
+						href="/cv.pdf"
+						target="_blank"
+						class="inline-flex items-center gap-2 rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+					>
+						<svg
+							class="size-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+							/>
+						</svg>
+						Descargar CV
+					</a>
+				</div>
+			</div>
+
+			<!-- Visual Element -->
+			<div class="relative hidden lg:block">
+				<div
+					class="aspect-square overflow-hidden rounded-2xl border border-slate-200/50 bg-gradient-to-br from-slate-100 to-slate-200 dark:border-slate-800/50 dark:from-slate-800 dark:to-slate-900"
+				>
+					<!-- Code decoration -->
+					<div
+						class="absolute inset-4 rounded-lg border border-slate-200/50 bg-white/80 p-4 font-mono text-sm backdrop-blur-sm dark:border-slate-700/50 dark:bg-slate-900/80"
+					>
+						<div class="flex items-center gap-2 border-b border-slate-200/50 pb-3 dark:border-slate-700/50">
+							<span class="size-3 rounded-full bg-red-400"></span>
+							<span class="size-3 rounded-full bg-yellow-400"></span>
+							<span class="size-3 rounded-full bg-green-400"></span>
+							<span class="ml-2 text-xs text-slate-500">developer.ts</span>
+						</div>
+						<pre
+							class="mt-4 text-xs leading-relaxed"
+						><code class="text-slate-600 dark:text-slate-400"><span class="text-purple-500">const</span> <span class="text-blue-500">developer</span> = {{ '{' }}
+  <span class="text-emerald-500">name</span>: <span class="text-amber-500">'Gersom'</span>,
+  <span class="text-emerald-500">role</span>: <span class="text-amber-500">'Frontend Dev'</span>,
+  <span class="text-emerald-500">passion</span>: <span class="text-amber-500">'Clean Code'</span>,
+  <span class="text-emerald-500">available</span>: <span class="text-blue-500">true</span>,
+{{ '}' }};</code></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     2. TRUST BAR - Tech Stack
+     ============================================ -->
+<section class="border-y border-slate-200/50 bg-slate-50/50 py-12 dark:border-slate-800/50 dark:bg-slate-900/50">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<p class="mb-8 text-center text-sm font-medium text-slate-500">Tecnologías que domino</p>
+		<div class="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+			@for (tech of techStack(); track tech.name) {
+				<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+					<img
+						[src]="tech.img"
+						class="size-8"
+						[alt]="tech.name"
+					/>
+					<span class="text-sm font-medium">{{ tech.name }}</span>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     3. FEATURED WORK - Proyectos destacados
+     ============================================ -->
+<section class="py-24">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Proyectos"
+			title="Trabajo Destacado"
+			subtitle="Una selección de proyectos que demuestran mi enfoque en crear soluciones escalables y experiencias de usuario excepcionales."
+		/>
+
+		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+			@for (project of featuredProjects(); track project.title) {
+				<app-project-card [project]="project" />
+			}
+		</div>
+
+		<div class="mt-12 text-center">
+			<a
+				routerLink="/portfolio"
+				class="inline-flex items-center gap-2 text-sm font-medium text-emerald-500 transition-colors hover:text-emerald-600"
+			>
+				Ver todos los proyectos
+				<svg
+					class="size-4"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+					/>
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     4. MICRO ABOUT + SERVICES
+     ============================================ -->
+<section class="border-y border-slate-200/50 bg-slate-50/50 py-24 dark:border-slate-800/50 dark:bg-slate-900/50">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="grid items-center gap-12 lg:grid-cols-2">
+			<div>
+				<p class="mb-2 font-mono text-sm text-emerald-500">// Sobre mí</p>
+				<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+					Transformo ideas en productos digitales
+				</h2>
+				<p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
+					Con más de 10 años de experiencia en desarrollo frontend, me especializo en crear arquitecturas
+					escalables y experiencias de usuario que generan resultados medibles para startups y empresas en
+					crecimiento.
+				</p>
+				<a
+					routerLink="/about-me"
+					class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-emerald-500 transition-colors hover:text-emerald-600"
+				>
+					Conoce mi historia completa
+					<svg
+						class="size-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+						/>
+					</svg>
+				</a>
+			</div>
+
+			<!-- Services -->
+			<div class="grid gap-4 sm:grid-cols-2">
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-lg bg-emerald-500/10">
+						<svg
+							class="size-5 text-emerald-500"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"
+							/>
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 dark:text-white">Frontend Development</h3>
+					<p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+						SPAs, componentes reutilizables y arquitecturas escalables.
+					</p>
+				</div>
+
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-lg bg-emerald-500/10">
+						<svg
+							class="size-5 text-emerald-500"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+							/>
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 dark:text-white">UI/UX Implementation</h3>
+					<p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+						Diseños pixel-perfect con atención al detalle.
+					</p>
+				</div>
+
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-lg bg-emerald-500/10">
+						<svg
+							class="size-5 text-emerald-500"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+							/>
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 dark:text-white">Performance</h3>
+					<p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+						Optimización de carga y runtime para mejor UX.
+					</p>
+				</div>
+
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-lg bg-emerald-500/10">
+						<svg
+							class="size-5 text-emerald-500"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+							/>
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 dark:text-white">Tech Leadership</h3>
+					<p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+						Code reviews, mentoring y mejores prácticas.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     5. TESTIMONIALS - Prueba Social
+     ============================================ -->
+<section class="py-24">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Testimonios"
+			title="Lo que dicen sobre mi trabajo"
+			subtitle="Feedback de colegas y clientes con quienes he tenido el placer de colaborar."
+		/>
+
+		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+			@for (testimonial of testimonials(); track testimonial.author) {
+				<app-testimonial-card [testimonial]="testimonial" />
+			}
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     6. BLOG TEASER - Últimos pensamientos
+     ============================================ -->
+<section class="border-y border-slate-200/50 bg-slate-50/50 py-24 dark:border-slate-800/50 dark:bg-slate-900/50">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<app-section-header
+			tag="// Blog"
+			title="Últimos Artículos"
+			subtitle="Comparto lo que aprendo sobre desarrollo frontend, arquitectura y productividad."
+		/>
+
+		<div class="grid gap-8 md:grid-cols-2">
+			@for (post of blogPosts(); track post.slug) {
+				<app-post-card [post]="post" />
+			}
+		</div>
+
+		<div class="mt-12 text-center">
+			<a
+				routerLink="/blog"
+				class="inline-flex items-center gap-2 text-sm font-medium text-emerald-500 transition-colors hover:text-emerald-600"
+			>
+				Ver todos los artículos
+				<svg
+					class="size-4"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+					/>
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     7. FINAL CTA - El cierre
+     ============================================ -->
+<section class="py-24">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="text-center">
+			<p class="mb-2 font-mono text-sm text-emerald-500">// Contacto</p>
+			<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+				¿Tienes un proyecto en mente?
+			</h2>
+			<p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-400">
+				Estoy disponible para proyectos freelance y oportunidades full-time. Hablemos sobre cómo puedo ayudarte.
+			</p>
+
+			<div class="mt-8 flex flex-wrap justify-center gap-4">
+				<a
+					routerLink="/contact"
+					class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600"
+				>
+					Hablemos
+					<svg
+						class="size-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+						/>
+					</svg>
+				</a>
+
+				<a
+					href="mailto:gersomhernandez@outlook.com"
+					class="inline-flex items-center gap-2 rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+				>
+					<svg
+						class="size-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+						/>
+					</svg>
+					gersomhernandez&#64;outlook.com
+				</a>
+			</div>
+		</div>
+	</div>
+</section>

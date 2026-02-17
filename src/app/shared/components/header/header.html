@@ -1,0 +1,115 @@
+<header
+	class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+	[class.bg-white/80]="isScrolled()"
+	[class.dark:bg-slate-950/80]="isScrolled()"
+	[class.backdrop-blur-md]="isScrolled()"
+	[class.border-b]="isScrolled()"
+	[class.border-slate-200/50]="isScrolled()"
+	[class.dark:border-slate-800/50]="isScrolled()"
+>
+	<nav class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="flex h-16 items-center justify-between">
+			<!-- Logo -->
+			<a
+				routerLink="/"
+				class="group flex items-center gap-0.5 font-mono text-lg font-semibold text-slate-900 dark:text-white"
+				(click)="closeMobileMenu()"
+			>
+				<span>Gersom</span>
+				<span class="cursor text-emerald-500">_</span>
+			</a>
+
+			<!-- Desktop Navigation -->
+			<div class="hidden md:flex md:items-center md:gap-1">
+				@for (item of menu(); track item.path) {
+					@if (item.label !== 'Contact') {
+						<a
+							[routerLink]="item.path"
+							routerLinkActive="text-slate-900 dark:text-white"
+							[routerLinkActiveOptions]="{ exact: item.path === '/' }"
+							class="relative px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+						>
+							{{ item.label }}
+							<span
+								class="absolute bottom-1 left-4 right-4 h-px origin-left scale-x-0 bg-emerald-500 transition-transform duration-200 group-[.active]:scale-x-100"
+								routerLinkActive="scale-x-100"
+								[routerLinkActiveOptions]="{ exact: item.path === '/' }"
+							></span>
+						</a>
+					}
+				}
+
+				<!-- Contact CTA -->
+				<a
+					routerLink="/contact"
+					class="ml-4 rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
+				>
+					Contact
+				</a>
+			</div>
+
+			<!-- Mobile menu button -->
+			<button
+				type="button"
+				class="inline-flex items-center justify-center rounded-md p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 md:hidden dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+				(click)="toggleMobileMenu()"
+				[attr.aria-expanded]="mobileMenuOpen()"
+			>
+				<span class="sr-only">Open main menu</span>
+				@if (!mobileMenuOpen()) {
+					<svg
+						class="size-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"
+						/>
+					</svg>
+				} @else {
+					<svg
+						class="size-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M6 18 18 6M6 6l12 12"
+						/>
+					</svg>
+				}
+			</button>
+		</div>
+	</nav>
+
+	<!-- Mobile menu -->
+	@if (mobileMenuOpen()) {
+		<div
+			class="border-t border-slate-200/50 bg-white/95 backdrop-blur-md md:hidden dark:border-slate-800/50 dark:bg-slate-950/95"
+		>
+			<div class="space-y-1 px-6 py-4">
+				@for (item of menu(); track item.path) {
+					<a
+						[routerLink]="item.path"
+						routerLinkActive="text-emerald-500"
+						[routerLinkActiveOptions]="{ exact: item.path === '/' }"
+						class="block rounded-md px-3 py-2 text-base font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+						(click)="closeMobileMenu()"
+					>
+						{{ item.label }}
+					</a>
+				}
+			</div>
+		</div>
+	}
+</header>
+
+<!-- Spacer to prevent content from hiding under fixed header -->
+<div class="h-16"></div>

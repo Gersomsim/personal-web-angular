@@ -1,0 +1,92 @@
+<!-- Skeleton -->
+@if (posts() === undefined) {
+	@for (item of [1, 2, 3]; track $index) {
+		<div class="group mb-4">
+			<div class="relative h-48 w-full mb-4 rounded-lg bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+			<div class="flex gap-3">
+				<div class="h-4 w-16 rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+				<div class="h-4 w-16 rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+			</div>
+			<div class="mt-2 h-5 w-full rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+			<div class="mt-2 h-3 w-full rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+			<div class="mt-1 h-3 w-full rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+			<div class="mt-1 h-3 w-full rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+			<div class="flex gap-3 mt-2">
+				<div class="h-4 w-16 rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+				<div class="h-4 w-16 rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+				<div class="h-4 w-16 rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+			</div>
+			<div class="mt-1 h-3 w-1/4 rounded-full bg-slate-400 dark:bg-slate-700 animate-pulse"></div>
+		</div>
+	}
+}
+
+@for (post of posts(); track post.slug) {
+	<article class="group">
+		<a
+			[routerLink]="['/blog', post.slug]"
+			class="block"
+		>
+			<!-- Image -->
+			@if (post.image) {
+				<div class="relative mb-4 aspect-video overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
+					<img
+						[src]="post.image"
+						[alt]="post.title"
+						class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+					/>
+				</div>
+			}
+
+			<!-- Meta -->
+			<div class="flex items-center gap-3 text-sm text-slate-500">
+				<time>{{ post.date }}</time>
+				<span class="size-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+				<span>{{ post.readTime }} lectura</span>
+			</div>
+
+			<!-- Title -->
+			<h2
+				class="mt-2 text-xl font-semibold text-slate-900 transition-colors group-hover:text-emerald-500 dark:text-white sm:text-2xl"
+			>
+				{{ post.title }}
+			</h2>
+
+			<!-- Excerpt -->
+			<p class="mt-2 text-slate-600 dark:text-slate-400">
+				{{ post.excerpt }}
+			</p>
+
+			<!-- Tags -->
+			@if (post.tags && post.tags.length > 0) {
+				<div class="mt-4 flex flex-wrap gap-2">
+					@for (tag of post.tags; track tag) {
+						<span
+							class="rounded-md bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+						>
+							{{ tag }}
+						</span>
+					}
+				</div>
+			}
+
+			<!-- Read more -->
+			<span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-emerald-500">
+				Leer artículo
+				<svg
+					class="size-4 transition-transform group-hover:translate-x-1"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+					/>
+				</svg>
+			</span>
+		</a>
+	</article>
+}

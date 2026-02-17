@@ -1,0 +1,5 @@
+export * from './widget-author-social/widget-author-social'
+export * from './widget-author/widget-author'
+export * from './widget-categories/widget-categories'
+export * from './widget-news-letter/widget-news-letter'
+export * from './widget-popular-posts/widget-popular-posts'
