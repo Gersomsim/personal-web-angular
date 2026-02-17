@@ -32,7 +32,12 @@ export class Post {
 			image: '/assets/images/38233407.jpg',
 		},
 		category: 'Performance',
-		tags: ['SQL', 'Performance', 'PostgreSQL', 'Optimización'],
+		tags: [
+			{ id: '1', name: 'SQL', slug: 'sql' },
+			{ id: '2', name: 'Performance', slug: 'performance' },
+			{ id: '3', name: 'PostgreSQL', slug: 'postgresql' },
+			{ id: '4', name: 'Optimización', slug: 'optimizacion' },
+		],
 		image: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=1200&h=600&fit=crop',
 		featured: true,
 		slug: 'como-optimice-una-consulta-sql-de-10s-a-200ms',

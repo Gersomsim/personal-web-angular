@@ -59,15 +59,7 @@
 
 			<!-- Tags -->
 			@if (post.tags && post.tags.length > 0) {
-				<div class="mt-4 flex flex-wrap gap-2">
-					@for (tag of post.tags; track tag) {
-						<span
-							class="rounded-md bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400"
-						>
-							{{ tag }}
-						</span>
-					}
-				</div>
+				<app-tags-list [tags]="post.tags" />
 			}
 
 			<!-- Read more -->

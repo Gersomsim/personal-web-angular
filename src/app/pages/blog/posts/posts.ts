@@ -52,7 +52,12 @@ export class Posts {
 			readTime: '8 min',
 			slug: 'optimizacion-sql',
 			image: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&h=450&fit=crop',
-			tags: ['SQL', 'Performance', 'PostgreSQL'],
+			tags: [
+				{ id: '1', name: 'SQL', slug: 'sql' },
+				{ id: '2', name: 'Performance', slug: 'performance' },
+				{ id: '3', name: 'PostgreSQL', slug: 'postgresql' },
+				{ id: '4', name: 'Optimización', slug: 'optimizacion' },
+			],
 			category: 'performance',
 			featured: true,
 			author: {
@@ -70,7 +75,7 @@ export class Posts {
 			post =>
 				post.title.toLowerCase().includes(query) ||
 				post.excerpt.toLowerCase().includes(query) ||
-				post.tags?.some(tag => tag.toLowerCase().includes(query)),
+				post.tags?.some(tag => tag.name.toLowerCase().includes(query)),
 		)
 	})
 

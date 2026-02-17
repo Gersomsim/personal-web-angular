@@ -1,0 +1,9 @@
+<div class="flex flex-wrap gap-2">
+	@for (tag of tags(); track tag) {
+		<span
+			class="rounded-md bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+		>
+			{{ tag.name }}
+		</span>
+	}
+</div>

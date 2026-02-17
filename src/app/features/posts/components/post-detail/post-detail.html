@@ -76,15 +76,7 @@
 					<div class="hidden h-6 w-px bg-slate-200 dark:bg-slate-700 sm:block"></div>
 
 					<!-- Tags -->
-					<div class="flex flex-wrap gap-2">
-						@for (tag of article.tags; track tag) {
-							<span
-								class="rounded-md bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400"
-							>
-								{{ tag }}
-							</span>
-						}
-					</div>
+					<app-tags-list [tags]="article.tags" />
 				</div>
 			</div>
 		</header>

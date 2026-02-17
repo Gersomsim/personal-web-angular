@@ -116,7 +116,7 @@ export class Home {
 				image: '/assets/images/38233407.jpg',
 			},
 			category: 'Performance',
-			tags: ['Angular', 'TypeScript', 'Performance'],
+			tags: [{ id: '1', name: 'Angular', slug: 'angular' }],
 		},
 		{
 			id: '2',
@@ -131,7 +131,10 @@ export class Home {
 				image: '/assets/images/38233407.jpg',
 			},
 			category: 'Performance',
-			tags: ['Angular', 'TypeScript', 'Performance'],
+			tags: [
+				{ id: '2', name: 'TypeScript', slug: 'typescript' },
+				{ id: '3', name: 'Performance', slug: 'performance' },
+			],
 		},
 	])
 }

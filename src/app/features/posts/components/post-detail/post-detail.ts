@@ -1,10 +1,11 @@
 import { Component, input, signal } from '@angular/core'
 
 import { Post } from '@features/posts/models'
+import { TagsList } from '@features/tags/components/tags-list/tags-list'
 
 @Component({
 	selector: 'app-post-detail',
-	imports: [],
+	imports: [TagsList],
 	templateUrl: './post-detail.html',
 	styles: ``,
 })

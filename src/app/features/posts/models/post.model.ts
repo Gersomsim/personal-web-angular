@@ -1,3 +1,5 @@
+import { Tag } from '@features/tags/models'
+
 export interface Post {
 	id: string
 	title: string
@@ -6,7 +8,7 @@ export interface Post {
 	readTime: string
 	slug: string
 	image?: string
-	tags?: string[]
+	tags?: Tag[]
 	category?: string
 	featured?: boolean
 	author: {
