@@ -22,6 +22,10 @@ export const routes: Routes = [
 				loadComponent: () => import('./pages/portfolio/portfolio').then(m => m.Portfolio),
 			},
 			{
+				path: 'portfolio/:slug',
+				loadComponent: () => import('./pages/project-detail/project-detail').then(m => m.ProjectDetail),
+			},
+			{
 				path: 'contact',
 				loadComponent: () => import('./pages/contact/contact').then(m => m.Contact),
 			},
@@ -30,16 +34,7 @@ export const routes: Routes = [
 	{
 		path: 'blog',
 		component: BlogLayout,
-		children: [
-			{
-				path: '',
-				loadComponent: () => import('./pages/blog/posts/posts').then(m => m.Posts),
-			},
-			{
-				path: ':slug',
-				loadComponent: () => import('./pages/blog/post/post').then(m => m.Post),
-			},
-		],
+		loadChildren: () => import('./pages/blog/blog.router').then(m => m.BlogRoutes),
 	},
 	{
 		path: '**',
