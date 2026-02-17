@@ -1,0 +1,50 @@
+<div class="grid gap-4 sm:grid-cols-2">
+	@for (exp of experiments(); track exp.title) {
+		<a
+			[href]="exp.link"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="group flex items-start gap-4 rounded-lg border border-slate-200/50 bg-white p-5 transition-colors hover:border-emerald-500/50 dark:border-slate-800/50 dark:bg-slate-900/80 dark:hover:border-emerald-500/50"
+		>
+			<div
+				class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 transition-colors group-hover:bg-emerald-500/10 dark:bg-slate-800"
+			>
+				<svg
+					class="size-5 text-slate-500 transition-colors group-hover:text-emerald-500"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+					/>
+				</svg>
+			</div>
+			<div class="flex-1">
+				<h3 class="font-semibold text-slate-900 transition-colors group-hover:text-emerald-500 dark:text-white">
+					{{ exp.title }}
+				</h3>
+				<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+					{{ exp.description }}
+				</p>
+				<app-tags-list [tags]="exp.tags" />
+			</div>
+			<svg
+				class="size-5 shrink-0 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-emerald-500"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+				/>
+			</svg>
+		</a>
+	}
+</div>
