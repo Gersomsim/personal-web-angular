@@ -1,1 +1,151 @@
-<p>post-form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+
+	<!-- ── Contenido ─────────────────────────────────────────── -->
+	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// contenido</p>
+
+		<div class="space-y-4">
+			<app-form-input
+				label="Título *"
+				placeholder="Cómo construí mi portafolio con Angular..."
+				formControlName="title"
+				[control]="f.title"
+			/>
+
+			<!-- Slug con botón de regenerar -->
+			<div>
+				<app-form-input
+					label="Slug *"
+					placeholder="como-construi-mi-portafolio"
+					formControlName="slug"
+					[control]="f.slug"
+					hint="URL amigable — se auto-genera desde el título"
+				/>
+				<button
+					type="button"
+					(click)="resetSlug()"
+					class="mt-1.5 font-mono text-[10px] text-slate-400 transition-colors hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+				>
+					↺ regenerar desde título
+				</button>
+			</div>
+
+			<app-form-textarea
+				label="Extracto *"
+				placeholder="Una breve descripción del artículo que aparecerá en el listado..."
+				formControlName="excerpt"
+				[control]="f.excerpt"
+				[rows]="3"
+				hint="Mínimo 50 caracteres"
+			/>
+
+			<div class="flex flex-col gap-1.5">
+				<label class="font-mono text-xs font-medium text-slate-500 dark:text-slate-400">
+					Contenido
+				</label>
+				<app-editor
+					placeholder="Escribe el contenido del artículo..."
+					formControlName="content"
+				/>
+			</div>
+		</div>
+	</div>
+
+	<!-- ── Clasificación ─────────────────────────────────────── -->
+	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// clasificación</p>
+
+		<div class="space-y-4">
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+				<app-form-select
+					label="Categoría"
+					[options]="categoryOptions()"
+					formControlName="category"
+					[control]="f.category"
+				/>
+				<app-form-input
+					label="Fecha *"
+					type="date"
+					formControlName="date"
+					[control]="f.date"
+				/>
+				<app-form-input
+					label="Tiempo de lectura *"
+					placeholder="5 min"
+					formControlName="readTime"
+					[control]="f.readTime"
+				/>
+			</div>
+
+			<app-form-tags-picker
+				label="Tags"
+				[options]="tags()"
+				formControlName="tags"
+			/>
+		</div>
+	</div>
+
+	<!-- ── Media ─────────────────────────────────────────────── -->
+	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// media</p>
+
+		<app-form-input
+			label="Imagen (URL)"
+			type="url"
+			placeholder="https://..."
+			formControlName="image"
+			[control]="f.image"
+			hint="URL de la imagen de portada del artículo"
+		/>
+	</div>
+
+	<!-- ── Autor ──────────────────────────────────────────────── -->
+	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50" formGroupName="author">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// autor</p>
+
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+			<app-form-input
+				label="Nombre *"
+				placeholder="Gersón Simanca"
+				formControlName="name"
+				[control]="f.author.controls.name"
+			/>
+			<app-form-input
+				label="Avatar (URL) *"
+				type="url"
+				placeholder="https://..."
+				formControlName="image"
+				[control]="f.author.controls.image"
+			/>
+		</div>
+	</div>
+
+	<!-- ── Opciones ───────────────────────────────────────────── -->
+	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// opciones</p>
+
+		<app-form-toggle
+			label="Publicación destacada"
+			description="Aparecerá en la sección principal del blog"
+			formControlName="featured"
+		/>
+	</div>
+
+	<!-- ── Submit ─────────────────────────────────────────────── -->
+	<div class="flex items-center justify-between">
+		<p class="font-mono text-xs text-slate-400 dark:text-slate-600">
+			* campos requeridos
+		</p>
+		<button
+			type="submit"
+			class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
+			[disabled]="form.invalid && form.touched"
+		>
+			Publicar post
+			<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+			</svg>
+		</button>
+	</div>
+
+</form>

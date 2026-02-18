@@ -27,5 +27,9 @@ export class MenuService {
 			label: 'Contact',
 			path: '/contact',
 		},
+		{
+			label: 'Admin',
+			path: '/admin',
+		},
 	])
 }

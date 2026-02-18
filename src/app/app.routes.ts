@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router'
 
-import { BlogLayout } from '@shared/layouts/blog-layout/blog-layout'
-
-import { MainLayout } from './shared/layouts/main-layout/main-layout'
+import { AdminLayout, BlogLayout, MainLayout } from '@shared/layouts'
 
 export const routes: Routes = [
 	{
@@ -35,6 +33,11 @@ export const routes: Routes = [
 		path: 'blog',
 		component: BlogLayout,
 		loadChildren: () => import('./pages/blog/blog.router').then(m => m.BlogRoutes),
+	},
+	{
+		path: 'admin',
+		component: AdminLayout,
+		loadChildren: () => import('./pages/admin/admin.routes').then(m => m.AdminRoutes),
 	},
 	{
 		path: '**',
