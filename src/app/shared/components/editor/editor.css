@@ -1,0 +1,307 @@
+@reference "../../../../styles.css";
+
+/* ─── EasyMDE container ────────────────────────────────────────────────────── */
+
+.app-editor .EasyMDEContainer {
+	@apply rounded-md overflow-hidden border border-slate-200/50 dark:border-slate-800/50;
+}
+
+/* ─── Toolbar ───────────────────────────────────────────────────────────────── */
+
+.app-editor .editor-toolbar {
+	@apply flex flex-wrap items-center gap-0.5 border-b border-slate-200/50 bg-slate-100 px-2 py-1.5;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	opacity: 1 !important;
+}
+
+.app-editor .editor-toolbar button {
+	@apply flex h-7 w-7 items-center justify-center rounded text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-900;
+	background: transparent;
+	border: none;
+}
+
+.app-editor .editor-toolbar button.active,
+.app-editor .editor-toolbar button:active {
+	@apply text-emerald-600;
+	background: rgb(16 185 129 / 0.1) !important;
+}
+
+.app-editor .editor-toolbar i.separator {
+	@apply mx-1 border-l border-slate-200 dark:border-slate-700;
+}
+
+.app-editor .editor-toolbar button::before {
+	@apply text-sm;
+}
+
+/* ─── CodeMirror area ───────────────────────────────────────────────────────── */
+
+.app-editor .CodeMirror {
+	@apply min-h-64 bg-slate-50 font-mono text-sm leading-relaxed text-slate-900;
+	border: none;
+	padding: 12px 16px;
+	height: auto;
+}
+
+.app-editor .CodeMirror-scroll {
+	min-height: 256px;
+}
+
+.app-editor .CodeMirror-cursor {
+	@apply border-l-slate-700;
+}
+
+.app-editor .CodeMirror-selected {
+	background-color: rgb(16 185 129 / 0.1) !important;
+}
+
+.app-editor .CodeMirror-focused .CodeMirror-selected {
+	background-color: rgb(16 185 129 / 0.15) !important;
+}
+
+/* Placeholder */
+.app-editor .CodeMirror pre.CodeMirror-placeholder {
+	@apply text-slate-400;
+}
+
+/* ─── Preview pane ──────────────────────────────────────────────────────────── */
+
+.app-editor .editor-preview,
+.app-editor .editor-preview-side {
+	@apply bg-white px-5 py-4 text-slate-900;
+}
+
+.app-editor .editor-preview h1,
+.app-editor .editor-preview-side h1 {
+	@apply mb-4 text-2xl font-bold text-slate-900;
+}
+
+.app-editor .editor-preview h2,
+.app-editor .editor-preview-side h2 {
+	@apply mb-3 text-xl font-semibold text-slate-800;
+}
+
+.app-editor .editor-preview h3,
+.app-editor .editor-preview-side h3 {
+	@apply mb-2 text-lg font-semibold text-slate-800;
+}
+
+.app-editor .editor-preview p,
+.app-editor .editor-preview-side p {
+	@apply mb-4 leading-relaxed text-slate-700;
+}
+
+.app-editor .editor-preview blockquote,
+.app-editor .editor-preview-side blockquote {
+	@apply my-4 border-l-4 border-emerald-400 pl-4 italic text-slate-600;
+}
+
+.app-editor .editor-preview code,
+.app-editor .editor-preview-side code {
+	@apply rounded bg-slate-100 px-1.5 py-0.5 font-mono text-sm text-emerald-700;
+}
+
+.app-editor .editor-preview pre,
+.app-editor .editor-preview-side pre {
+	@apply my-4 overflow-auto rounded-md bg-slate-900 p-4;
+}
+
+.app-editor .editor-preview pre code,
+.app-editor .editor-preview-side pre code {
+	@apply bg-transparent px-0 py-0 text-slate-100;
+}
+
+.app-editor .editor-preview a,
+.app-editor .editor-preview-side a {
+	@apply text-emerald-600 underline hover:text-emerald-700;
+}
+
+.app-editor .editor-preview ul,
+.app-editor .editor-preview-side ul {
+	@apply mb-4 list-disc pl-5;
+}
+
+.app-editor .editor-preview ol,
+.app-editor .editor-preview-side ol {
+	@apply mb-4 list-decimal pl-5;
+}
+
+.app-editor .editor-preview li,
+.app-editor .editor-preview-side li {
+	@apply mb-1 text-slate-700;
+}
+
+.app-editor .editor-preview table,
+.app-editor .editor-preview-side table {
+	@apply mb-4 w-full border-collapse text-sm;
+}
+
+.app-editor .editor-preview th,
+.app-editor .editor-preview-side th {
+	@apply border border-slate-200 bg-slate-50 px-3 py-2 text-left font-semibold text-slate-900;
+}
+
+.app-editor .editor-preview td,
+.app-editor .editor-preview-side td {
+	@apply border border-slate-200 px-3 py-2 text-slate-700;
+}
+
+.app-editor .editor-preview-side {
+	border-left: 1px solid;
+	@apply border-slate-200/50;
+}
+
+/* ─── Markdown syntax highlighting ─────────────────────────────────────────── */
+
+.app-editor .cm-header-1 {
+	@apply text-xl font-bold text-slate-900;
+}
+
+.app-editor .cm-header-2 {
+	@apply text-lg font-semibold text-slate-800;
+}
+
+.app-editor .cm-header-3 {
+	@apply text-base font-semibold text-slate-800;
+}
+
+.app-editor .cm-strong {
+	@apply font-bold text-slate-900;
+}
+
+.app-editor .cm-em {
+	@apply italic text-slate-700;
+}
+
+.app-editor .cm-link {
+	@apply text-emerald-600;
+}
+
+.app-editor .cm-url {
+	@apply text-slate-400;
+}
+
+.app-editor .cm-quote {
+	@apply text-slate-500 italic;
+}
+
+.app-editor .cm-comment {
+	@apply font-mono text-emerald-700;
+}
+
+/* ─── Dark mode ─────────────────────────────────────────────────────────────── */
+
+.dark .app-editor .EasyMDEContainer {
+	@apply border-slate-800/50;
+}
+
+.dark .app-editor .editor-toolbar {
+	@apply border-slate-800/50 bg-slate-900;
+}
+
+.dark .app-editor .editor-toolbar button {
+	@apply text-slate-400 hover:bg-slate-800 hover:text-slate-100;
+}
+
+.dark .app-editor .editor-toolbar button.active {
+	@apply text-emerald-400;
+	background: rgb(16 185 129 / 0.1) !important;
+}
+
+.dark .app-editor .editor-toolbar i.separator {
+	@apply border-slate-700;
+}
+
+.dark .app-editor .CodeMirror {
+	@apply bg-slate-900 text-slate-100;
+}
+
+.dark .app-editor .CodeMirror-cursor {
+	@apply border-l-slate-300;
+}
+
+.dark .app-editor .CodeMirror pre.CodeMirror-placeholder {
+	@apply text-slate-600;
+}
+
+.dark .app-editor .editor-preview,
+.dark .app-editor .editor-preview-side {
+	@apply bg-slate-900 text-slate-100;
+}
+
+.dark .app-editor .editor-preview h1,
+.dark .app-editor .editor-preview-side h1,
+.dark .app-editor .editor-preview h2,
+.dark .app-editor .editor-preview-side h2,
+.dark .app-editor .editor-preview h3,
+.dark .app-editor .editor-preview-side h3 {
+	@apply text-slate-100;
+}
+
+.dark .app-editor .editor-preview p,
+.dark .app-editor .editor-preview-side p,
+.dark .app-editor .editor-preview li,
+.dark .app-editor .editor-preview-side li {
+	@apply text-slate-300;
+}
+
+.dark .app-editor .editor-preview blockquote,
+.dark .app-editor .editor-preview-side blockquote {
+	@apply border-emerald-500 text-slate-400;
+}
+
+.dark .app-editor .editor-preview code,
+.dark .app-editor .editor-preview-side code {
+	@apply bg-slate-800 text-emerald-400;
+}
+
+.dark .app-editor .editor-preview a,
+.dark .app-editor .editor-preview-side a {
+	@apply text-emerald-400 hover:text-emerald-300;
+}
+
+.dark .app-editor .editor-preview th,
+.dark .app-editor .editor-preview-side th {
+	@apply border-slate-700 bg-slate-800 text-slate-100;
+}
+
+.dark .app-editor .editor-preview td,
+.dark .app-editor .editor-preview-side td {
+	@apply border-slate-700 text-slate-300;
+}
+
+.dark .app-editor .editor-preview-side {
+	@apply border-slate-800/50;
+}
+
+.dark .app-editor .cm-header-1,
+.dark .app-editor .cm-header-2,
+.dark .app-editor .cm-header-3 {
+	@apply text-slate-100;
+}
+
+.dark .app-editor .cm-strong {
+	@apply text-slate-100;
+}
+
+.dark .app-editor .cm-em {
+	@apply text-slate-300;
+}
+
+.dark .app-editor .cm-link {
+	@apply text-emerald-400;
+}
+
+.dark .app-editor .cm-url {
+	@apply text-slate-600;
+}
+
+.dark .app-editor .cm-quote {
+	@apply text-slate-400;
+}
+
+.dark .app-editor .cm-comment {
+	@apply text-emerald-400;
+}

@@ -186,3 +186,101 @@ The cursor `_` appears in:
 4. Section tags (`// Proyectos`)
 
 This creates visual rhythm and reinforces the "developer" identity throughout.
+
+## Category Card (Hero Context)
+
+Used as a page-level hero heading in filtered views (e.g., PostsFilter).
+
+- Title: `text-4xl/5xl font-bold tracking-tight` — same as page headings
+- Post count: emerald pill with dot indicator `bg-emerald-500/10 font-mono text-xs`
+- Description: `text-lg text-secondary max-w-2xl mx-auto`
+- Not a bordered card — inline hero content within `text-center` containers
+- Conditional rendering with `@if` for optional fields
+
+```html
+<!-- Count badge pattern -->
+<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 font-mono text-xs font-medium text-emerald-600 dark:text-emerald-400">
+  <span class="size-1.5 rounded-full bg-emerald-500"></span>
+  {{ count }} posts
+</span>
+```
+
+## Project Detail (Case Study Page)
+
+Full case study layout for `/portfolio/:slug`. Sections flow vertically with alternating backgrounds.
+
+### Model Extensions
+```typescript
+solution?: string
+features?: string[]
+challenges?: { title: string; solution: string }[]
+results?: { label: string; value: string; description?: string }[]
+techStack?: { category: string; items: string[] }[]
+gallery?: string[]
+duration?: string
+team?: string
+learnings?: string[]
+```
+
+### Page Sections (in order)
+1. **Header** — breadcrumb `portfolio / slug`, meta badges (role, duration, team, metrics), title, subtitle, description, tags, action buttons
+2. **Hero Image** — full-width with `border-y`, image in rounded container
+3. **Problem & Solution** — two-column grid with `// El problema` / `// La solución` tags
+4. **Features** — alternating bg, 2-col grid with emerald dot bullets
+5. **Tech Stack** — 4-col grid, each category in a bordered card with `uppercase tracking-widest` label
+6. **Challenges** — numbered cards (`size-7 rounded-full bg-slate-100`) with title + solution
+7. **Results** — 4-col grid, value in `font-mono text-2xl font-bold text-emerald-500`
+8. **Gallery** — alternating bg, 2-col image grid
+9. **Learnings** — numbered `01, 02` in mono, bordered cards
+10. **CTA** — "¿Tienes un proyecto similar?" + contact/portfolio buttons
+
+### Key patterns
+- Breadcrumb: `font-mono text-sm text-slate-500` with `/` separator and hover to emerald
+- Meta badges: `rounded-md bg-slate-100 px-2.5 py-1 font-mono text-xs` (same as tag pills)
+- Section alternation: white → `bg-slate-50/50 dark:bg-slate-900/30` with `border-t`
+- All sections use `// tag` pattern in emerald for section labels
+
+## Admin Layout
+
+Panel administrativo con sidebar aside para gestionar contenido. El header público se conserva.
+
+### Structure
+```
+Header (público, fixed, h-16)
+├── Sidebar (fixed, top-16, w-56, border-r)
+│   ├── Context bar ("A" badge + "Admin Panel")
+│   ├── Nav groups (// contenido, // portfolio)
+│   └── Footer ("Ver sitio" link)
+└── Main content (flex-1, lg:pl-56)
+    ├── Top bar (sticky top-16, h-12, breadcrumb ~/admin)
+    └── Page content (p-6 lg:p-8)
+```
+
+### Sidebar
+- Same background as content — no color fragmentation, border-only separation
+- Navigation grouped with `// comment` labels: `font-mono text-[10px] uppercase tracking-widest text-slate-400`
+- Nav items compact: `px-2 py-1.5 text-sm` with icon (size-4) + label
+- Active state: `bg-slate-100 text-slate-900 dark:bg-slate-800/80 dark:text-white`
+- Hover: `hover:bg-slate-50 dark:hover:bg-slate-800/50`
+- Icons: inline SVG Heroicons outline, 16px, `shrink-0`
+
+### Top bar
+- Sticky below header: `sticky top-16 z-20 h-12`
+- Glass effect: `bg-white/80 backdrop-blur-md dark:bg-slate-950/80`
+- Breadcrumb: `font-mono text-xs` with emerald `~` prefix
+- Mobile hamburger toggle (hidden on `lg:`)
+
+### Responsive
+- Desktop: sidebar visible, content `lg:pl-56`
+- Mobile: sidebar off-screen (`-translate-x-full`), toggle reveals with overlay (`bg-slate-950/20 backdrop-blur-sm`)
+- Overlay click-to-close
+
+### Admin spacing
+- Tighter than public site: `p-6 lg:p-8` for content area
+- No `py-24` mega sections — admin is dense and functional
+
+### Nav sections
+```
+// contenido  → Posts, Categorías
+// portfolio  → Proyectos, Skills
+```
