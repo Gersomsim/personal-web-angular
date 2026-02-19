@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core'
+import { DatePipe } from '@angular/common'
+import { Component, OnInit, inject, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
 import { Post } from '@features/posts/models/post.model'
@@ -6,7 +7,7 @@ import { PostService } from '@features/posts/services/post.service'
 
 @Component({
 	selector: 'app-list-posts-page',
-	imports: [RouterLink],
+	imports: [RouterLink, DatePipe],
 	templateUrl: './list-posts-page.html',
 	styles: ``,
 })
@@ -20,7 +21,7 @@ export class ListPostsPage implements OnInit {
 	async ngOnInit() {
 		try {
 			const response = await this.postService.getAll()
-			this.posts.set(response.data ?? response)
+			this.posts.set(response.items ?? [])
 		} catch {
 			this.error.set('No se pudieron cargar los posts.')
 		} finally {

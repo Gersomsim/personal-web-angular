@@ -1,5 +1,6 @@
 export * from './search-box/search-box'
 export * from './editor/editor'
+export * from './markdown/markdown'
 export * from './form-input/form-input'
 export * from './form-textarea/form-textarea'
 export * from './form-select/form-select'

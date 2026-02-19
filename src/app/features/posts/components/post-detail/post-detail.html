@@ -1,62 +1,131 @@
 @let article = post();
 
-@if (article) {
-	<article>
-		<header class="py-6">
-			<div class="mx-auto">
-				<!-- Breadcrumb -->
-				<nav class="mb-8 flex items-center gap-2 text-sm text-slate-500">
-					<a
-						routerLink="/blog"
-						class="transition-colors hover:text-emerald-500"
-					>
-						Blog
-					</a>
-					<svg
-						class="size-4"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="m8.25 4.5 7.5 7.5-7.5 7.5"
-						/>
-					</svg>
-					<span class="text-slate-400">{{ article.category }}</span>
-				</nav>
+@if (loading()) {
+	<!-- skeleton -->
+	<div class="">
+		<div class="flex gap-3 mb-2">
+			<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-10"></div>
+			<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-30"></div>
+		</div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-10 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="flex gap-3 mb-2 items-center">
+			<div class="animate-pulse rounded-full bg-slate-200 dark:bg-slate-800 h-14 w-14"></div>
+			<div class="flex flex-col gap-2">
+				<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-30"></div>
+				<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-20"></div>
+			</div>
+			<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-25"></div>
+		</div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-54 w-full mb-4"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+		<div class="animate-pulse rounded-md bg-slate-200 dark:bg-slate-800 h-5 w-full mb-2"></div>
+	</div>
+}
 
-				<!-- Title -->
-				<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
-					{{ article.title }}
-				</h1>
+@if (!article && !loading()) {
+	<div class="mx-auto max-w-md py-20 text-center">
+		<!-- Label -->
+		<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// error</p>
 
-				<!-- Excerpt -->
-				<p class="mt-4 text-xl text-slate-600 dark:text-slate-400">
-					{{ article.excerpt }}
+		<!-- Terminal block -->
+		<div class="mt-5 overflow-hidden rounded-lg border border-slate-200/50 text-left dark:border-slate-800/50">
+			<!-- Chrome bar -->
+			<div
+				class="flex items-center gap-1.5 border-b border-slate-200/50 bg-slate-100 px-4 py-2.5 dark:border-slate-800/50 dark:bg-slate-800/80"
+			>
+				<span class="size-2.5 rounded-full bg-red-400/60"></span>
+				<span class="size-2.5 rounded-full bg-amber-400/60"></span>
+				<span class="size-2.5 rounded-full bg-emerald-400/60"></span>
+				<span class="ml-3 font-mono text-[11px] text-slate-400 dark:text-slate-500">blog › fetch</span>
+			</div>
+
+			<!-- Terminal output -->
+			<div class="space-y-1.5 bg-slate-900 px-5 py-4 font-mono text-sm">
+				<p class="text-slate-500">
+					$ GET /blog/
+					<span class="text-slate-400">&#123;slug&#125;</span>
 				</p>
+				<p class="text-slate-600">↳ Resolving article...</p>
+				<div class="h-px bg-slate-800 my-2"></div>
+				<p class="text-red-400/90">✗ Error: ArticleNotFoundError</p>
+				<p class="pl-4 text-xs text-slate-500">
+					status
+					<span class="text-slate-600">:</span>
+					<span class="text-amber-400/80">404</span>
+				</p>
+				<p class="pl-4 text-xs text-slate-500">
+					message
+					<span class="text-slate-600">:</span>
+					<span class="text-slate-400">"El artículo no existe o fue removido"</span>
+				</p>
+				<p class="pt-1 text-slate-600">
+					$
+					<span class="cursor text-emerald-400">_</span>
+				</p>
+			</div>
+		</div>
 
-				<!-- Meta -->
-				<div class="mt-8 flex flex-wrap items-center gap-6">
-					<!-- Author -->
-					<div class="flex items-center gap-3">
-						<img
-							[src]="article.author.image"
-							[alt]="article.author.name"
-							class="size-10 rounded-full object-cover"
-						/>
-						<div>
-							<p class="text-sm font-medium text-slate-900 dark:text-white">{{ article.author.name }}</p>
-							<p class="text-sm text-slate-500">{{ article.date }}</p>
-						</div>
-					</div>
+		<!-- Human explanation -->
+		<p class="mt-6 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+			El enlace puede estar roto o el artículo fue movido.
+			<br />
+			Prueba buscando desde el listado del blog.
+		</p>
 
-					<div class="hidden h-6 w-px bg-slate-200 dark:bg-slate-700 sm:block"></div>
+		<!-- Actions -->
+		<div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+			<a
+				routerLink="/blog"
+				class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
+			>
+				<svg
+					class="size-4"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+					/>
+				</svg>
+				Volver al blog
+			</a>
+			<a
+				routerLink="/"
+				class="inline-flex items-center gap-2 rounded-md border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800/60"
+			>
+				Ir al inicio
+			</a>
+		</div>
+	</div>
+}
 
-					<!-- Read time -->
-					<div class="flex items-center gap-2 text-sm text-slate-500">
+@if (article && !loading()) {
+	<article class="w-full">
+		<div class="animate-fade-in duration-500 ease-out">
+			<header class="py-6">
+				<div class="mx-auto">
+					<!-- Breadcrumb -->
+					<nav class="mb-8 flex items-center gap-2 text-sm text-slate-500">
+						<a
+							routerLink="/blog"
+							class="transition-colors hover:text-emerald-500"
+						>
+							Blog
+						</a>
 						<svg
 							class="size-4"
 							fill="none"
@@ -67,261 +136,45 @@
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
-								d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+								d="m8.25 4.5 7.5 7.5-7.5 7.5"
 							/>
 						</svg>
-						{{ article.readTime }} lectura
-					</div>
+						<span class="text-slate-400">{{ article.category.name }}</span>
+					</nav>
 
-					<div class="hidden h-6 w-px bg-slate-200 dark:bg-slate-700 sm:block"></div>
-
-					<!-- Tags -->
-					<app-tags-list [tags]="article.tags" />
-				</div>
-			</div>
-		</header>
-
-		<!-- Featured Image -->
-		<div class="mx-auto max-w-5xl px-6 lg:px-8">
-			<div class="aspect-[2/1] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
-				<img
-					[src]="article.image"
-					[alt]="article.title"
-					class="size-full object-cover"
-				/>
-			</div>
-		</div>
-
-		<!-- ============================================
-       MAIN CONTENT (Two Columns: Content + TOC)
-       ============================================ -->
-		<div class="mx-auto py-12">
-			<!-- ========== ARTICLE CONTENT ========== -->
-			<div class="prose max-w-none">
-				<!-- Section: El Problema -->
-				<h2
-					id="el-problema"
-					class="mb-4 mt-12 text-2xl font-bold text-slate-900 dark:text-white"
-				>
-					El Problema
-				</h2>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					Era un viernes por la tarde cuando recibimos la alerta:
-					<strong class="font-semibold text-slate-900 dark:text-white">
-						la página de reportes tardaba más de 10 segundos en cargar
-					</strong>
-					. Los usuarios empezaban a quejarse y el equipo de soporte estaba saturado.
-				</p>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					El sistema llevaba meses funcionando sin problemas, pero el crecimiento de datos había superado las
-					expectativas. Lo que antes eran 10,000 registros ahora eran más de 500,000.
-				</p>
-
-				<!-- Callout: Warning -->
-				<div
-					class="my-6 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/20 dark:bg-amber-500/10"
-				>
-					<div class="flex items-start gap-3">
-						<svg
-							class="mt-0.5 size-5 shrink-0 text-amber-600 dark:text-amber-400"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
-							/>
-						</svg>
-						<div>
-							<p class="font-medium text-amber-800 dark:text-amber-300">Advertencia</p>
-							<p class="mt-1 text-sm text-amber-700 dark:text-amber-400">
-								Nunca optimices prematuramente. Primero mide, luego optimiza. En nuestro caso, el
-								problema solo apareció cuando alcanzamos escala real.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<!-- Section: Diagnóstico -->
-				<h2
-					id="diagnostico"
-					class="mb-4 mt-12 text-2xl font-bold text-slate-900 dark:text-white"
-				>
-					Diagnóstico
-				</h2>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					Antes de tocar código, necesitaba entender qué estaba pasando. Usé varias herramientas para
-					diagnosticar el problema:
-				</p>
-				<ul class="mb-4 ml-6 list-disc space-y-2 text-slate-600 dark:text-slate-400">
-					<li>
-						<strong class="font-semibold text-slate-900 dark:text-white">PostgreSQL EXPLAIN ANALYZE</strong>
-						para ver el plan de ejecución
-					</li>
-					<li>
-						<strong class="font-semibold text-slate-900 dark:text-white">pg_stat_statements</strong>
-						para identificar las consultas más lentas
-					</li>
-					<li>
-						<strong class="font-semibold text-slate-900 dark:text-white">
-							Application Performance Monitoring
-						</strong>
-						para ver el tiempo total de respuesta
-					</li>
-				</ul>
-
-				<h3
-					id="identificando-cuello"
-					class="mb-3 mt-8 text-xl font-semibold text-slate-900 dark:text-white"
-				>
-					Identificando el cuello de botella
-				</h3>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					La consulta problemática era un JOIN entre tres tablas con filtros dinámicos. Aquí está la versión
-					simplificada:
-				</p>
-
-				<!-- Code Block -->
-				<div
-					class="group relative my-6 overflow-hidden rounded-lg border border-slate-200/50 bg-slate-950 dark:border-slate-800/50"
-				>
-					<div class="flex items-center justify-between border-b border-slate-800 px-4 py-2">
-						<span class="font-mono text-xs text-slate-400">sql</span>
-						<button
-							type="button"
-							(click)="
-								copyCode(
-									'SELECT o.id, o.total, c.name, p.title FROM orders o JOIN customers c ON o.customer_id = c.id JOIN products p ON o.product_id = p.id WHERE o.created_at BETWEEN $1 AND $2 AND c.region = $3 ORDER BY o.created_at DESC LIMIT 100;'
-								)
-							"
-							class="flex items-center gap-1.5 rounded px-2 py-1 text-xs text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
-						>
-							@if (copied()) {
-								<svg
-									class="size-4 text-emerald-400"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="2"
-									stroke="currentColor"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="m4.5 12.75 6 6 9-13.5"
-									/>
-								</svg>
-								<span class="text-emerald-400">Copiado</span>
-							} @else {
-								<svg
-									class="size-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="2"
-									stroke="currentColor"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
-									/>
-								</svg>
-								Copiar
-							}
-						</button>
-					</div>
-					<pre
-						class="overflow-x-auto p-4 font-mono text-sm leading-relaxed"
-					><code class="text-slate-300"><span class="text-purple-400">SELECT</span> o.id, o.total, c.name, p.title
-<span class="text-purple-400">FROM</span> orders o
-<span class="text-purple-400">JOIN</span> customers c <span class="text-purple-400">ON</span> o.customer_id = c.id
-<span class="text-purple-400">JOIN</span> products p <span class="text-purple-400">ON</span> o.product_id = p.id
-<span class="text-purple-400">WHERE</span> o.created_at <span class="text-purple-400">BETWEEN</span> <span class="text-emerald-400">$1</span> <span class="text-purple-400">AND</span> <span class="text-emerald-400">$2</span>
-  <span class="text-purple-400">AND</span> c.region = <span class="text-emerald-400">$3</span>
-<span class="text-purple-400">ORDER BY</span> o.created_at <span class="text-purple-400">DESC</span>
-<span class="text-purple-400">LIMIT</span> <span class="text-amber-400">100</span>;</code></pre>
-				</div>
-
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					El
-					<code
-						class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-sm text-slate-800 dark:bg-slate-800 dark:text-slate-300"
+					<!-- Title -->
+					<h1
+						class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl"
 					>
-						EXPLAIN ANALYZE
-					</code>
-					reveló que PostgreSQL estaba haciendo un
-					<strong class="font-semibold text-slate-900 dark:text-white">Sequential Scan</strong>
-					en la tabla de orders, revisando cada una de las 500,000 filas.
-				</p>
+						{{ article.title }}
+					</h1>
 
-				<!-- Section: La Solución -->
-				<h2
-					id="solucion"
-					class="mb-4 mt-12 text-2xl font-bold text-slate-900 dark:text-white"
-				>
-					La Solución
-				</h2>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					La solución involucró dos cambios principales: añadir índices correctos y refactorizar la consulta
-					para aprovechar mejor el query planner de PostgreSQL.
-				</p>
+					<!-- Excerpt -->
+					<p class="mt-4 text-xl text-slate-600 dark:text-slate-400">
+						{{ article.excerpt }}
+					</p>
 
-				<h3
-					id="indices"
-					class="mb-3 mt-8 text-xl font-semibold text-slate-900 dark:text-white"
-				>
-					Añadiendo índices correctos
-				</h3>
-
-				<!-- Callout: Tip -->
-				<div
-					class="my-6 rounded-lg border border-sky-200 bg-sky-50 p-4 dark:border-sky-500/20 dark:bg-sky-500/10"
-				>
-					<div class="flex items-start gap-3">
-						<svg
-							class="mt-0.5 size-5 shrink-0 text-sky-600 dark:text-sky-400"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+					<!-- Meta -->
+					<div class="mt-8 flex flex-wrap items-center gap-6">
+						<!-- Author -->
+						<div class="flex items-center gap-3">
+							<img
+								[src]="article.author.image"
+								[alt]="article.author.name"
+								class="size-10 rounded-full object-cover"
 							/>
-						</svg>
-						<div>
-							<p class="font-medium text-sky-800 dark:text-sky-300">Pro tip</p>
-							<p class="mt-1 text-sm text-sky-700 dark:text-sky-400">
-								Un índice compuesto es más eficiente que múltiples índices simples cuando siempre
-								filtras por las mismas columnas juntas.
-							</p>
+							<div>
+								<p class="text-sm font-medium text-slate-900 dark:text-white">
+									{{ article.author.name }}
+								</p>
+								<p class="text-sm text-slate-500">{{ article.updatedAt | date }}</p>
+							</div>
 						</div>
-					</div>
-				</div>
 
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					Creé un índice compuesto que cubría los filtros más comunes:
-				</p>
+						<div class="hidden h-6 w-px bg-slate-200 dark:bg-slate-700 sm:block"></div>
 
-				<!-- Code Block 2 -->
-				<div
-					class="group relative my-6 overflow-hidden rounded-lg border border-slate-200/50 bg-slate-950 dark:border-slate-800/50"
-				>
-					<div class="flex items-center justify-between border-b border-slate-800 px-4 py-2">
-						<span class="font-mono text-xs text-slate-400">sql</span>
-						<button
-							type="button"
-							(click)="
-								copyCode(
-									'CREATE INDEX CONCURRENTLY idx_orders_date_customer ON orders (created_at DESC, customer_id) WHERE deleted_at IS NULL;'
-								)
-							"
-							class="flex items-center gap-1.5 rounded px-2 py-1 text-xs text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
-						>
+						<!-- Read time -->
+						<div class="flex items-center gap-2 text-sm text-slate-500">
 							<svg
 								class="size-4"
 								fill="none"
@@ -332,232 +185,87 @@
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
-									d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+									d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
 								/>
 							</svg>
-							Copiar
-						</button>
-					</div>
-					<pre
-						class="overflow-x-auto p-4 font-mono text-sm leading-relaxed"
-					><code class="text-slate-300"><span class="text-purple-400">CREATE INDEX CONCURRENTLY</span> idx_orders_date_customer
-<span class="text-purple-400">ON</span> orders (created_at <span class="text-purple-400">DESC</span>, customer_id)
-<span class="text-purple-400">WHERE</span> deleted_at <span class="text-purple-400">IS NULL</span>;</code></pre>
-				</div>
-
-				<h3
-					id="refactorizando"
-					class="mb-3 mt-8 text-xl font-semibold text-slate-900 dark:text-white"
-				>
-					Refactorizando la consulta
-				</h3>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					También reestructuré la consulta para usar un CTE (Common Table Expression) que primero filtra los
-					orders antes de hacer los JOINs:
-				</p>
-
-				<!-- Code Block 3 -->
-				<div
-					class="group relative my-6 overflow-hidden rounded-lg border border-slate-200/50 bg-slate-950 dark:border-slate-800/50"
-				>
-					<div class="flex items-center justify-between border-b border-slate-800 px-4 py-2">
-						<span class="font-mono text-xs text-slate-400">sql</span>
-						<button
-							type="button"
-							(click)="
-								copyCode(
-									'WITH filtered_orders AS ( SELECT id, total, customer_id, product_id FROM orders WHERE created_at BETWEEN $1 AND $2 AND deleted_at IS NULL ORDER BY created_at DESC LIMIT 100 ) SELECT fo.id, fo.total, c.name, p.title FROM filtered_orders fo JOIN customers c ON fo.customer_id = c.id AND c.region = $3 JOIN products p ON fo.product_id = p.id;'
-								)
-							"
-							class="flex items-center gap-1.5 rounded px-2 py-1 text-xs text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
-						>
-							<svg
-								class="size-4"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="2"
-								stroke="currentColor"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
-								/>
-							</svg>
-							Copiar
-						</button>
-					</div>
-					<pre
-						class="overflow-x-auto p-4 font-mono text-sm leading-relaxed"
-					><code class="text-slate-300"><span class="text-purple-400">WITH</span> filtered_orders <span class="text-purple-400">AS</span> (
-  <span class="text-purple-400">SELECT</span> id, total, customer_id, product_id
-  <span class="text-purple-400">FROM</span> orders
-  <span class="text-purple-400">WHERE</span> created_at <span class="text-purple-400">BETWEEN</span> <span class="text-emerald-400">$1</span> <span class="text-purple-400">AND</span> <span class="text-emerald-400">$2</span>
-    <span class="text-purple-400">AND</span> deleted_at <span class="text-purple-400">IS NULL</span>
-  <span class="text-purple-400">ORDER BY</span> created_at <span class="text-purple-400">DESC</span>
-  <span class="text-purple-400">LIMIT</span> <span class="text-amber-400">100</span>
-)
-<span class="text-purple-400">SELECT</span> fo.id, fo.total, c.name, p.title
-<span class="text-purple-400">FROM</span> filtered_orders fo
-<span class="text-purple-400">JOIN</span> customers c <span class="text-purple-400">ON</span> fo.customer_id = c.id
-  <span class="text-purple-400">AND</span> c.region = <span class="text-emerald-400">$3</span>
-<span class="text-purple-400">JOIN</span> products p <span class="text-purple-400">ON</span> fo.product_id = p.id;</code></pre>
-				</div>
-
-				<!-- Section: Resultados -->
-				<h2
-					id="resultados"
-					class="mb-4 mt-12 text-2xl font-bold text-slate-900 dark:text-white"
-				>
-					Resultados
-				</h2>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					Después de implementar estos cambios, los resultados fueron dramáticos:
-				</p>
-
-				<!-- Metrics Grid -->
-				<div class="my-8 grid gap-4 sm:grid-cols-3">
-					<div
-						class="rounded-lg border border-slate-200/50 bg-white p-6 text-center dark:border-slate-800/50 dark:bg-slate-900/50"
-					>
-						<p class="font-mono text-3xl font-bold text-emerald-500">98%</p>
-						<p class="mt-1 text-sm text-slate-500">Reducción de tiempo</p>
-					</div>
-					<div
-						class="rounded-lg border border-slate-200/50 bg-white p-6 text-center dark:border-slate-800/50 dark:bg-slate-900/50"
-					>
-						<p class="font-mono text-3xl font-bold text-emerald-500">200ms</p>
-						<p class="mt-1 text-sm text-slate-500">Tiempo promedio</p>
-					</div>
-					<div
-						class="rounded-lg border border-slate-200/50 bg-white p-6 text-center dark:border-slate-800/50 dark:bg-slate-900/50"
-					>
-						<p class="font-mono text-3xl font-bold text-emerald-500">0</p>
-						<p class="mt-1 text-sm text-slate-500">Quejas de usuarios</p>
-					</div>
-				</div>
-
-				<!-- Callout: Success -->
-				<div
-					class="my-6 rounded-lg border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-500/20 dark:bg-emerald-500/10"
-				>
-					<div class="flex items-start gap-3">
-						<svg
-							class="mt-0.5 size-5 shrink-0 text-emerald-600 dark:text-emerald-400"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-							/>
-						</svg>
-						<div>
-							<p class="font-medium text-emerald-800 dark:text-emerald-300">Resultado</p>
-							<p class="mt-1 text-sm text-emerald-700 dark:text-emerald-400">
-								El cambio se desplegó sin downtime gracias a
-								<code class="rounded bg-emerald-100 px-1 dark:bg-emerald-900/50">
-									CREATE INDEX CONCURRENTLY
-								</code>
-								. Los usuarios notaron la mejora inmediatamente.
-							</p>
+							{{ article.readTime }} lectura
 						</div>
+
+						<div class="hidden h-6 w-px bg-slate-200 dark:bg-slate-700 sm:block"></div>
+
+						<!-- Tags -->
+						<app-tags-list [tags]="article.tags" />
 					</div>
 				</div>
+			</header>
 
-				<!-- Section: Conclusiones -->
-				<h2
-					id="conclusiones"
-					class="mb-4 mt-12 text-2xl font-bold text-slate-900 dark:text-white"
-				>
-					Conclusiones
-				</h2>
-				<p class="mb-4 leading-relaxed text-slate-600 dark:text-slate-400">
-					Este caso me dejó varias lecciones importantes:
-				</p>
-				<ol class="mb-4 ml-6 list-decimal space-y-2 text-slate-600 dark:text-slate-400">
-					<li>
-						<strong class="font-semibold text-slate-900 dark:text-white">Mide antes de optimizar</strong>
-						— Sin EXPLAIN ANALYZE, habría adivinado mal el problema.
-					</li>
-					<li>
-						<strong class="font-semibold text-slate-900 dark:text-white">Los índices no son magia</strong>
-						— Un índice mal diseñado puede empeorar las cosas.
-					</li>
-					<li>
-						<strong class="font-semibold text-slate-900 dark:text-white">
-							La estructura de la consulta importa
-						</strong>
-						— A veces reescribir es mejor que indexar.
-					</li>
-					<li>
-						<strong class="font-semibold text-slate-900 dark:text-white">Monitorea proactivamente</strong>
-						— Este problema se habría detectado antes con alertas de performance.
-					</li>
-				</ol>
-
-				<blockquote class="my-6 border-l-4 border-emerald-500 pl-4 italic text-slate-600 dark:text-slate-400">
-					"La optimización prematura es la raíz de todos los males, pero la optimización tardía es la raíz de
-					todos los incidentes de producción."
-				</blockquote>
+			<!-- Featured Image -->
+			<div class="mx-auto max-w-5xl px-6 lg:px-8">
+				<div class="aspect-[2/1] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
+					<img
+						[src]="article.image"
+						[alt]="article.title"
+						class="size-full object-cover"
+					/>
+				</div>
 			</div>
 
-			<!-- ========== TABLE OF CONTENTS (Sticky Sidebar) ========== -->
-		</div>
+			<!-- ── Contenido del artículo ────────────────────────────────────── -->
+			<div class="mx-auto py-12">
+				<app-markdown [content]="article.content" />
+			</div>
 
-		<!-- ============================================
+			<!-- ============================================
        COMMENTS SECTION
        ============================================ -->
-		<section class="border-t border-slate-200/50 py-16 dark:border-slate-800/50">
-			<div class="mx-auto max-w-3xl px-6 lg:px-8">
-				<h2 class="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-white">
-					<svg
-						class="size-5 text-emerald-500"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
-						/>
-					</svg>
-					Comentarios
-				</h2>
-				<p class="mt-2 text-slate-600 dark:text-slate-400">
-					¿Tienes preguntas o comentarios? Me encantaría escuchar tu experiencia.
-				</p>
-
-				<!-- Giscus Placeholder -->
-				<div
-					class="mt-8 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-900/50"
-				>
-					<svg
-						class="mx-auto size-12 text-slate-300 dark:text-slate-600"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
-						/>
-					</svg>
-					<p class="mt-4 text-sm text-slate-500">
-						Sistema de comentarios con
-						<strong>Giscus</strong>
-						(GitHub Discussions)
+			<section class="border-t border-slate-200/50 py-16 dark:border-slate-800/50">
+				<div class="mx-auto max-w-3xl px-6 lg:px-8">
+					<h2 class="flex items-center gap-2 text-xl font-bold text-slate-900 dark:text-white">
+						<svg
+							class="size-5 text-emerald-500"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+							/>
+						</svg>
+						Comentarios
+					</h2>
+					<p class="mt-2 text-slate-600 dark:text-slate-400">
+						¿Tienes preguntas o comentarios? Me encantaría escuchar tu experiencia.
 					</p>
-					<p class="mt-1 font-mono text-xs text-slate-400">&lt;giscus-component /&gt;</p>
+
+					<!-- Giscus Placeholder -->
+					<div
+						class="mt-8 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-900/50"
+					>
+						<svg
+							class="mx-auto size-12 text-slate-300 dark:text-slate-600"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+							/>
+						</svg>
+						<p class="mt-4 text-sm text-slate-500">
+							Sistema de comentarios con
+							<strong>Giscus</strong>
+							(GitHub Discussions)
+						</p>
+						<p class="mt-1 font-mono text-xs text-slate-400">&lt;giscus-component /&gt;</p>
+					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		</div>
 	</article>
 }

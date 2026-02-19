@@ -31,9 +31,10 @@
 		<div class="grid gap-12 pt-12 lg:grid-cols-[1fr_300px]">
 			<!-- ========== MAIN FEED (70%) ========== -->
 			<main>
-				@for (post of filteredPosts(); track post.id) {
-					<app-posts-list [posts]="posts()" />
-				}
+				<app-posts-list
+					[posts]="postRes.value()?.items ?? []"
+					[loading]="postRes.isLoading()"
+				/>
 			</main>
 
 			<!-- ========== SIDEBAR (30%) ========== -->

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common'
 import { Component, input } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
@@ -5,13 +6,13 @@ import { Post } from '@features/posts/models'
 
 @Component({
 	selector: 'app-post-card',
-	imports: [RouterLink],
+	imports: [RouterLink, DatePipe],
 	template: `
 		<article class="group">
 			<a [routerLink]="['/blog', post().slug]" class="block">
 				<!-- Meta -->
 				<div class="flex items-center gap-3 text-sm text-slate-500">
-					<time>{{ post().date }}</time>
+					<time>{{ post().createdAt | date: 'mediumDate' }}</time>
 					<span class="size-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
 					<span>{{ post().readTime }}</span>
 				</div>

@@ -1,21 +1,21 @@
-import { Component, input, signal } from '@angular/core'
+import { DatePipe } from '@angular/common'
+import { Component, input } from '@angular/core'
+import { RouterLink } from '@angular/router'
 
 import { Post } from '@features/posts/models'
 import { TagsList } from '@features/tags/components/tags-list/tags-list'
+import { MarkdownRenderer } from '@shared/components'
 
 @Component({
 	selector: 'app-post-detail',
-	imports: [TagsList],
+	imports: [TagsList, DatePipe, RouterLink, MarkdownRenderer],
 	templateUrl: './post-detail.html',
 	styles: ``,
+	host: {
+		style: 'display: block',
+	},
 })
 export class PostDetail {
-	copied = signal(false)
 	post = input<Post>()
-
-	copyCode(code: string) {
-		navigator.clipboard.writeText(code)
-		this.copied.set(true)
-		setTimeout(() => this.copied.set(false), 2000)
-	}
+	loading = input<boolean>(true)
 }

@@ -7,7 +7,7 @@ export const BlogRoutes: Routes = [
 	},
 	{
 		path: ':slug',
-		loadComponent: () => import('./post/post').then(m => m.Post),
+		loadComponent: () => import('./post/post').then(m => m.PostPage),
 	},
 	{
 		path: ':type/:slug',

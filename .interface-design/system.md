@@ -187,6 +187,51 @@ The cursor `_` appears in:
 
 This creates visual rhythm and reinforces the "developer" identity throughout.
 
+## Markdown Renderer (`app-markdown`)
+
+Componente para renderizar artículos del blog escritos en Markdown. Scoped a `.md-prose` con `ViewEncapsulation.None`.
+
+### Typography
+- `text-base leading-[1.85]` — generous line height for reading comfort
+- `text-slate-700 dark:text-slate-300` — secondary text tone (not primary, not muted)
+- Paragraphs: `mb-6`
+
+### Headings
+- H2 signature: `::before` emerald accent bar (`h-px w-6 bg-emerald-500`) above heading — same visual language as section `// tags`
+- All headings get `id` slugs (NFD normalized) for TOC anchoring
+- H1: `text-3xl font-bold tracking-tight`, H2: `text-2xl`, H3: `text-xl`
+
+### Code blocks (terminal style)
+```html
+<div class="md-code-block">
+  <div class="md-code-header">
+    <span class="md-code-lang">typescript</span>
+    <button class="md-code-copy" data-index="0">Copiar</button>
+  </div>
+  <pre><code>...</code></pre>
+</div>
+```
+- Header: `bg-slate-100 dark:bg-slate-800/80` with border-b
+- Body: `bg-slate-900` — dark terminal regardless of theme
+- Lang label: `font-mono text-xs font-medium text-slate-500`
+- Copy button: event delegation via `(click)` on `.md-prose`, `data-index` → `codeBlocks[]` array
+
+### Inline code
+`bg-emerald-500/8 text-emerald-700 dark:text-emerald-400` — terminal green on subtle emerald wash
+
+### Lists
+- Unordered: custom `▸` bullet in `text-emerald-500` (no disc)
+- Ordered: `counter(decimal-leading-zero)` in emerald monospace
+
+### Blockquote
+`border-l-4 border-emerald-400 pl-5 italic` — matches editor preview
+
+### HR
+`::before { content: '· · ·' }` in `font-mono text-slate-300` — avoids generic horizontal line
+
+### Tables
+`font-mono text-[10px] uppercase tracking-widest` headers — matches `// tag` pattern
+
 ## Category Card (Hero Context)
 
 Used as a page-level hero heading in filtered views (e.g., PostsFilter).

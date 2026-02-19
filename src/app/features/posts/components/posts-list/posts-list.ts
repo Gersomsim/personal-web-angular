@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common'
 import { Component, input } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
@@ -6,10 +7,11 @@ import { TagsList } from '@features/tags/components/tags-list/tags-list'
 
 @Component({
 	selector: 'app-posts-list',
-	imports: [RouterLink, TagsList],
+	imports: [RouterLink, TagsList, DatePipe],
 	templateUrl: './posts-list.html',
 	styles: ``,
 })
 export class PostsList {
 	posts = input<Post[] | null | undefined>()
+	loading = input<boolean>(true)
 }

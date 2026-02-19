@@ -1,0 +1,206 @@
+@reference "../../../../styles.css";
+
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+
+.md-prose {
+	@apply text-base leading-[1.85] text-slate-700 dark:text-slate-300;
+}
+
+/* ─── Paragraphs ────────────────────────────────────────────────────────────── */
+
+.md-prose p {
+	@apply mb-6;
+}
+
+/* ─── Headings ──────────────────────────────────────────────────────────────── */
+
+.md-prose h1 {
+	@apply mb-4 mt-12 text-3xl font-bold tracking-tight text-slate-900 dark:text-white;
+}
+
+/* H2: emerald accent bar signals a new major section — matches the // tag pattern */
+.md-prose h2 {
+	@apply mb-4 mt-12 text-2xl font-bold tracking-tight text-slate-900 dark:text-white;
+}
+
+.md-prose h2::before {
+	content: '';
+	@apply mb-3 block h-px w-6 bg-emerald-500;
+}
+
+.md-prose h3 {
+	@apply mb-3 mt-8 text-xl font-semibold tracking-tight text-slate-900 dark:text-white;
+}
+
+.md-prose h4 {
+	@apply mb-2 mt-6 text-lg font-semibold text-slate-800 dark:text-slate-100;
+}
+
+.md-prose h5,
+.md-prose h6 {
+	@apply mb-2 mt-4 font-semibold text-slate-800 dark:text-slate-100;
+}
+
+/* ─── Links ─────────────────────────────────────────────────────────────────── */
+
+.md-prose a {
+	@apply text-emerald-600 underline decoration-emerald-500/40 underline-offset-2 transition-colors hover:text-emerald-700 hover:decoration-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300;
+}
+
+/* ─── Inline code ───────────────────────────────────────────────────────────── */
+
+.md-prose :not(pre) > code {
+	@apply rounded-sm bg-emerald-500/8 px-1.5 py-0.5 font-mono text-[0.875em] text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400;
+}
+
+/* ─── Code blocks ───────────────────────────────────────────────────────────── */
+
+.md-prose .md-code-block {
+	@apply my-6 overflow-hidden rounded-lg border border-slate-200/50 dark:border-slate-800/50;
+}
+
+.md-prose .md-code-header {
+	@apply flex items-center justify-between border-b border-slate-200/50 bg-slate-100 px-4 py-2 dark:border-slate-800/50 dark:bg-slate-800/80;
+}
+
+.md-prose .md-code-lang {
+	@apply font-mono text-xs font-medium text-slate-500 dark:text-slate-400;
+}
+
+.md-prose .md-code-copy {
+	@apply cursor-pointer rounded px-2 py-0.5 font-mono text-xs text-slate-400 transition-all hover:bg-slate-200 hover:text-slate-700 dark:hover:bg-slate-700 dark:hover:text-slate-200;
+	background: transparent;
+	border: none;
+}
+
+.md-prose .md-code-copy--copied {
+	@apply text-emerald-600 dark:text-emerald-400;
+}
+
+.md-prose .md-code-block pre {
+	@apply m-0 overflow-x-auto bg-slate-900 p-5;
+}
+
+.md-prose .md-code-block pre code {
+	@apply block font-mono text-sm leading-relaxed text-slate-100;
+	background: transparent;
+	padding: 0;
+}
+
+/* ─── Blockquote ────────────────────────────────────────────────────────────── */
+
+.md-prose blockquote {
+	@apply my-6 border-l-4 border-emerald-400 pl-5 dark:border-emerald-500/60;
+}
+
+.md-prose blockquote p {
+	@apply mb-0 italic text-slate-600 dark:text-slate-400;
+}
+
+/* ─── Lists ─────────────────────────────────────────────────────────────────── */
+
+.md-prose ul,
+.md-prose ol {
+	@apply mb-6;
+}
+
+/* Unordered: custom ▸ bullet in emerald */
+.md-prose ul {
+	@apply list-none space-y-2 pl-5;
+}
+
+.md-prose ul li {
+	@apply relative pl-4;
+}
+
+.md-prose ul li::before {
+	content: '▸';
+	@apply absolute left-0 top-[2px] text-[10px] font-bold text-emerald-500;
+}
+
+/* Ordered: monospace counter in emerald */
+.md-prose ol {
+	@apply list-none space-y-2 pl-5;
+	counter-reset: md-counter;
+}
+
+.md-prose ol li {
+	@apply relative pl-8;
+	counter-increment: md-counter;
+}
+
+.md-prose ol li::before {
+	content: counter(md-counter, decimal-leading-zero);
+	@apply absolute left-0 top-px font-mono text-xs font-medium text-emerald-500;
+}
+
+/* Nested lists */
+.md-prose ul ul,
+.md-prose ol ol,
+.md-prose ul ol,
+.md-prose ol ul {
+	@apply mt-2 mb-0;
+}
+
+/* ─── Tables ────────────────────────────────────────────────────────────────── */
+
+.md-prose table {
+	@apply my-6 w-full border-collapse text-sm;
+}
+
+.md-prose thead {
+	@apply border-b border-slate-200 dark:border-slate-700;
+}
+
+.md-prose th {
+	@apply px-4 py-2.5 text-left font-mono text-[10px] font-medium uppercase tracking-widest text-slate-500 dark:text-slate-400;
+}
+
+.md-prose td {
+	@apply border-b border-slate-100 px-4 py-2.5 text-slate-700 dark:border-slate-800 dark:text-slate-300;
+}
+
+.md-prose tbody tr:last-child td {
+	@apply border-none;
+}
+
+/* ─── Horizontal rule ───────────────────────────────────────────────────────── */
+
+.md-prose hr {
+	@apply my-10 border-none;
+}
+
+.md-prose hr::before {
+	content: '· · ·';
+	@apply block text-center font-mono text-lg tracking-[0.5em] text-slate-300 dark:text-slate-700;
+}
+
+/* ─── Images ────────────────────────────────────────────────────────────────── */
+
+.md-prose img {
+	@apply my-6 w-full rounded-lg border border-slate-200/50 dark:border-slate-800/50;
+}
+
+/* ─── Strong / Em / Del ─────────────────────────────────────────────────────── */
+
+.md-prose strong {
+	@apply font-semibold text-slate-900 dark:text-white;
+}
+
+.md-prose em {
+	@apply italic;
+}
+
+.md-prose del {
+	@apply text-slate-400 line-through;
+}
+
+/* ─── First element margin reset ────────────────────────────────────────────── */
+
+.md-prose > *:first-child {
+	@apply mt-0;
+}
+
+.md-prose > *:last-child {
+	@apply mb-0;
+}

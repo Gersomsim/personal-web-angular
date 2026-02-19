@@ -102,39 +102,5 @@ export class Home {
 		},
 	])
 
-	blogPosts = signal<Post[]>([
-		{
-			id: '1',
-			title: 'Arquitectura de Componentes en Angular 17+',
-			excerpt:
-				'Exploramos las mejores prácticas para diseñar componentes escalables y mantenibles usando signals y standalone components.',
-			date: 'Feb 10, 2024',
-			readTime: '8 min',
-			slug: 'arquitectura-componentes-angular',
-			author: {
-				name: 'Gersom Hernández',
-				image: '/assets/images/38233407.jpg',
-			},
-			category: 'Performance',
-			tags: [{ id: '1', name: 'Angular', slug: 'angular' }],
-		},
-		{
-			id: '2',
-			title: 'Optimización de Performance en SPAs',
-			excerpt:
-				'Técnicas avanzadas para mejorar el tiempo de carga y la experiencia de usuario en aplicaciones de página única.',
-			date: 'Ene 28, 2024',
-			readTime: '6 min',
-			slug: 'optimizacion-performance-spa',
-			author: {
-				name: 'Gersom Hernández',
-				image: '/assets/images/38233407.jpg',
-			},
-			category: 'Performance',
-			tags: [
-				{ id: '2', name: 'TypeScript', slug: 'typescript' },
-				{ id: '3', name: 'Performance', slug: 'performance' },
-			],
-		},
-	])
+	blogPosts = signal<Post[]>([])
 }
