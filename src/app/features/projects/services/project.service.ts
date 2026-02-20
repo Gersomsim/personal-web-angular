@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 
 import { environment } from '@env/environment'
-import { ApiResponse } from '@shared/models/api-response.model'
-import { ListResponse } from 'src/app/interfaces/list-response.interface'
+import { ApiResponse } from '@shared/dto/api-response.dto'
+import { ListResponse } from '@shared/dto/list-response.dto'
 
 import { QueryProjectDto } from '../dto/query-project.dto'
 import { Project } from '../models'

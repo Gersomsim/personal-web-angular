@@ -1,4 +1,6 @@
-import { Injectable, signal } from '@angular/core'
+import { Injectable, computed, inject, signal } from '@angular/core'
+
+import { AuthFacade } from '@features/auth/facade'
 
 import { IMenuItem } from '../interfaces'
 
@@ -6,7 +8,9 @@ import { IMenuItem } from '../interfaces'
 	providedIn: 'root',
 })
 export class MenuService {
-	menu = signal<IMenuItem[]>([
+	authFacade = inject(AuthFacade)
+
+	menuGuest = signal<IMenuItem[]>([
 		{
 			label: 'Home',
 			path: '/',
@@ -27,9 +31,17 @@ export class MenuService {
 			label: 'Contact',
 			path: '/contact',
 		},
+	])
+	menuAuth = signal<IMenuItem[]>([
 		{
 			label: 'Admin',
 			path: '/admin',
 		},
 	])
+	menu = computed(() => {
+		if (this.authFacade.isAuthenticated()) {
+			return [...this.menuGuest(), ...this.menuAuth()]
+		}
+		return this.menuGuest()
+	})
 }

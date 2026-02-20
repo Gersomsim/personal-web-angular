@@ -6,6 +6,7 @@ export const AdminRoutes: Routes = [
 		children: [
 			{
 				path: '',
+
 				loadComponent: () =>
 					import('./projects/list-projects-page/list-projects-page').then(m => m.ListProjectsPage),
 			},
@@ -40,6 +41,7 @@ export const AdminRoutes: Routes = [
 		children: [
 			{
 				path: '',
+
 				loadComponent: () => import('./blog/list-posts-page/list-posts-page').then(m => m.ListPostsPage),
 			},
 			{

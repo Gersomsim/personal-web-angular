@@ -1,4 +1,4 @@
-import { Pagination } from '@shared/models/api-response.model'
+import { Pagination } from '@shared/dto/api-response.dto'
 
 export interface ListResponse<T> {
 	items: T[]

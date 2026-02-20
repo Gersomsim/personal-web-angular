@@ -1,19 +1,12 @@
-import { Component, computed, DestroyRef, inject, OnInit, output, signal } from '@angular/core'
+import { Component, DestroyRef, OnInit, computed, inject, output, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 
-import { CategoryService } from '@features/categories/services/category.service'
 import { Category } from '@features/categories/models'
+import { CategoryService } from '@features/categories/services/category.service'
 import { Tag } from '@features/tags/models'
 import { TagService } from '@features/tags/services/tag.service'
-import {
-	Editor,
-	FormInput,
-	FormSelect,
-	FormTagsPicker,
-	FormTextarea,
-	FormToggle,
-} from '@shared/components'
+import { Editor, FormInput, FormSelect, FormTagsPicker, FormTextarea, FormToggle } from '@shared/components'
 
 export interface PostFormValue {
 	title: string
@@ -96,8 +89,8 @@ export class PostForm implements OnInit {
 	async ngOnInit() {
 		try {
 			const [cats, tags] = await Promise.all([this.categoryService.get(), this.tagService.get()])
-			this.categories.set(cats.data ?? cats)
-			this.tags.set(tags.data ?? tags)
+			this.categories.set(cats.items ?? [])
+			this.tags.set(tags.items ?? [])
 		} catch {
 			// Services not available — form still works with empty options
 		}

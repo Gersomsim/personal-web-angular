@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 
 import { environment } from '@env/environment'
 import { User } from '@features/users/models'
-import { ApiResponse } from '@shared/models/api-response.model'
+import { ApiResponse } from '@shared/dto/api-response.dto'
 
 import { LoginFormData, LoginResponseDto } from '../dto'
 

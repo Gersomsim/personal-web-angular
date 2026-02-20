@@ -23,7 +23,10 @@ export class AuthFacade {
 
 	readonly isAuthenticated = computed(() => !!this._token())
 
-	constructor() {}
+	constructor() {
+		this.loadToken()
+		this.loadUser()
+	}
 
 	async login(credentials: LoginFormData): Promise<void> {
 		this._isLoading.set(true)
@@ -56,5 +59,15 @@ export class AuthFacade {
 	private saveUser(user: User): void {
 		localStorage.setItem('admin_user', JSON.stringify(user))
 		this._user.set(user)
+	}
+
+	private loadToken(): void {
+		const token = localStorage.getItem('admin_token')
+		this._token.set(token)
+	}
+
+	private loadUser(): void {
+		const user = localStorage.getItem('admin_user')
+		this._user.set(user ? JSON.parse(user) : null)
 	}
 }

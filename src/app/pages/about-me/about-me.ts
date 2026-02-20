@@ -57,7 +57,7 @@ export class AboutMe {
 	categoryRes = resource({
 		loader: () => this.categoryService.get({ type: 'skill' }),
 	})
-	Categories = computed<Category[]>(() => this.categoryRes.value().data)
+	Categories = computed<Category[]>(() => this.categoryRes.value()?.items ?? [])
 
 	timeline = signal<TimelineItem[]>([
 		{
