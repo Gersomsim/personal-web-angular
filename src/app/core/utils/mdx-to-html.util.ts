@@ -1,5 +1,7 @@
 import { marked } from 'marked'
 
+import { slugify } from './slugify.util'
+
 export const mdxToHtml = async (mdxContent: string) => {
 	// 1. Parse markdown → raw HTML (GFM enabled)
 	let html = marked.parse(mdxContent, { gfm: true }) as string
@@ -32,16 +34,6 @@ export const mdxToHtml = async (mdxContent: string) => {
 			)
 		},
 	)
-}
-
-function slugify(text: string): string {
-	return text
-		.toLowerCase()
-		.normalize('NFD')
-		.replace(/[\u0300-\u036f]/g, '')
-		.replace(/[^\w\s-]/g, '')
-		.trim()
-		.replace(/\s+/g, '-')
 }
 
 function stripTags(html: string): string {
