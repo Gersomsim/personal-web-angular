@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core'
+import { Component, computed, inject, resource, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
+import { Category } from '@features/categories/models'
+import { CategoryService } from '@features/categories/services/category.service'
 import { SkillsList } from '@features/skills/components/skills-list/skills-list'
 import { Skill } from '@features/skills/models/skill.model'
 
@@ -51,6 +53,12 @@ interface Hobby {
 	`,
 })
 export class AboutMe {
+	private readonly categoryService = inject(CategoryService)
+	categoryRes = resource({
+		loader: () => this.categoryService.get({ type: 'skill' }),
+	})
+	Categories = computed<Category[]>(() => this.categoryRes.value().data)
+
 	timeline = signal<TimelineItem[]>([
 		{
 			period: '2014 - 2018',
@@ -113,25 +121,6 @@ export class AboutMe {
 			title: 'Obsesión por la Calidad',
 			description:
 				'Código limpio, tests, documentación. No entrego hasta que esté orgulloso del resultado. El detalle marca la diferencia.',
-		},
-	])
-
-	skillCategories = signal<SkillCategory[]>([
-		{
-			name: 'Frontend',
-			skills: [
-				{
-					id: 'angular',
-					name: 'Angular',
-					slug: 'angular',
-					category: {
-						id: 'as',
-						slug: 'angular',
-						name: 'Angular',
-						count: 1,
-					},
-				},
-			],
 		},
 	])
 
