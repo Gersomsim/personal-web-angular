@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 
 import { environment } from '@env/environment'
+import { AuthFacade } from '@features/auth/facade'
 import { PostFormData } from '@features/posts/dto'
 import { ApiResponse, ListResponse } from '@shared/dto'
 
 import { QueryTagDto } from '../dto/query-tag.dto'
+import { TagFormData } from '../dto/tag-form-data.dto'
 import { Tag } from '../models'
 
 @Injectable({
 	providedIn: 'root',
 })
 export class TagService {
+	private readonly authFacade = inject(AuthFacade)
 	private readonly apiUrl: string = `${environment.apiBaseUrl}/tags`
 
 	async getAll(query?: QueryTagDto): Promise<ListResponse<Tag>> {
@@ -35,11 +38,12 @@ export class TagService {
 		const resp: ApiResponse<Tag> = await response.json()
 		return resp.data
 	}
-	async create(payload: PostFormData): Promise<Tag> {
+	async create(payload: TagFormData): Promise<Tag> {
 		const response = await fetch(this.apiUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.authFacade.token()}`,
 			},
 			body: JSON.stringify(payload),
 		})
@@ -52,6 +56,7 @@ export class TagService {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.authFacade.token()}`,
 			},
 			body: JSON.stringify(payload),
 		})
@@ -62,6 +67,9 @@ export class TagService {
 	async remove(key: string): Promise<Tag> {
 		const response = await fetch(`${this.apiUrl}/${key}`, {
 			method: 'DELETE',
+			headers: {
+				Authorization: `Bearer ${this.authFacade.token()}`,
+			},
 		})
 		const resp: ApiResponse<Tag> = await response.json()
 		return resp.data
