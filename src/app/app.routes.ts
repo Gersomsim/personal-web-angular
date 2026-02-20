@@ -35,6 +35,11 @@ export const routes: Routes = [
 		component: BlogLayout,
 		loadChildren: () => import('./pages/blog/blog.router').then(m => m.BlogRoutes),
 	},
+	// Login page — standalone, sin layout
+	{
+		path: 'admin/login',
+		loadComponent: () => import('./pages/admin/login-page/login-page').then(m => m.LoginPage),
+	},
 	{
 		path: 'admin',
 		component: AdminLayout,

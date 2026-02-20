@@ -1,0 +1,49 @@
+<div class="flex min-h-screen flex-col items-center justify-center gap-6 bg-slate-50 px-4 dark:bg-slate-950">
+	<!-- Brand mark -->
+	<div class="flex items-center gap-1.5">
+		<span class="font-mono text-sm font-semibold text-slate-900 dark:text-white">Gersom.dev</span>
+		<span class="cursor font-mono text-sm font-bold text-emerald-500">_</span>
+	</div>
+
+	<!-- Card -->
+	<div
+		class="w-full max-w-sm rounded-xl border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900"
+	>
+		<!-- Card header -->
+		<div class="mb-6">
+			<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// acceso</p>
+			<h1 class="mt-2 text-lg font-semibold text-slate-900 dark:text-white">Panel de administración</h1>
+			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+				Acceso restringido al propietario del portafolio.
+			</p>
+		</div>
+
+		<!-- Form -->
+		<app-auth-form
+			[loading]="isLoading()"
+			[error]="error()"
+			(loginSubmit)="onLogin($event)"
+		/>
+	</div>
+
+	<!-- Back to site -->
+	<a
+		routerLink="/"
+		class="flex items-center gap-1.5 text-sm text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
+	>
+		<svg
+			class="size-3.5"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="2"
+			stroke="currentColor"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+			/>
+		</svg>
+		Volver al portafolio
+	</a>
+</div>

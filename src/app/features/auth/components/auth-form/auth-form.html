@@ -1,0 +1,170 @@
+<form
+	[formGroup]="form"
+	(ngSubmit)="onSubmit()"
+	class="space-y-4"
+>
+	<!-- Email -->
+	<div class="flex flex-col gap-1.5">
+		<label
+			for="email"
+			class="font-mono text-xs font-medium text-slate-500 dark:text-slate-400"
+		>
+			Email
+		</label>
+		<input
+			id="email"
+			type="email"
+			formControlName="email"
+			placeholder="admin@gerson.dev"
+			autocomplete="email"
+			class="w-full rounded-md border px-3 py-2 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 dark:text-white dark:placeholder:text-slate-600"
+			[ngClass]="
+				hasEmailError
+					? 'border-red-300 bg-red-50/50 dark:border-red-800/50 dark:bg-red-950/10'
+					: 'border-slate-200/50 bg-slate-50 focus:border-emerald-500/50 dark:border-slate-800/50 dark:bg-slate-900/80 dark:focus:border-emerald-500/50'
+			"
+		/>
+		@if (hasEmailError) {
+			<p class="font-mono text-[10px] text-red-500 dark:text-red-400">{{ emailError }}</p>
+		}
+	</div>
+
+	<!-- Contraseña -->
+	<div class="flex flex-col gap-1.5">
+		<label
+			for="password"
+			class="font-mono text-xs font-medium text-slate-500 dark:text-slate-400"
+		>
+			Contraseña
+		</label>
+		<div class="relative">
+			<input
+				id="password"
+				[type]="showPassword() ? 'text' : 'password'"
+				formControlName="password"
+				placeholder="••••••••"
+				autocomplete="current-password"
+				class="w-full rounded-md border px-3 py-2 pr-10 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 dark:text-white dark:placeholder:text-slate-600"
+				[ngClass]="
+					hasPasswordError
+						? 'border-red-300 bg-red-50/50 dark:border-red-800/50 dark:bg-red-950/10'
+						: 'border-slate-200/50 bg-slate-50 focus:border-emerald-500/50 dark:border-slate-800/50 dark:bg-slate-900/80 dark:focus:border-emerald-500/50'
+				"
+			/>
+			<!-- Toggle visibility -->
+			<button
+				type="button"
+				(click)="showPassword.set(!showPassword())"
+				class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
+				[attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+			>
+				@if (showPassword()) {
+					<!-- Eye-off -->
+					<svg
+						class="size-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
+						/>
+					</svg>
+				} @else {
+					<!-- Eye -->
+					<svg
+						class="size-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+						/>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+						/>
+					</svg>
+				}
+			</button>
+		</div>
+		@if (hasPasswordError) {
+			<p class="font-mono text-[10px] text-red-500 dark:text-red-400">{{ passwordError }}</p>
+		}
+	</div>
+
+	<!-- Error de servidor -->
+	@if (error()) {
+		<div
+			class="flex items-start gap-2.5 rounded-md border border-red-200/60 bg-red-50/50 px-3.5 py-3 dark:border-red-800/40 dark:bg-red-950/20"
+		>
+			<svg
+				class="mt-0.5 size-4 shrink-0 text-red-500 dark:text-red-400"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+				/>
+			</svg>
+			<p class="text-xs text-red-600 dark:text-red-400">{{ error() }}</p>
+		</div>
+	}
+
+	<!-- Submit -->
+	<button
+		type="submit"
+		[disabled]="loading()"
+		class="mt-2 flex w-full items-center justify-center gap-2 rounded-md bg-emerald-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60"
+	>
+		@if (loading()) {
+			<svg
+				class="size-4 animate-spin"
+				fill="none"
+				viewBox="0 0 24 24"
+			>
+				<circle
+					class="opacity-25"
+					cx="12"
+					cy="12"
+					r="10"
+					stroke="currentColor"
+					stroke-width="4"
+				/>
+				<path
+					class="opacity-75"
+					fill="currentColor"
+					d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+				/>
+			</svg>
+			Autenticando...
+		} @else {
+			Entrar
+			<svg
+				class="size-4"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+				/>
+			</svg>
+		}
+	</button>
+</form>

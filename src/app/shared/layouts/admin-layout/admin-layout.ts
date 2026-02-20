@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core'
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'
+import { Component, inject, signal } from '@angular/core'
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'
+
+import { AuthFacade } from '@features/auth/facade'
 
 import { Header } from '../../components/header/header'
 
@@ -21,6 +23,9 @@ interface AdminNavGroup {
 	styles: ``,
 })
 export class AdminLayout {
+	private readonly authFacade = inject(AuthFacade)
+	private readonly router = inject(Router)
+
 	sidebarOpen = signal(true)
 
 	navGroups: AdminNavGroup[] = [
@@ -39,5 +44,10 @@ export class AdminLayout {
 
 	toggleSidebar() {
 		this.sidebarOpen.update(v => !v)
+	}
+
+	logout(): void {
+		this.authFacade.logout()
+		this.router.navigate(['/admin/login'])
 	}
 }

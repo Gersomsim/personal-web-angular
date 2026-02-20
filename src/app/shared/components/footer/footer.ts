@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core'
+import { RouterLink } from '@angular/router'
 
 interface SocialLink {
 	name: string
@@ -8,7 +9,7 @@ interface SocialLink {
 
 @Component({
 	selector: 'app-footer',
-	imports: [],
+	imports: [RouterLink],
 	templateUrl: './footer.html',
 	styles: `
 		@keyframes blink {
