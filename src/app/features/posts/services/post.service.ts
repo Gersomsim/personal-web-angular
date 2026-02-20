@@ -55,7 +55,7 @@ export class PostService {
 
 	async update(id: string, payload: PostFormData): Promise<Post> {
 		const response = await fetch(`${this.apiUrl}/${id}`, {
-			method: 'PUT',
+			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${this.authFacade.token()}`,

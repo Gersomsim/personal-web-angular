@@ -4,11 +4,12 @@
 	<h1 class="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Nuevo post</h1>
 </div>
 
-<div class="max-w-3xl">
+<div class="max-w-full">
 	<app-post-form
 		[categories]="categories()"
 		[tags]="tags()"
 		[categoryCreated]="category()"
+		[tagCreated]="tag()"
 		(formSubmit)="onSubmit($event)"
 		(createCategoryRequested)="createCategory($event)"
 		(createTagRequested)="createTag($event)"

@@ -25,7 +25,7 @@ export class PostForm implements OnInit {
 	reset = input<boolean>(false)
 
 	tags = input<Tag[]>()
-	tagCreated = input<Tag>()
+	tagCreated = input<Tag | null>(null)
 	loading = input<boolean>(false)
 
 	formSubmit = output<PostFormData>()
@@ -63,6 +63,11 @@ export class PostForm implements OnInit {
 	})
 
 	constructor() {
+		effect(() => {
+			if (this.post()) {
+				this.setForm()
+			}
+		})
 		effect(() => {
 			if (this.categoryCreated()) {
 				this.form.patchValue({ categoryId: this.categoryCreated()!.id })
@@ -103,6 +108,8 @@ export class PostForm implements OnInit {
 		const post = this.post()
 		if (post) {
 			this.form.patchValue(post)
+			this.form.patchValue({ tagsId: post.tags.map(t => t.id) })
+			this.form.patchValue({ categoryId: post.category.id })
 		}
 	}
 

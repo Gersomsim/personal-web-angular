@@ -7,6 +7,7 @@ import { CategoryService } from '@features/categories/services/category.service'
 import { PostForm } from '@features/posts/components/post-form/post-form'
 import { PostFormData } from '@features/posts/dto'
 import { PostService } from '@features/posts/services'
+import { Tag } from '@features/tags/models'
 import { TagService } from '@features/tags/services/tag.service'
 import { map } from 'rxjs'
 
@@ -24,6 +25,7 @@ export class CreatePostPage {
 	loading = signal(false)
 	reset = signal(false)
 	category = signal<Category | null>(null)
+	tag = signal<Tag | null>(null)
 
 	tagSearch = toSignal(this.route.queryParams.pipe(map(params => params['tag-search'] || '')))
 	categorySearch = toSignal(this.route.queryParams.pipe(map(params => params['category-search'] || '')))
@@ -64,6 +66,7 @@ export class CreatePostPage {
 	}
 	async createTag(name: string) {
 		const tag = await this.tagService.create({ name, type: 'blog' })
+		this.tag.set(tag)
 		this.tags.set([...this.tags(), tag])
 	}
 }

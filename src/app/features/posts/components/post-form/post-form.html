@@ -65,7 +65,7 @@
 						placeholder="Buscar categoría"
 						(createRequested)="createCategory($event)"
 						(itemSelected)="loadCategory($event)"
-						[selectedKey]="form.get('categoryId')!.value"
+						[selectedKey]="f.categoryId.value"
 					/>
 					@if (errorCategory()) {
 						<p class="font-mono text-[10px] text-red-500 dark:text-red-400">{{ errorCategory() }}</p>

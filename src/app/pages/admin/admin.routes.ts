@@ -49,7 +49,7 @@ export const AdminRoutes: Routes = [
 				loadComponent: () => import('./blog/create-post-page/create-post-page').then(m => m.CreatePostPage),
 			},
 			{
-				path: 'edit/:slug',
+				path: 'edit/:id',
 				loadComponent: () => import('./blog/edit-post-page/edit-post-page').then(m => m.EditPostPage),
 			},
 		],

@@ -1,1 +1,29 @@
-<p>edit-post-page works!</p>
+<div class="mb-8">
+	<p class="font-mono text-xs text-emerald-500">// contenido</p>
+	<h1 class="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Editar post</h1>
+</div>
+<div class="max-w-full">
+	@if (postRes.isLoading()) {
+		<p>Cargando...</p>
+	}
+	@if (postRes.error()) {
+		<app-error-card
+			[message]="'Error al cargar el post'"
+			[section]="'posts'"
+			[link]="'../'"
+			[linkText]="'volver'"
+			[error]="'PostNotFoundError'"
+		/>
+	}
+	@if (postRes.value()) {
+		<app-post-form
+			[post]="post()"
+			[categories]="categories()"
+			[tags]="tags()"
+			[categoryCreated]="category()"
+			(formSubmit)="onSubmit($event)"
+			(createCategoryRequested)="createCategory($event)"
+			(createTagRequested)="createTag($event)"
+		/>
+	}
+</div>
