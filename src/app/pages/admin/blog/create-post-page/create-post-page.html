@@ -5,5 +5,12 @@
 </div>
 
 <div class="max-w-3xl">
-	<app-post-form (formSubmit)="onSubmit($event)" />
+	<app-post-form
+		[categories]="categories()"
+		[tags]="tags()"
+		[categoryCreated]="category()"
+		(formSubmit)="onSubmit($event)"
+		(createCategoryRequested)="createCategory($event)"
+		(createTagRequested)="createTag($event)"
+	/>
 </div>

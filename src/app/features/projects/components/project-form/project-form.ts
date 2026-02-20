@@ -142,8 +142,8 @@ export class ProjectForm implements OnInit {
 
 	async ngOnInit() {
 		try {
-			const res = await this.tagService.get()
-			this.tags.set(res.data ?? res)
+			const res = await this.tagService.getAll({ type: 'project' })
+			this.tags.set(res.items)
 		} catch {
 			// form works without tags
 		}
