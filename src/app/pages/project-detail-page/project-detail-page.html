@@ -1,0 +1,47 @@
+<app-project-detail
+	[project]="project()"
+	[loading]="projectRes.isLoading()"
+/>
+@if (project() && !projectRes.isLoading()) {
+	<section class="border-t border-slate-200/50 bg-slate-50/50 py-24 dark:border-slate-800/50 dark:bg-slate-900/30">
+		<div class="mx-auto max-w-5xl px-6 lg:px-8">
+			<div class="text-center">
+				<p class="mb-2 font-mono text-sm text-emerald-500">// ¿Siguiente paso?</p>
+				<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+					¿Tienes un proyecto similar?
+				</h2>
+				<p class="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-400">
+					Si buscas un desarrollador que pueda llevar tu idea de concepto a producción, hablemos.
+				</p>
+
+				<div class="mt-8 flex flex-wrap justify-center gap-3">
+					<a
+						routerLink="/contact"
+						class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600"
+					>
+						Contactar
+						<svg
+							class="size-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+							/>
+						</svg>
+					</a>
+					<a
+						routerLink="/portfolio"
+						class="inline-flex items-center gap-2 rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+					>
+						Ver más proyectos
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+}

@@ -21,7 +21,8 @@ export const routes: Routes = [
 			},
 			{
 				path: 'portfolio/:slug',
-				loadComponent: () => import('./pages/project-detail/project-detail').then(m => m.ProjectDetail),
+				loadComponent: () =>
+					import('./pages/project-detail-page/project-detail-page').then(m => m.ProjectDetailPage),
 			},
 			{
 				path: 'contact',

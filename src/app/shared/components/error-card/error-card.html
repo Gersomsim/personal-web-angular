@@ -1,0 +1,78 @@
+<div class="mx-auto max-w-md py-20 text-center">
+	<!-- Label -->
+	<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// error</p>
+
+	<!-- Terminal block -->
+	<div class="mt-5 overflow-hidden rounded-lg border border-slate-200/50 text-left dark:border-slate-800/50">
+		<!-- Chrome bar -->
+		<div
+			class="flex items-center gap-1.5 border-b border-slate-200/50 bg-slate-100 px-4 py-2.5 dark:border-slate-800/50 dark:bg-slate-800/80"
+		>
+			<span class="size-2.5 rounded-full bg-red-400/60"></span>
+			<span class="size-2.5 rounded-full bg-amber-400/60"></span>
+			<span class="size-2.5 rounded-full bg-emerald-400/60"></span>
+			<span class="ml-3 font-mono text-[11px] text-slate-400 dark:text-slate-500">{{ section() }} › fetch</span>
+		</div>
+
+		<!-- Terminal output -->
+		<div class="space-y-1.5 bg-slate-900 px-5 py-4 font-mono text-sm">
+			<p class="text-slate-500">
+				$ GET /{{ section() }}/
+				<span class="text-slate-400">&#123;slug&#125;</span>
+			</p>
+			<p class="text-slate-600">↳ Resolving {{ singular() }}...</p>
+			<div class="h-px bg-slate-800 my-2"></div>
+			<p class="text-red-400/90">✗ Error: {{ error() }}</p>
+			<p class="pl-4 text-xs text-slate-500">
+				status
+				<span class="text-slate-600 pr-1">:</span>
+				<span class="text-amber-400/80">404</span>
+			</p>
+			<p class="pl-4 text-xs text-slate-500">
+				message
+				<span class="text-slate-600 pr-1">:</span>
+				<span class="text-slate-400">"{{ message() }}"</span>
+			</p>
+			<p class="pt-1 text-slate-600">
+				$
+				<span class="cursor text-emerald-400">_</span>
+			</p>
+		</div>
+	</div>
+
+	<!-- Human explanation -->
+	<p class="mt-6 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+		El enlace puede estar roto o el item fue movido.
+		<br />
+		Prueba buscando desde el listado de {{ section() }}.
+	</p>
+
+	<!-- Actions -->
+	<div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+		<a
+			[routerLink]="link()"
+			class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
+		>
+			<svg
+				class="size-4"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+				/>
+			</svg>
+			{{ linkText() }}
+		</a>
+		<a
+			[routerLink]="['/']"
+			class="inline-flex items-center gap-2 rounded-md border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800/60"
+		>
+			Ir al inicio
+		</a>
+	</div>
+</div>

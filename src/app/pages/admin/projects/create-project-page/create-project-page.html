@@ -1,1 +1,9 @@
-<p>create-project-page works!</p>
+<!-- Page header -->
+<div class="mb-8">
+	<p class="font-mono text-xs text-emerald-500">// portfolio</p>
+	<h1 class="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Nuevo proyecto</h1>
+</div>
+
+<div class="max-w-3xl">
+	<app-project-form (formSubmit)="onSubmit($event)" />
+</div>

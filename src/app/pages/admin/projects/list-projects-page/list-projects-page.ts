@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core'
+import { Component, OnInit, inject, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
 import { Project } from '@features/projects/models/project.model'
@@ -20,7 +20,7 @@ export class ListProjectsPage implements OnInit {
 	async ngOnInit() {
 		try {
 			const response = await this.projectService.getAll()
-			this.projects.set(response.data ?? response)
+			this.projects.set(response.items)
 		} catch {
 			this.error.set('No se pudieron cargar los proyectos.')
 		} finally {

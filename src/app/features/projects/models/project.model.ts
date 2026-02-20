@@ -1,3 +1,4 @@
+import { Category } from '@features/categories/models'
 import { Tag } from '@features/tags/models'
 
 export interface ProjectChallenge {
@@ -23,15 +24,19 @@ export interface Project {
 	description: string
 	problem?: string
 	image: string
-	tags: Tag[]
-	link: string
+	slug: string
 	metrics?: string
-	category: 'webapp' | 'mobile' | 'experiment' | 'all'
-	featured?: boolean
+	type: 'project' | 'experiment'
+	category: Category //'webapp' | 'mobile' | 'experiment' | 'all'
+	featured: boolean
 	liveUrl?: string
 	repoUrl?: string
 	repoPrivate?: boolean
 	role?: string
+	tags?: Tag[]
+	team?: string
+	duration?: string
+	developedAt: string
 
 	// Case study detail
 	solution?: string
@@ -40,7 +45,5 @@ export interface Project {
 	results?: ProjectResult[]
 	techStack?: ProjectTechStack[]
 	gallery?: string[]
-	duration?: string
-	team?: string
 	learnings?: string[]
 }
