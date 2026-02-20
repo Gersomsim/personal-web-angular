@@ -30,7 +30,7 @@
 	<div class="mx-auto max-w-5xl px-6 lg:px-8">
 		<div class="grid gap-12 pt-12 lg:grid-cols-[1fr_300px]">
 			<!-- ========== MAIN FEED (70%) ========== -->
-			<main>
+			<main class="space-y-6">
 				<app-posts-list
 					[posts]="postRes.value()?.items ?? []"
 					[loading]="postRes.isLoading()"

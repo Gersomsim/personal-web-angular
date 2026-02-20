@@ -10,6 +10,9 @@ import { TagsList } from '@features/tags/components/tags-list/tags-list'
 	imports: [RouterLink, TagsList, DatePipe],
 	templateUrl: './posts-list.html',
 	styles: ``,
+	host: {
+		class: 'block',
+	},
 })
 export class PostsList {
 	posts = input<Post[] | null | undefined>()

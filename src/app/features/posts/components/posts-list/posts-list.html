@@ -21,7 +21,7 @@
 	}
 } @else {
 	@for (post of posts(); track post.slug) {
-		<article class="group">
+		<article class="group mb-6">
 			<a
 				[routerLink]="['/blog', post.slug]"
 				class="block"

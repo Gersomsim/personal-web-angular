@@ -66,7 +66,7 @@ export class PostService {
 		return res.data
 	}
 
-	async delete(id: string): Promise<Post> {
+	async delete(id: string): Promise<void> {
 		const response = await fetch(`${this.apiUrl}/${id}`, {
 			method: 'DELETE',
 			headers: {
@@ -74,7 +74,7 @@ export class PostService {
 				Authorization: `Bearer ${this.authFacade.token()}`,
 			},
 		})
-		const res: ApiResponse<Post> = await response.json()
+		const res: ApiResponse<void> = await response.json()
 		return res.data
 	}
 }

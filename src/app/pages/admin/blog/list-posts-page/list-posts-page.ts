@@ -29,8 +29,8 @@ export class ListPostsPage implements OnInit {
 		}
 	}
 
-	onDelete(post: Post) {
-		// TODO: implementar eliminación con confirmación
-		console.log('Delete post:', post.slug)
+	async onDelete(post: Post) {
+		await this.postService.delete(post.id)
+		this.posts.set(this.posts().filter(p => p.id !== post.id))
 	}
 }
