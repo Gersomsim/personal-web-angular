@@ -57,19 +57,20 @@
 		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// clasificación</p>
 
 		<div class="space-y-4">
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-				<app-form-select
-					label="Categoría"
-					[options]="[]"
-					formControlName="categoryId"
-					[control]="f.categoryId"
-				/>
-				<app-form-input
-					label="Fecha *"
-					type="date"
-					formControlName="date"
-					[control]="f.date"
-				/>
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+				<div>
+					<app-combobox
+						label="Categoría"
+						[items]="categoryOptions()"
+						placeholder="Buscar categoría"
+						(createRequested)="createCategory($event)"
+						(itemSelected)="loadCategory($event)"
+						[selectedKey]="form.get('categoryId')!.value"
+					/>
+					@if (errorCategory()) {
+						<p class="font-mono text-[10px] text-red-500 dark:text-red-400">{{ errorCategory() }}</p>
+					}
+				</div>
 				<app-form-input
 					label="Tiempo de lectura *"
 					placeholder="5 min"
@@ -78,12 +79,35 @@
 				/>
 			</div>
 
-			<app-form-tags-picker
+			<app-combobox-multi
 				label="Tags"
-				[options]="[]"
-				formControlName="tagsId"
+				[items]="tagOptions()"
+				[selectedKeys]="form.get('tagsId')!.value"
+				placeholder="Buscar tags"
+				(createRequested)="createTag($event)"
+				(selectionChanged)="loadTag($event)"
 			/>
 		</div>
+	</div>
+
+	<!-- ── SEO ─────────────────────────────────────────────── -->
+	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// seo</p>
+
+		<app-form-textarea
+			label="Descripción SEO"
+			placeholder="..."
+			formControlName="descriptionSeo"
+			[control]="f.descriptionSeo"
+			hint="descripción corta del artículo"
+		/>
+		<app-form-textarea
+			label="Keywords SEO"
+			placeholder="..."
+			formControlName="keywordsSeo"
+			[control]="f.keywordsSeo"
+			hint="keywords del artículo"
+		/>
 	</div>
 
 	<!-- ── Media ─────────────────────────────────────────────── -->
@@ -98,14 +122,6 @@
 			[control]="f.image"
 			hint="URL de la imagen de portada del artículo"
 		/>
-	</div>
-
-	<!-- ── Autor ──────────────────────────────────────────────── -->
-	<div
-		class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50"
-		formGroupName="author"
-	>
-		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// autor</p>
 	</div>
 
 	<!-- ── Opciones ───────────────────────────────────────────── -->
@@ -125,7 +141,6 @@
 		<button
 			type="submit"
 			class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
-			[disabled]="form.invalid && form.touched"
 		>
 			Publicar post
 			<svg
