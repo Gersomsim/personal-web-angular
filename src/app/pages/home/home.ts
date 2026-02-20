@@ -1,10 +1,12 @@
-import { Component, signal } from '@angular/core'
+import { Component, computed, inject, resource, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
+import { PostCard } from '@features/posts/components'
 import { Post } from '@features/posts/models'
+import { PostService } from '@features/posts/services'
+import { ProjectCard } from '@features/projects/components'
+import { ProjectService } from '@features/projects/services'
 
-import { PostCard } from '../../features/posts/components/post-card/post-card'
-import { Project, ProjectCard } from '../../shared/components/project-card/project-card'
 import { SectionHeader } from '../../shared/components/section-header/section-header'
 import { Testimonial, TestimonialCard } from '../../shared/components/testimonial-card/testimonial-card'
 
@@ -18,23 +20,22 @@ interface TechItem {
 	selector: 'app-home',
 	imports: [RouterLink, SectionHeader, ProjectCard, TestimonialCard, PostCard],
 	templateUrl: './home.html',
-	styles: `
-		@keyframes blink {
-			0%,
-			50% {
-				opacity: 1;
-			}
-			51%,
-			100% {
-				opacity: 0;
-			}
-		}
-		.cursor {
-			animation: blink 1s step-end infinite;
-		}
-	`,
+	styles: ``,
 })
 export class Home {
+	private readonly projectService = inject(ProjectService)
+	private readonly postService = inject(PostService)
+
+	projectsRes = resource({
+		loader: () => this.projectService.getAll({ limit: 3, featured: true }),
+	})
+	postsRes = resource({
+		loader: () => this.postService.getAll({ limit: 2 }),
+	})
+
+	projects = computed(() => this.projectsRes.value()?.items ?? [])
+	posts = computed(() => this.postsRes.value()?.items ?? [])
+
 	techStack = signal<TechItem[]>([
 		{ name: 'Angular', icon: 'angular', img: '/icons/angular.svg' },
 		{ name: 'TypeScript', icon: 'typescript', img: '/icons/typescript.svg' },
@@ -43,39 +44,6 @@ export class Home {
 		{ name: 'NestJS', icon: 'nestjs', img: '/icons/nestjs.svg' },
 		{ name: 'Node.js', icon: 'nodejs', img: '/icons/nodejs.svg' },
 		{ name: 'PostgreSQL', icon: 'postgresql', img: '/icons/postgresql.svg' },
-	])
-
-	featuredProjects = signal<Project[]>([
-		{
-			title: 'ERP: Aquos',
-			description:
-				'Sistema ERP para renta de filtros de agua, con gestión de clientes, productos, ventas, compras, inventario y reportes.',
-			image: '/assets/images/aquos.png',
-			tags: ['Livewire', 'Laravel', 'MySQL', 'Stripe'],
-			link: '/portfolio/aquos',
-			metrics: 'Gestión con suscripciones',
-			category: 'webapp',
-		},
-		{
-			title: 'CRM Aclara',
-			description:
-				'CRM para gestión de prospectos, seguimiento de proyectos y cotizaciones de plantas de tratamiento de agua.',
-			image: '/assets/images/crm.png',
-			tags: ['Livewire', 'Laravel', 'MySQL'],
-			link: '/portfolio/crm-aclara',
-			metrics: 'Gestión de ventas',
-			category: 'webapp',
-		},
-		{
-			title: 'ERP ECO-Suite',
-			description:
-				'Sistema ERP para gestión integral de empresas, con gestión de clientes, productos, ventas, finanzas, compras, inventario y reportes.',
-			image: '/assets/images/ecosuite.png',
-			tags: ['Angular', 'TypeScript', 'PostgreSQL', 'Laravel'],
-			link: '/portfolio/ecosuite',
-			metrics: 'Gestión integral de empresas',
-			category: 'webapp',
-		},
 	])
 
 	testimonials = signal<Testimonial[]>([

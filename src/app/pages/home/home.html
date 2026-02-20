@@ -132,8 +132,11 @@
 		/>
 
 		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-			@for (project of featuredProjects(); track project.title) {
-				<app-project-card [project]="project" />
+			@for (project of projects(); track project.title) {
+				<app-project-card
+					[project]="project"
+					[loading]="projectsRes.isLoading()"
+				/>
 			}
 		</div>
 
@@ -331,7 +334,7 @@
 		/>
 
 		<div class="grid gap-8 md:grid-cols-2">
-			@for (post of blogPosts(); track post.slug) {
+			@for (post of posts(); track post.slug) {
 				<app-post-card [post]="post" />
 			}
 		</div>

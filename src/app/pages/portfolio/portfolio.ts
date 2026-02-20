@@ -1,7 +1,8 @@
 import { Component, computed, inject, resource, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
-import { ExperimentList, ProjectCard } from '@features/projects/components'
+import { ExperimentList } from '@features/projects/components'
+import { ProjectFeatured } from '@features/projects/components/project-featured/project-featured'
 import { ProjectsList } from '@features/projects/components/projects-list/projects-list'
 import { ProjectService } from '@features/projects/services'
 
@@ -16,7 +17,7 @@ interface FilterTab {
 
 @Component({
 	selector: 'app-portfolio',
-	imports: [RouterLink, SectionHeader, ProjectsList, ExperimentList, ProjectCard],
+	imports: [RouterLink, SectionHeader, ProjectsList, ExperimentList, ProjectFeatured],
 	templateUrl: './portfolio.html',
 	styles: ``,
 })

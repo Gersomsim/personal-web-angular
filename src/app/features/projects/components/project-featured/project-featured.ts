@@ -5,12 +5,11 @@ import { Project } from '@features/projects/models'
 import { TagsList } from '@features/tags/components'
 
 @Component({
-	selector: 'app-project-card',
-	imports: [RouterLink, TagsList],
-	templateUrl: './project-card.html',
+	selector: 'app-project-featured',
+	imports: [TagsList, RouterLink],
+	templateUrl: './project-featured.html',
 	styles: ``,
 })
-export class ProjectCard {
-	project = input.required<Project>()
-	loading = input(true)
+export class ProjectFeatured {
+	project = input<Project>()
 }
