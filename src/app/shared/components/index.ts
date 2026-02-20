@@ -1,4 +1,5 @@
 export * from './combobox/combobox'
+export * from './combobox-multi/combobox-multi'
 export * from './editor/editor'
 export * from './error-card/error-card'
 export * from './form-input/form-input'
