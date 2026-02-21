@@ -7,7 +7,7 @@ import { ListResponse } from '@shared/dto/list-response.dto'
 
 import { ProjectFormData } from '../dto'
 import { QueryProjectDto } from '../dto/query-project.dto'
-import { Project } from '../models'
+import { Project, ProjectChallenge, ProjectResult, ProjectTechStack } from '../models'
 
 @Injectable({
 	providedIn: 'root',
@@ -71,5 +71,41 @@ export class ProjectService {
 		if (!response.ok) {
 			throw new Error('Failed to delete project')
 		}
+	}
+	async syncTechStack(id: string, techStack: ProjectTechStack[]): Promise<ProjectTechStack[]> {
+		const response = await fetch(`${this.url}/sync-tech-stack/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.authFacade.token()}`,
+			},
+			body: JSON.stringify({ techStack }),
+		})
+		const resp: ApiResponse<ProjectTechStack[]> = await response.json()
+		return resp.data
+	}
+	async syncChallenges(id: string, challenges: ProjectChallenge[]): Promise<ProjectChallenge[]> {
+		const response = await fetch(`${this.url}/sync-challenges/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.authFacade.token()}`,
+			},
+			body: JSON.stringify({ challenges }),
+		})
+		const resp: ApiResponse<ProjectChallenge[]> = await response.json()
+		return resp.data
+	}
+	async syncResults(id: string, results: ProjectResult[]): Promise<ProjectResult[]> {
+		const response = await fetch(`${this.url}/sync-results/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.authFacade.token()}`,
+			},
+			body: JSON.stringify({ results }),
+		})
+		const resp: ApiResponse<ProjectResult[]> = await response.json()
+		return resp.data
 	}
 }

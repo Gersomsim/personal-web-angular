@@ -1,0 +1,116 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-0">
+
+	<div class="rounded-lg border border-slate-200/50 dark:border-slate-800/50">
+
+		<!-- Section header -->
+		<div class="flex items-center justify-between border-b border-slate-200/50 px-5 py-4 dark:border-slate-800/50">
+			<div>
+				<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// tech stack</p>
+				<p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+					Tecnologías agrupadas por categoría — separadas por coma
+				</p>
+			</div>
+			<button
+				type="button"
+				(click)="add()"
+				class="inline-flex items-center gap-1.5 rounded-md border border-slate-200/50 px-3 py-1.5 font-mono text-xs text-slate-500 transition-colors hover:border-emerald-500/30 hover:bg-emerald-500/5 hover:text-emerald-600 dark:border-slate-800/50 dark:text-slate-400 dark:hover:border-emerald-500/30 dark:hover:text-emerald-400"
+			>
+				<svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+				</svg>
+				Añadir categoría
+			</button>
+		</div>
+
+		<!-- Tech stack list -->
+		<div formArrayName="techStack">
+			@if (stackGroups.length === 0) {
+				<div class="flex flex-col items-center justify-center px-6 py-10 text-center">
+					<div class="flex size-8 items-center justify-center rounded-full border border-slate-200/50 dark:border-slate-800/50">
+						<svg class="size-4 text-slate-400 dark:text-slate-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+						</svg>
+					</div>
+					<p class="mt-2 font-mono text-xs text-slate-400 dark:text-slate-600">Sin tecnologías añadidas</p>
+					<p class="mt-1 text-xs text-slate-400 dark:text-slate-600">
+						Agrupa las tecnologías por capa: Frontend, Backend, Infra...
+					</p>
+				</div>
+			} @else {
+				<div class="divide-y divide-slate-100 dark:divide-slate-800/50">
+					@for (group of stackGroups; track $index) {
+						<div [formGroupName]="$index" class="px-5 py-4">
+							<div class="mb-3 flex items-center justify-between">
+								<span class="font-mono text-[10px] text-slate-400 dark:text-slate-600">
+									grupo {{ $index + 1 }}
+								</span>
+								<button
+									type="button"
+									(click)="remove($index)"
+									class="rounded-md px-2 py-1 font-mono text-[10px] text-slate-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/20 dark:hover:text-red-400"
+								>
+									eliminar
+								</button>
+							</div>
+							<div class="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_2fr]">
+								<app-form-input
+									label="Categoría *"
+									placeholder="Frontend"
+									formControlName="category"
+									[control]="group.get('category')"
+								/>
+								<div>
+									<app-form-input
+										label="Tecnologías *"
+										placeholder="Angular, TypeScript, Tailwind CSS"
+										formControlName="items"
+										[control]="group.get('items')"
+										hint="Separadas por coma"
+									/>
+									<!-- Preview tags -->
+									@let raw = group.get('items')?.value ?? '';
+									@if (raw.trim()) {
+										<div class="mt-2 flex flex-wrap gap-1">
+											@for (item of raw.split(','); track $index) {
+												@if (item.trim()) {
+													<span class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+														{{ item.trim() }}
+													</span>
+												}
+											}
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			}
+		</div>
+
+		<!-- Footer with save -->
+		<div class="flex items-center justify-between border-t border-slate-200/50 px-5 py-3 dark:border-slate-800/50">
+			<p class="font-mono text-[10px] text-slate-400 dark:text-slate-600">
+				{{ stackGroups.length }} grupo{{ stackGroups.length !== 1 ? 's' : '' }}
+			</p>
+			<button
+				type="submit"
+				[disabled]="isLoading()"
+				class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
+			>
+				@if (isLoading()) {
+					<svg class="size-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+						<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+					</svg>
+				} @else {
+					<svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+					</svg>
+				}
+				Guardar tech stack
+			</button>
+		</div>
+	</div>
+
+</form>

@@ -1,4 +1,4 @@
-import { ProjectType } from '../models'
+import { ProjectChallenge, ProjectResult, ProjectTechStack, ProjectType } from '../models'
 
 export interface ProjectFormData {
 	title: string
@@ -23,4 +23,8 @@ export interface ProjectFormData {
 	learnings: string[]
 	features: string[]
 	gallery: string[]
+	// Case study — managed separately in manage-project-page
+	challenges?: ProjectChallenge[]
+	results?: ProjectResult[]
+	techStack?: ProjectTechStack[]
 }
