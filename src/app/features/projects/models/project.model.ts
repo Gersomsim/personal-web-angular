@@ -26,7 +26,7 @@ export interface Project {
 	image: string
 	slug: string
 	metrics?: string
-	type: 'project' | 'experiment'
+	type: ProjectType
 	category: Category //'webapp' | 'mobile' | 'experiment' | 'all'
 	featured: boolean
 	liveUrl?: string
@@ -46,4 +46,9 @@ export interface Project {
 	techStack?: ProjectTechStack[]
 	gallery?: string[]
 	learnings?: string[]
+}
+
+export enum ProjectType {
+	PROJECT = 'project',
+	EXPERIMENT = 'experiment',
 }

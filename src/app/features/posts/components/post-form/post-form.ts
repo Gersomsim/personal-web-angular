@@ -57,7 +57,7 @@ export class PostForm implements OnInit {
 		content: ['', [Validators.required]],
 		image: [''],
 		categoryId: ['', [Validators.required]],
-		tagsId: [[] as string[], [Validators.required]],
+		tagsId: [[] as string[]],
 		readTime: ['', [Validators.required]],
 		featured: [false],
 	})

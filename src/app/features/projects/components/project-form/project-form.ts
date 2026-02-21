@@ -1,113 +1,81 @@
 import { Component, DestroyRef, OnInit, effect, inject, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 
-import { Project } from '@features/projects/models'
-import { Tag } from '@features/tags/models'
-import { TagService } from '@features/tags/services/tag.service'
-import { FormInput, FormSelect, FormTagsPicker, FormTextarea, FormToggle } from '@shared/components'
-
-export interface ProjectFormValue {
-	title: string
-	subtitle: string
-	category: 'webapp' | 'mobile' | 'experiment' | 'all'
-	role: string
-	duration: string
-	team: string
-	description: string
-	problem: string
-	solution: string
-	image: string
-	gallery: string[]
-	link: string
-	liveUrl: string
-	repoUrl: string
-	repoPrivate: boolean
-	metrics: string
-	featured: boolean
-	tags: Tag[]
-	features: string[]
-	learnings: string[]
-	challenges: { title: string; solution: string }[]
-	results: { label: string; value: string; description: string }[]
-	techStack: { category: string; items: string[] }[]
-}
+import { slugify } from '@core/utils'
+import { ProjectFormData } from '@features/projects/dto'
+import { Project, ProjectType } from '@features/projects/models'
+import {
+	Combobox,
+	ComboboxItem,
+	ComboboxMulti,
+	FormInput,
+	FormSelect,
+	FormTextarea,
+	FormToggle,
+} from '@shared/components'
 
 @Component({
 	selector: 'app-project-form',
-	imports: [ReactiveFormsModule, FormInput, FormTextarea, FormSelect, FormToggle, FormTagsPicker],
+	imports: [ReactiveFormsModule, FormInput, FormTextarea, FormSelect, FormToggle, Combobox, ComboboxMulti],
 	templateUrl: './project-form.html',
 	styles: ``,
 })
 export class ProjectForm implements OnInit {
-	private readonly tagService = inject(TagService)
 	private readonly destroyRef = inject(DestroyRef)
+	private readonly fb = inject(FormBuilder)
 
+	isLoading = input<boolean>(false)
 	initialValue = input<Project | null>(null)
-	formSubmit = output<ProjectFormValue>()
+	categories = input<ComboboxItem[]>([])
+	tags = input<ComboboxItem[]>([])
+	categoryId = input<string | null>(null)
+	tagId = input<string | null>(null)
 
-	tags = signal<Tag[]>([])
+	formSubmit = output<ProjectFormData>()
+	createCategoryRequest = output<string>()
+	createTagRequest = output<string>()
+
 	private linkEdited = signal(false)
 
-	readonly categoryOptions = [
-		{ value: 'webapp', label: 'Web App' },
-		{ value: 'mobile', label: 'Mobile' },
-		{ value: 'experiment', label: 'Experimento' },
-		{ value: 'all', label: 'All' },
+	readonly typeOptions = [
+		{ value: ProjectType.PROJECT, label: 'Proyecto' },
+		{ value: ProjectType.EXPERIMENT, label: 'Experimento' },
 	]
 
-	form = new FormGroup({
+	form = this.fb.nonNullable.group({
 		// Básico
-		title: new FormControl('', {
-			validators: [Validators.required, Validators.minLength(3)],
-			nonNullable: true,
-		}),
-		subtitle: new FormControl('', { nonNullable: true }),
-		category: new FormControl<string>('', { nonNullable: true }),
-		role: new FormControl('', { nonNullable: true }),
-		duration: new FormControl('', { nonNullable: true }),
-		team: new FormControl('', { nonNullable: true }),
-		metrics: new FormControl('', { nonNullable: true }),
+		title: ['', [Validators.required, Validators.minLength(3)]],
+		subtitle: ['', [Validators.required]],
+		type: [ProjectType.PROJECT, [Validators.required]],
+		categoryId: ['', [Validators.required]],
+		role: ['', [Validators.required]],
+		duration: ['', [Validators.required]],
+		team: ['', [Validators.required]],
+		metrics: ['', [Validators.required]],
+		developedAt: ['', [Validators.required]],
 
 		// Descripción
-		description: new FormControl('', {
-			validators: [Validators.required],
-			nonNullable: true,
-		}),
-		problem: new FormControl('', { nonNullable: true }),
-		solution: new FormControl('', { nonNullable: true }),
+		description: ['', [Validators.required]],
+		problem: ['', [Validators.required]],
+		solution: ['', [Validators.required]],
 
 		// Media
-		image: new FormControl('', {
-			validators: [Validators.required],
-			nonNullable: true,
-		}),
+		image: ['', [Validators.required]],
 		gallery: new FormArray<FormControl<string>>([]),
 
 		// Enlace
-		link: new FormControl('', {
-			validators: [Validators.required],
-			nonNullable: true,
-		}),
-		liveUrl: new FormControl('', { nonNullable: true }),
-		repoUrl: new FormControl('', { nonNullable: true }),
-		repoPrivate: new FormControl(false, { nonNullable: true }),
+		slug: ['', [Validators.required]],
+		liveUrl: [''],
+		repoUrl: [''],
+		repoPrivate: [false, [Validators.required]],
 
 		// Clasificación
-		tags: new FormControl<Tag[]>([], { nonNullable: true }),
-		featured: new FormControl(false, { nonNullable: true }),
+		tagsId: [[] as string[]],
+		featured: [false],
 
 		// Case study
 		features: new FormArray<FormControl<string>>([]),
-		challenges: new FormArray<FormGroup<{ title: FormControl<string>; solution: FormControl<string> }>>([]),
-		results: new FormArray<
-			FormGroup<{
-				label: FormControl<string>
-				value: FormControl<string>
-				description: FormControl<string>
-			}>
-		>([]),
-		techStack: new FormArray<FormGroup<{ category: FormControl<string>; items: FormControl<string> }>>([]),
 		learnings: new FormArray<FormControl<string>>([]),
 	})
 
@@ -123,45 +91,44 @@ export class ProjectForm implements OnInit {
 	get learningControls() {
 		return this.f.learnings.controls
 	}
-	get challengeGroups() {
-		return this.f.challenges.controls
-	}
-	get resultGroups() {
-		return this.f.results.controls
-	}
-	get techStackGroups() {
-		return this.f.techStack.controls
-	}
 
 	constructor() {
 		effect(() => {
 			const p = this.initialValue()
-			if (p) this.patchForm(p)
+			if (p) {
+				this.patchForm(p)
+			}
+		})
+		effect(() => {
+			const c = this.categoryId()
+			if (c) {
+				this.f.categoryId.setValue(c)
+			}
+		})
+		effect(() => {
+			const t = this.tagId()
+			if (t) {
+				const currentTags = this.f.tagsId.value
+				this.f.tagsId.setValue([...currentTags, t])
+			}
 		})
 	}
 
 	async ngOnInit() {
-		try {
-			const res = await this.tagService.getAll({ type: 'project' })
-			this.tags.set(res.items)
-		} catch {
-			// form works without tags
-		}
-
 		this.f.title.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(title => {
 			if (!this.linkEdited()) {
-				this.f.link.setValue(this.toSlug(title), { emitEvent: false })
+				this.f.slug.setValue(slugify(title), { emitEvent: false })
 			}
 		})
 
-		this.f.link.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+		this.f.slug.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
 			this.linkEdited.set(true)
 		})
 	}
 
 	resetLink(): void {
 		this.linkEdited.set(false)
-		this.f.link.setValue(this.toSlug(this.f.title.value), { emitEvent: false })
+		this.f.slug.setValue(slugify(this.f.title.value), { emitEvent: false })
 	}
 
 	// ── Gallery ────────────────────────────────────────────────────────────
@@ -180,30 +147,6 @@ export class ProjectForm implements OnInit {
 		this.f.features.removeAt(i)
 	}
 
-	// ── Challenges ─────────────────────────────────────────────────────────
-	addChallenge(): void {
-		this.f.challenges.push(this.challengeGroup())
-	}
-	removeChallenge(i: number): void {
-		this.f.challenges.removeAt(i)
-	}
-
-	// ── Results ────────────────────────────────────────────────────────────
-	addResult(): void {
-		this.f.results.push(this.resultGroup())
-	}
-	removeResult(i: number): void {
-		this.f.results.removeAt(i)
-	}
-
-	// ── Tech Stack ─────────────────────────────────────────────────────────
-	addTechStack(): void {
-		this.f.techStack.push(this.techStackGroup())
-	}
-	removeTechStack(i: number): void {
-		this.f.techStack.removeAt(i)
-	}
-
 	// ── Learnings ──────────────────────────────────────────────────────────
 	addLearning(): void {
 		this.f.learnings.push(this.str())
@@ -218,6 +161,21 @@ export class ProjectForm implements OnInit {
 			return
 		}
 		const v = this.form.getRawValue()
+		const data: ProjectFormData = {
+			...v,
+			features: v.features.filter(f => f),
+			learnings: v.learnings.filter(l => l),
+			gallery: v.gallery.filter(g => g),
+			developedAt: new Date(v.developedAt),
+		}
+		this.formSubmit.emit(data)
+	}
+
+	setCategory(category: string | number): void {
+		this.f.categoryId.setValue(category.toString())
+	}
+	setTag(tag: (string | number)[]): void {
+		this.f.tagsId.setValue(tag.map(t => t.toString()))
 	}
 
 	// ── Private helpers ────────────────────────────────────────────────────
@@ -226,28 +184,12 @@ export class ProjectForm implements OnInit {
 		return new FormControl(value, { nonNullable: true })
 	}
 
-	private challengeGroup(title = '', solution = '') {
-		return new FormGroup({ title: this.str(title), solution: this.str(solution) })
-	}
-
-	private resultGroup(label = '', value = '', description = '') {
-		return new FormGroup({
-			label: this.str(label),
-			value: this.str(value),
-			description: this.str(description),
-		})
-	}
-
-	private techStackGroup(category = '', items = '') {
-		return new FormGroup({ category: this.str(category), items: this.str(items) })
-	}
-
 	private patchForm(p: Project): void {
 		this.linkEdited.set(true)
 		this.form.patchValue({
 			title: p.title,
 			subtitle: p.subtitle ?? '',
-			category: p.category.id,
+			categoryId: p.category.id,
 			role: p.role ?? '',
 			duration: p.duration ?? '',
 			team: p.team ?? '',
@@ -256,12 +198,14 @@ export class ProjectForm implements OnInit {
 			problem: p.problem ?? '',
 			solution: p.solution ?? '',
 			image: p.image,
-			link: p.slug,
+			slug: p.slug,
 			liveUrl: p.liveUrl ?? '',
 			repoUrl: p.repoUrl ?? '',
 			repoPrivate: p.repoPrivate ?? false,
-			tags: p.tags,
+			tagsId: p.tags?.map(t => t.id) ?? [],
 			featured: p.featured ?? false,
+			developedAt: p.developedAt ?? '',
+			type: p.type ?? '',
 		})
 
 		this.f.gallery.clear()
@@ -272,23 +216,5 @@ export class ProjectForm implements OnInit {
 
 		this.f.learnings.clear()
 		p.learnings?.forEach(l => this.f.learnings.push(this.str(l)))
-
-		this.f.challenges.clear()
-		p.challenges?.forEach(c => this.f.challenges.push(this.challengeGroup(c.title, c.solution)))
-
-		this.f.results.clear()
-		p.results?.forEach(r => this.f.results.push(this.resultGroup(r.label, r.value, r.description ?? '')))
-
-		this.f.techStack.clear()
-	}
-
-	private toSlug(text: string): string {
-		return text
-			.toLowerCase()
-			.normalize('NFD')
-			.replace(/[\u0300-\u036f]/g, '')
-			.replace(/[^a-z0-9\s-]/g, '')
-			.trim()
-			.replace(/\s+/g, '-')
 	}
 }

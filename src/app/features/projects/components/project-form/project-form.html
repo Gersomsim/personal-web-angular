@@ -1,5 +1,8 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
-
+<form
+	[formGroup]="form"
+	(ngSubmit)="onSubmit()"
+	class="space-y-6"
+>
 	<!-- ── Básico ─────────────────────────────────────────────── -->
 	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
 		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// básico</p>
@@ -15,10 +18,10 @@
 			<!-- Link con botón regenerar -->
 			<div>
 				<app-form-input
-					label="Link *"
+					label="Slug *"
 					placeholder="erp-eco-suite"
-					formControlName="link"
-					[control]="f.link"
+					formControlName="slug"
+					[control]="f.slug"
 					hint="Slug de la URL — se auto-genera desde el título"
 				/>
 				<button
@@ -37,16 +40,30 @@
 			/>
 
 			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-				<app-form-select
+				<app-combobox
 					label="Categoría *"
-					[options]="categoryOptions"
-					formControlName="category"
-					[control]="f.category"
+					[items]="categories()"
+					[selectedKey]="f.categoryId!.value"
+					(createRequested)="createCategoryRequest.emit($event)"
+					(itemSelected)="setCategory($event)"
 				/>
+				<app-form-select
+					label="Tipo *"
+					[options]="typeOptions"
+					formControlName="type"
+					[control]="f.type"
+				/>
+			</div>
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 				<app-form-input
 					label="Rol"
 					placeholder="Lead Developer"
 					formControlName="role"
+				/>
+				<app-form-input
+					label="Equipo"
+					placeholder="3 personas"
+					formControlName="team"
 				/>
 			</div>
 
@@ -57,9 +74,10 @@
 					formControlName="duration"
 				/>
 				<app-form-input
-					label="Equipo"
-					placeholder="3 personas"
-					formControlName="team"
+					label="Fecha de desarrollo"
+					placeholder="2022"
+					type="date"
+					formControlName="developedAt"
 				/>
 			</div>
 		</div>
@@ -125,7 +143,10 @@
 					<p class="font-mono text-[10px] text-slate-400 dark:text-slate-600">Sin imágenes adicionales</p>
 				}
 
-				<div formArrayName="gallery" class="space-y-2">
+				<div
+					formArrayName="gallery"
+					class="space-y-2"
+				>
 					@for (ctrl of galleryControls; track $index) {
 						<div class="flex items-center gap-2">
 							<input
@@ -139,8 +160,18 @@
 								(click)="removeGallery($index)"
 								class="shrink-0 rounded-md p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/20 dark:hover:text-red-400"
 							>
-								<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+								<svg
+									class="size-4"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M6 18 18 6M6 6l12 12"
+									/>
 								</svg>
 							</button>
 						</div>
@@ -191,10 +222,12 @@
 	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
 		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// clasificación</p>
 
-		<app-form-tags-picker
+		<app-combobox-multi
 			label="Tags"
-			[options]="tags()"
-			formControlName="tags"
+			[items]="tags()"
+			[selectedKeys]="f.tagsId.value"
+			(createRequested)="createTagRequest.emit($event)"
+			(selectionChanged)="setTag($event)"
 		/>
 	</div>
 
@@ -217,7 +250,10 @@
 			<p class="font-mono text-[10px] text-slate-400 dark:text-slate-600">Sin funcionalidades añadidas</p>
 		}
 
-		<div formArrayName="features" class="space-y-2">
+		<div
+			formArrayName="features"
+			class="space-y-2"
+		>
 			@for (ctrl of featureControls; track $index) {
 				<div class="flex items-center gap-2">
 					<input
@@ -231,8 +267,18 @@
 						(click)="removeFeature($index)"
 						class="shrink-0 rounded-md p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/20 dark:hover:text-red-400"
 					>
-						<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+						<svg
+							class="size-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M6 18 18 6M6 6l12 12"
+							/>
 						</svg>
 					</button>
 				</div>
@@ -241,7 +287,7 @@
 	</div>
 
 	<!-- Tech Stack -->
-	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+	<!-- <div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
 		<div class="mb-4 flex items-center justify-between">
 			<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// tech stack</p>
 			<button
@@ -257,11 +303,19 @@
 			<p class="font-mono text-[10px] text-slate-400 dark:text-slate-600">Sin tecnologías añadidas</p>
 		}
 
-		<div formArrayName="techStack" class="space-y-3">
+		<div
+			formArrayName="techStack"
+			class="space-y-3"
+		>
 			@for (group of techStackGroups; track $index) {
-				<div [formGroupName]="$index" class="rounded-md border border-slate-100 p-3 dark:border-slate-800">
+				<div
+					[formGroupName]="$index"
+					class="rounded-md border border-slate-100 p-3 dark:border-slate-800"
+				>
 					<div class="mb-2 flex items-center justify-between">
-						<span class="font-mono text-[10px] text-slate-400 dark:text-slate-600">categoría {{ $index + 1 }}</span>
+						<span class="font-mono text-[10px] text-slate-400 dark:text-slate-600">
+							categoría {{ $index + 1 }}
+						</span>
 						<button
 							type="button"
 							(click)="removeTechStack($index)"
@@ -286,10 +340,10 @@
 				</div>
 			}
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Challenges -->
-	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+	<!-- <div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
 		<div class="mb-4 flex items-center justify-between">
 			<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// desafíos</p>
 			<button
@@ -305,11 +359,19 @@
 			<p class="font-mono text-[10px] text-slate-400 dark:text-slate-600">Sin desafíos añadidos</p>
 		}
 
-		<div formArrayName="challenges" class="space-y-3">
+		<div
+			formArrayName="challenges"
+			class="space-y-3"
+		>
 			@for (group of challengeGroups; track $index) {
-				<div [formGroupName]="$index" class="rounded-md border border-slate-100 p-3 dark:border-slate-800">
+				<div
+					[formGroupName]="$index"
+					class="rounded-md border border-slate-100 p-3 dark:border-slate-800"
+				>
 					<div class="mb-2 flex items-center justify-between">
-						<span class="font-mono text-[10px] text-slate-400 dark:text-slate-600">desafío {{ $index + 1 }}</span>
+						<span class="font-mono text-[10px] text-slate-400 dark:text-slate-600">
+							desafío {{ $index + 1 }}
+						</span>
 						<button
 							type="button"
 							(click)="removeChallenge($index)"
@@ -334,10 +396,10 @@
 				</div>
 			}
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Results -->
-	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
+	<!-- <div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
 		<div class="mb-4 flex items-center justify-between">
 			<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// resultados</p>
 			<button
@@ -353,11 +415,19 @@
 			<p class="font-mono text-[10px] text-slate-400 dark:text-slate-600">Sin resultados añadidos</p>
 		}
 
-		<div formArrayName="results" class="space-y-3">
+		<div
+			formArrayName="results"
+			class="space-y-3"
+		>
 			@for (group of resultGroups; track $index) {
-				<div [formGroupName]="$index" class="rounded-md border border-slate-100 p-3 dark:border-slate-800">
+				<div
+					[formGroupName]="$index"
+					class="rounded-md border border-slate-100 p-3 dark:border-slate-800"
+				>
 					<div class="mb-2 flex items-center justify-between">
-						<span class="font-mono text-[10px] text-slate-400 dark:text-slate-600">resultado {{ $index + 1 }}</span>
+						<span class="font-mono text-[10px] text-slate-400 dark:text-slate-600">
+							resultado {{ $index + 1 }}
+						</span>
 						<button
 							type="button"
 							(click)="removeResult($index)"
@@ -386,7 +456,7 @@
 				</div>
 			}
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Learnings -->
 	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
@@ -405,7 +475,10 @@
 			<p class="font-mono text-[10px] text-slate-400 dark:text-slate-600">Sin aprendizajes añadidos</p>
 		}
 
-		<div formArrayName="learnings" class="space-y-2">
+		<div
+			formArrayName="learnings"
+			class="space-y-2"
+		>
 			@for (ctrl of learningControls; track $index) {
 				<div class="flex items-center gap-2">
 					<input
@@ -419,8 +492,18 @@
 						(click)="removeLearning($index)"
 						class="shrink-0 rounded-md p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/20 dark:hover:text-red-400"
 					>
-						<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+						<svg
+							class="size-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M6 18 18 6M6 6l12 12"
+							/>
 						</svg>
 					</button>
 				</div>
@@ -441,19 +524,25 @@
 
 	<!-- ── Submit ─────────────────────────────────────────────── -->
 	<div class="flex items-center justify-between">
-		<p class="font-mono text-xs text-slate-400 dark:text-slate-600">
-			* campos requeridos
-		</p>
+		<p class="font-mono text-xs text-slate-400 dark:text-slate-600">* campos requeridos</p>
 		<button
 			type="submit"
 			class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
-			[disabled]="form.invalid && form.touched"
 		>
 			Guardar proyecto
-			<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+			<svg
+				class="size-4"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+				/>
 			</svg>
 		</button>
 	</div>
-
 </form>

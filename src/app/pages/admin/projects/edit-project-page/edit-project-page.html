@@ -1,5 +1,5 @@
 <!-- Page header -->
-<div class="mb-8">
+<div class="mb-8 max-w-4xl mx-auto">
 	<p class="font-mono text-xs text-emerald-500">// portfolio</p>
 	<h1 class="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
 		Editar proyecto
@@ -9,8 +9,8 @@
 	</h1>
 </div>
 
-@if (isLoading()) {
-	<div class="max-w-3xl space-y-6">
+@if (vm.isLoading()) {
+	<div class="max-w-4xl space-y-6 mx-auto">
 		@for (item of [1, 2, 3]; track $index) {
 			<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
 				<div class="mb-4 h-3 w-24 animate-pulse rounded bg-slate-200 dark:bg-slate-800"></div>
@@ -22,7 +22,16 @@
 		}
 	</div>
 } @else {
-	<div class="max-w-3xl">
-		<app-project-form [initialValue]="project()" (formSubmit)="onSubmit($event)" />
+	<div class="max-w-4xl mx-auto">
+		<app-project-form
+			[tagId]="vm.tagId()"
+			[tags]="vm.tagOptions()"
+			[categoryId]="vm.categoryId()"
+			[categories]="vm.categoryOptions()"
+			[initialValue]="project()"
+			(formSubmit)="onSubmit($event)"
+			(createCategoryRequest)="vm.createCategory($event)"
+			(createTagRequest)="vm.createTag($event)"
+		/>
 	</div>
 }

@@ -13,6 +13,9 @@ import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angul
 			multi: true,
 		},
 	],
+	host: {
+		class: 'block',
+	},
 })
 export class FormInput implements ControlValueAccessor {
 	label = input.required<string>()

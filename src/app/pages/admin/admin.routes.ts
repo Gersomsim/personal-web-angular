@@ -20,6 +20,11 @@ export const AdminRoutes: Routes = [
 				loadComponent: () =>
 					import('./projects/edit-project-page/edit-project-page').then(m => m.EditProjectPage),
 			},
+			{
+				path: 'manage/:slug',
+				loadComponent: () =>
+					import('./projects/manage-project-page/manage-project-page').then(m => m.ManageProjectPage),
+			},
 		],
 	},
 	{

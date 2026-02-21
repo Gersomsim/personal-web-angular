@@ -1,41 +1,40 @@
 import { Component, inject, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { ProjectForm } from '@features/projects/components/project-form/project-form'
+import { ProjectFormData } from '@features/projects/dto'
+import { Project } from '@features/projects/models'
 import { map } from 'rxjs'
 
-import { ProjectForm, ProjectFormValue } from '@features/projects/components/project-form/project-form'
-import { Project } from '@features/projects/models'
-import { ProjectService } from '@features/projects/services'
+import { ManageProjectVM } from '../view-models/manage-project.vm'
 
 @Component({
 	selector: 'app-edit-project-page',
 	imports: [ProjectForm],
+	providers: [ManageProjectVM],
 	templateUrl: './edit-project-page.html',
 	styles: ``,
 })
 export class EditProjectPage {
-	private readonly projectService = inject(ProjectService)
 	private readonly route = inject(ActivatedRoute)
+	private readonly router = inject(Router)
+	vm = inject(ManageProjectVM)
 
-	slug = toSignal(this.route.params.pipe(map(p => p['slug'])))
+	projectId = toSignal(this.route.params.pipe(map(p => p['slug'])))
 	project = signal<Project | null>(null)
-	isLoading = signal(true)
 
 	ngOnInit() {
 		this.loadProject()
 	}
 
 	async loadProject() {
-		try {
-			const data = await this.projectService.getOne(this.slug())
-			this.project.set(data)
-		} finally {
-			this.isLoading.set(false)
-		}
+		const project = await this.vm.loadProject(this.projectId())
+		this.project.set(project)
 	}
 
-	onSubmit(value: ProjectFormValue) {
-		// TODO: llamar al servicio para actualizar el proyecto
-		console.log('Update project:', value)
+	async onSubmit(value: ProjectFormData) {
+		const project = await this.vm.updateProject(this.projectId(), value)
+		this.router.navigate(['/admin/projects/manage', project.slug])
 	}
 }

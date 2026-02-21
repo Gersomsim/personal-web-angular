@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 
 import { environment } from '@env/environment'
+import { AuthFacade } from '@features/auth/facade'
 import { ApiResponse } from '@shared/dto/api-response.dto'
 import { ListResponse } from '@shared/dto/list-response.dto'
 
+import { ProjectFormData } from '../dto'
 import { QueryProjectDto } from '../dto/query-project.dto'
 import { Project } from '../models'
 
@@ -11,6 +13,7 @@ import { Project } from '../models'
 	providedIn: 'root',
 })
 export class ProjectService {
+	private readonly authFacade = inject(AuthFacade)
 	private readonly url = `${environment.apiBaseUrl}/projects`
 
 	async getAll(query?: QueryProjectDto): Promise<ListResponse<Project>> {
@@ -33,5 +36,40 @@ export class ProjectService {
 		const response = await fetch(`${this.url}/${id}`)
 		const resp: ApiResponse<Project> = await response.json()
 		return resp.data
+	}
+	async create(data: ProjectFormData): Promise<Project> {
+		const response = await fetch(this.url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.authFacade.token()}`,
+			},
+			body: JSON.stringify(data),
+		})
+		const resp: ApiResponse<Project> = await response.json()
+		return resp.data
+	}
+	async update(id: string, data: ProjectFormData): Promise<Project> {
+		const response = await fetch(`${this.url}/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${this.authFacade.token()}`,
+			},
+			body: JSON.stringify(data),
+		})
+		const resp: ApiResponse<Project> = await response.json()
+		return resp.data
+	}
+	async delete(id: string): Promise<void> {
+		const response = await fetch(`${this.url}/${id}`, {
+			method: 'DELETE',
+			headers: {
+				Authorization: `Bearer ${this.authFacade.token()}`,
+			},
+		})
+		if (!response.ok) {
+			throw new Error('Failed to delete project')
+		}
 	}
 }
