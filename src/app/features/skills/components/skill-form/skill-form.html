@@ -1,0 +1,77 @@
+<form
+	id="skill-form"
+	[formGroup]="form"
+	(ngSubmit)="onSubmit()"
+	class="space-y-6"
+>
+	<!-- ── Identidad ───────────────────────────────────── -->
+	<div class="space-y-4">
+		<p class="font-mono text-[10px] uppercase tracking-widest text-emerald-500">// skill</p>
+
+		<app-form-input
+			label="Nombre *"
+			placeholder="TypeScript, Docker, Angular..."
+			formControlName="name"
+			[control]="f.name"
+		/>
+
+		<div>
+			<app-form-input
+				label="Slug *"
+				placeholder="typescript"
+				formControlName="slug"
+				[control]="f.slug"
+				hint="Identificador único — se auto-genera desde el nombre"
+			/>
+			<button
+				type="button"
+				(click)="resetSlug()"
+				class="mt-1.5 font-mono text-[10px] text-slate-400 transition-colors hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+			>
+				↺ regenerar desde nombre
+			</button>
+		</div>
+
+		<div class="flex flex-col gap-1.5">
+			<app-combobox
+				label="Categoría *"
+				[items]="categories()"
+				[selectedKey]="f.categoryId.value"
+				placeholder="Buscar categoría..."
+				createLabel="Crear categoría"
+				(itemSelected)="setCategory($event)"
+				(createRequested)="createCategoryRequested.emit($event)"
+			/>
+			@if (categoryError()) {
+				<p class="font-mono text-[10px] text-red-500 dark:text-red-400">{{ categoryError() }}</p>
+			}
+		</div>
+	</div>
+
+	<!-- ── Media ───────────────────────────────────────── -->
+	<div class="border-t border-slate-100 pt-5 dark:border-slate-800">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// media</p>
+
+		<app-form-input
+			label="Imagen (URL)"
+			type="url"
+			placeholder="https://cdn.example.com/skill-logo.svg"
+			formControlName="image"
+			[control]="f.image"
+			hint="Logo o ícono de la tecnología"
+		/>
+	</div>
+
+	<!-- ── Descripción ─────────────────────────────────── -->
+	<div class="border-t border-slate-100 pt-5 dark:border-slate-800">
+		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// descripción</p>
+
+		<app-form-textarea
+			label="Contenido"
+			placeholder="Breve descripción de esta habilidad, experiencia, nivel..."
+			formControlName="description"
+			[control]="f.description"
+			[rows]="4"
+		/>
+	</div>
+</form>

@@ -9,7 +9,7 @@
 	</div>
 	<button
 		type="button"
-		(click)="onEdit({ id: '', name: '', slug: '', category: { id: '', name: '', slug: '', type: 'skill' } })"
+		(click)="onNew()"
 		class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
 	>
 		<svg
@@ -152,11 +152,6 @@
 						Categoría
 					</th>
 					<th
-						class="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-600"
-					>
-						Certificado
-					</th>
-					<th
 						class="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-600"
 					>
 						Acciones
@@ -196,45 +191,6 @@
 							>
 								{{ skill.category.name }}
 							</span>
-						</td>
-
-						<!-- Certificado -->
-						<td class="px-4 py-3">
-							@if (skill.certificate) {
-								@if (skill.certificateUrl) {
-									<a
-										[href]="skill.certificateUrl"
-										target="_blank"
-										rel="noopener noreferrer"
-										class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] font-medium text-emerald-600 transition-colors hover:bg-emerald-500/20 dark:text-emerald-400"
-									>
-										<span class="size-1.5 rounded-full bg-emerald-500"></span>
-										{{ skill.certificate }}
-										<svg
-											class="size-3"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke-width="1.5"
-											stroke="currentColor"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-											/>
-										</svg>
-									</a>
-								} @else {
-									<span
-										class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] font-medium text-emerald-600 dark:text-emerald-400"
-									>
-										<span class="size-1.5 rounded-full bg-emerald-500"></span>
-										{{ skill.certificate }}
-									</span>
-								}
-							} @else {
-								<span class="text-xs text-slate-300 dark:text-slate-700">—</span>
-							}
 						</td>
 
 						<!-- Acciones -->
@@ -288,3 +244,66 @@
 		</table>
 	}
 </div>
+
+<!-- ── Create / Edit Modal ───────────────────────────────────────────── -->
+<app-modal
+	[open]="modalOpen()"
+	[title]="modalTitle()"
+	size="lg"
+	(closed)="closeModal()"
+>
+	<app-skill-form
+		[skill]="editingSkill()"
+		[categories]="categoryItems()"
+		[categoryCreated]="categoryCreated()"
+		(formSubmit)="onFormSubmit($event)"
+		(createCategoryRequested)="onCreateCategory($event)"
+		[reset]="resetForm()"
+	/>
+
+	@if (submitError()) {
+		<p class="mt-4 font-mono text-[10px] text-red-500 dark:text-red-400">{{ submitError() }}</p>
+	}
+
+	<div
+		modalFooter
+		class="flex items-center justify-between"
+	>
+		<button
+			type="button"
+			(click)="closeModal()"
+			class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+		>
+			Cancelar
+		</button>
+		<button
+			type="submit"
+			form="skill-form"
+			[disabled]="submitting()"
+			class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
+		>
+			@if (submitting()) {
+				<svg
+					class="size-4 animate-spin"
+					fill="none"
+					viewBox="0 0 24 24"
+				>
+					<circle
+						class="opacity-25"
+						cx="12"
+						cy="12"
+						r="10"
+						stroke="currentColor"
+						stroke-width="4"
+					></circle>
+					<path
+						class="opacity-75"
+						fill="currentColor"
+						d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+					></path>
+				</svg>
+			}
+			{{ submitLabel() }}
+		</button>
+	</div>
+</app-modal>

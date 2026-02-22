@@ -4,9 +4,7 @@ export interface Skill {
 	id: string
 	name: string
 	slug: string
-	content?: string
+	description: string
 	image?: string
-	certificate?: string
-	certificateUrl?: string
 	category: Category
 }
