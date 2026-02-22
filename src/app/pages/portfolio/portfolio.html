@@ -52,11 +52,59 @@
 			subtitle="Cada proyecto representa un problema resuelto y lecciones aprendidas."
 		/>
 
-		@if (Projects().length > 0) {
+		@if (projectsRes.isLoading()) {
+			<div class="mt-12 grid gap-8 md:grid-cols-2">
+				@for (i of [1, 2, 3, 4]; track i) {
+					<div
+						class="flex flex-col overflow-hidden rounded-lg border border-slate-200/50 bg-white dark:border-slate-800/50 dark:bg-slate-900/50"
+					>
+						<!-- image placeholder -->
+						<div class="aspect-video w-full animate-pulse bg-slate-100 dark:bg-slate-800"></div>
+						<!-- content placeholder -->
+						<div class="flex flex-1 flex-col gap-3 p-6">
+							<div class="h-4 w-20 animate-pulse rounded-full bg-slate-100 dark:bg-slate-800"></div>
+							<div class="h-5 w-2/3 animate-pulse rounded bg-slate-100 dark:bg-slate-800"></div>
+							<div class="space-y-2">
+								<div class="h-3.5 w-full animate-pulse rounded bg-slate-100 dark:bg-slate-800"></div>
+								<div class="h-3.5 w-full animate-pulse rounded bg-slate-100 dark:bg-slate-800"></div>
+								<div class="h-3.5 w-4/5 animate-pulse rounded bg-slate-100 dark:bg-slate-800"></div>
+							</div>
+							<div class="mt-auto flex gap-2 pt-2">
+								<div class="h-4 w-14 animate-pulse rounded bg-slate-100 dark:bg-slate-800"></div>
+								<div class="h-4 w-14 animate-pulse rounded bg-slate-100 dark:bg-slate-800"></div>
+								<div class="h-4 w-10 animate-pulse rounded bg-slate-100 dark:bg-slate-800"></div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		} @else if (Projects().length > 0) {
 			<app-projects-list [projects]="Projects()" />
 		} @else {
-			<div class="py-12 text-center">
-				<p class="text-slate-500">No hay proyectos en esta categoría.</p>
+			<div class="mt-12 flex flex-col items-center justify-center py-16 text-center">
+				<div
+					class="flex size-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800"
+				>
+					<svg
+						class="size-6 text-slate-400"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"
+						/>
+					</svg>
+				</div>
+				<p class="mt-4 text-sm font-medium text-slate-900 dark:text-white">
+					No hay proyectos en esta categoría
+				</p>
+				<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+					Prueba seleccionando otro filtro.
+				</p>
 			</div>
 		}
 	</div>
