@@ -2,6 +2,7 @@ import { Component, HostListener, inject, signal } from '@angular/core'
 import { RouterLink, RouterLinkActive } from '@angular/router'
 
 import { MenuService } from '@core/services/menu.service'
+import { ThemeService } from '@core/services/theme.service'
 
 @Component({
 	selector: 'app-header',
@@ -11,6 +12,7 @@ import { MenuService } from '@core/services/menu.service'
 })
 export class Header {
 	private menuService = inject(MenuService)
+	protected theme = inject(ThemeService)
 
 	menu = this.menuService.menu
 	isScrolled = signal(false)

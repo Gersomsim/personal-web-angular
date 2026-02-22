@@ -2,6 +2,8 @@
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Smooth color transitions for dark mode */
 html {
 	color-scheme: light dark;
