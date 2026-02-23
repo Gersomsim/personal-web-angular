@@ -77,4 +77,13 @@ export class PostService {
 		const res: ApiResponse<void> = await response.json()
 		return res.data
 	}
+	async markAsReaded(postId: string): Promise<void> {
+		const response = await fetch(`${this.apiUrl}/${postId}/mark-as-readed`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		const res: ApiResponse<void> = await response.json()
+	}
 }

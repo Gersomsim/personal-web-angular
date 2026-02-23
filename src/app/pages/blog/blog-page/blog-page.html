@@ -1,0 +1,49 @@
+<!-- ============================================
+     HEADER / HERO
+     ============================================ -->
+<section class="py-24">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="text-center">
+			<p class="mb-4 font-mono text-sm text-emerald-500">
+				<span class="cursor">></span>
+				Bitácora de Ingeniería: Pensamiento y Arquitectura
+			</p>
+			<h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+				Documentando el proceso de transformar problemas complejos en soluciones mantenibles.
+			</h1>
+			<p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
+				Un espacio dedicado a desglosar desafíos técnicos reales, reflexiones sobre el liderazgo de equipos y
+				aprendizajes en el ecosistema de Angular, NestJS y Laravel. Aquí el código se encuentra con la
+				estrategia.
+			</p>
+
+			<!-- Buscador -->
+			<div class="mx-auto mt-8 max-w-md">
+				<app-search-box placeholder="Buscar posts..." />
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============================================
+     MAIN CONTENT (Two Columns)
+     ============================================ -->
+<section class="border-t border-slate-200/50 pb-24 dark:border-slate-800/50">
+	<div class="mx-auto max-w-5xl px-6 lg:px-8">
+		<div class="grid gap-12 pt-12 lg:grid-cols-[1fr_300px]">
+			<!-- ========== MAIN FEED (70%) ========== -->
+			<main class="space-y-6">
+				<router-outlet></router-outlet>
+			</main>
+
+			<!-- ========== SIDEBAR (30%) ========== -->
+			<aside class="space-y-6">
+				<app-widget-author />
+				<app-widget-categories [categories]="categories()" />
+				<app-widget-news-letter />
+				<app-widget-popular-posts [posts]="featuredPosts()" />
+				<app-widget-author-social />
+			</aside>
+		</div>
+	</div>
+</section>

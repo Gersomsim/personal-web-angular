@@ -1,48 +1,72 @@
-import { Component, signal } from '@angular/core'
+import { Component, computed, effect, inject, resource } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
+import { ActivatedRoute } from '@angular/router'
 
-import {
-	WidgetAuthor,
-	WidgetAuthorSocial,
-	WidgetCategories,
-	WidgetNewsLetter,
-	WidgetPopularPosts,
-} from '@features/blog/components'
 import { CategoryCard } from '@features/categories/components'
+import { CategoryService } from '@features/categories/services/category.service'
 import { PostsList } from '@features/posts/components'
-import { Post } from '@features/posts/models'
-import { SearchBox } from '@shared/components'
+import { PostService } from '@features/posts/services'
+import { map } from 'rxjs'
 
 @Component({
 	selector: 'app-posts-filter',
-	imports: [
-		PostsList,
-		WidgetAuthor,
-		WidgetCategories,
-		WidgetNewsLetter,
-		WidgetPopularPosts,
-		WidgetAuthorSocial,
-		SearchBox,
-		CategoryCard,
-	],
+	imports: [PostsList, CategoryCard],
 	templateUrl: './posts-filter.html',
 	styles: ``,
 })
 export class PostsFilter {
-	searchQuery = signal('')
+	private readonly postsService = inject(PostService)
+	private readonly categoryService = inject(CategoryService)
+	private readonly route = inject(ActivatedRoute)
 
-	categories = signal<any[]>([
-		{ name: 'Tutoriales', slug: 'tutoriales', count: 5 },
-		{ name: 'Arquitectura', slug: 'arquitectura', count: 3 },
-		{ name: 'Performance', slug: 'performance', count: 4 },
-		{ name: 'Notas de Proyectos', slug: 'notas-proyectos', count: 8 },
-		{ name: 'Opinión', slug: 'opinion', count: 2 },
-	])
+	slug = toSignal(this.route.params.pipe(map(params => params['slug'])))
+	type = toSignal(this.route.params.pipe(map(params => params['type'])))
 
-	featuredPosts = signal<any[]>([
-		{ title: 'Arquitectura de Componentes en Angular 17+', slug: 'arquitectura-componentes-angular' },
-		{ title: 'Cómo optimicé una consulta SQL de 10s a 200ms', slug: 'optimizacion-sql' },
-		{ title: 'Clean Architecture en Frontend: Guía Práctica', slug: 'clean-architecture-frontend' },
-	])
+	filter = computed(() => {
+		if (this.type() === 'categories') {
+			return { category: this.slug() }
+		}
+		return { tag: this.slug() }
+	})
 
-	posts = signal<Post[]>([])
+	categoryRes = resource({
+		loader: () => this.categoryService.findOne(this.slug()),
+	})
+
+	postsRes = resource({
+		loader: () => this.postsService.getAll(this.filter()),
+	})
+
+	posts = computed(() => {
+		return this.postsRes.value()?.items
+	})
+
+	category = computed(() => {
+		return this.categoryRes.value()
+	})
+	constructor() {
+		effect(() => {
+			const type = this.type()
+			if (type) {
+				this.reloadData()
+			}
+		})
+
+		effect(() => {
+			const slug = this.slug()
+			if (slug) {
+				this.reloadData()
+			}
+		})
+	}
+	reloadData() {
+		this.getPosts()
+		this.getCategory()
+	}
+	getPosts() {
+		this.postsRes.reload()
+	}
+	getCategory() {
+		this.categoryRes.reload()
+	}
 }

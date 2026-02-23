@@ -5,4 +5,5 @@ export interface QueryPostDto {
 	category?: string
 	tags?: string
 	author?: string
+	mostRead?: boolean
 }
