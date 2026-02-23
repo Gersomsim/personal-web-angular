@@ -5,4 +5,5 @@ export interface QueryProjectDto {
 	category?: string
 	tags?: string
 	featured?: boolean
+	type?: 'project' | 'experiment'
 }

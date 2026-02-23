@@ -31,7 +31,7 @@ export class Portfolio {
 		loader: () => this.projectService.getAll(),
 	})
 	experimentsRes = resource({
-		loader: () => this.projectService.getAll(),
+		loader: () => this.projectService.getAll({ type: 'experiment' }),
 	})
 
 	activeFilter = signal<CategoryFilter>('all')

@@ -3,28 +3,14 @@ import { RouterOutlet } from '@angular/router'
 
 import { SeoService } from '@core/services'
 import { environment } from '@env/environment'
-import {
-	WidgetAuthor,
-	WidgetAuthorSocial,
-	WidgetCategories,
-	WidgetNewsLetter,
-	WidgetPopularPosts,
-} from '@features/blog/components'
+import { WidgetAuthor, WidgetAuthorSocial, WidgetCategories, WidgetPopularPosts } from '@features/blog/components'
 import { CategoryService } from '@features/categories/services/category.service'
 import { PostService } from '@features/posts/services'
 import { SearchBox } from '@shared/components'
 
 @Component({
 	selector: 'app-blog-page',
-	imports: [
-		WidgetAuthor,
-		WidgetPopularPosts,
-		WidgetAuthorSocial,
-		WidgetCategories,
-		WidgetNewsLetter,
-		SearchBox,
-		RouterOutlet,
-	],
+	imports: [WidgetAuthor, WidgetPopularPosts, WidgetAuthorSocial, WidgetCategories, SearchBox, RouterOutlet],
 	templateUrl: './blog-page.html',
 	styles: ``,
 })
