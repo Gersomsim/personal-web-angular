@@ -1,15 +1,14 @@
 {
 	"version": 2,
-	"public": true,
 	"rewrites": [
 		{
 			"source": "/(.*)",
-			"destination": "/api/main"
+			"destination": "/api"
 		}
 	],
 	"functions": {
-		"api/main.mjs": {
-			"runtime": "vercel-node@latest"
+		"api/index.js": {
+			"includeFiles": "dist/portfolio/**"
 		}
 	}
 }
