@@ -31,7 +31,12 @@
             "styles": [
               "node_modules/easymde/dist/easymde.min.css",
               "src/styles.css"
-            ]
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
