@@ -11,6 +11,7 @@ import { SectionHeader } from '../../shared/components/section-header/section-he
 interface TimelineItem {
 	period: string
 	title: string
+	subtitle: string
 	description: string
 	type: 'past' | 'present' | 'future'
 }
@@ -62,37 +63,42 @@ export class AboutMe {
 	timeline = signal<TimelineItem[]>([
 		{
 			period: '2014 - 2018',
-			title: 'Los Inicios',
+			title: 'Fundamentos y Visión de Negocio',
+			subtitle: 'Web Developer & SEO Specialist (Área de Marketing)',
 			description:
-				'Estudié Ingeniería en Sistemas Computacionales. Descubrí mi pasión por el desarrollo web mientras construía mis primeros proyectos con PHP y JavaScript.',
+				'Inicié mi carrera profesional construyendo la presencia digital de la compañía. Aquí aprendí que el código debe ser eficiente tanto para el usuario como para los motores de búsqueda, especializándome en la optimización de rendimiento y estructura web.',
 			type: 'past',
 		},
 		{
 			period: '2018 - 2020',
-			title: 'Desarrollo Web',
+			title: 'Especialización en Aplicaciones Complejas',
+			subtitle: 'Software Developer (Sistemas Internos)',
 			description:
-				'Me especialicé en Angular y TypeScript, liderando el desarrollo de aplicaciones empresariales complejas. Domino arquitecturas escalables y patrones de diseño.',
+				'Lideré el desarrollo y mantenimiento de un CRM personalizado. Fue mi transición definitiva al ecosistema de Angular, donde comencé a implementar arquitecturas escalables para resolver flujos de trabajo internos de alta complejidad.',
 			type: 'past',
 		},
 		{
 			period: '2020 - 2025',
-			title: 'Gerencia Técnica y Liderazgo',
+			title: 'Liderazgo Técnico y Arquitectura',
+			subtitle: 'Tech Lead / Gerente de Desarrollo (Hands-on)',
 			description:
-				'Dirijí equipos de desarrollo, implementando metodologías ágiles y herramientas de gestión. Fomenté un ambiente de aprendizaje continuo y colaboración efectiva.',
+				'Asumí la dirección del equipo técnico sin alejarme de la implementación. Durante este periodo, lideré el ciclo de vida completo de un ERP empresarial de gran escala (desde el diseño de base de datos en 2019 hasta su ejecución final en 2024/25). Fui responsable de la toma de decisiones técnicas, definición de mappers/DTOs y la mentoría del equipo, garantizando un código limpio y mantenible.',
 			type: 'past',
 		},
 		{
 			period: '2025 - Presente',
-			title: 'Especialización Frontend',
+			title: 'Ingeniería Frontend Senior',
+			subtitle: 'Especialista en Arquitectura de Interfaces',
 			description:
-				'Enfocado en Angular y TypeScript, me especialicé en arquitectura de aplicaciones web escalables y de alta calidad. Desarrollo soluciones innovadoras que resuelven problemas reales con tecnología.',
+				'Enfocado en aplicar mi experiencia de liderazgo en la creación de productos de alto impacto. Combino mi visión de arquitectura fullstack (Laravel/NestJS) con una ejecución experta en Angular, buscando roles donde la complejidad técnica sea el motor del proyecto.',
 			type: 'present',
 		},
 		{
 			period: 'El Futuro',
-			title: 'Arquitecto Frontend',
+			title: 'Arquitecto de Soluciones Frontend',
+			subtitle: '',
 			description:
-				'Busco roles donde pueda combinar desarrollo hands-on con mentoría de equipos. Me interesan proyectos que resuelvan problemas reales con tecnología.',
+				'Mi meta es consolidarme como el referente técnico que une los objetivos de negocio con la excelencia en el frontend, ayudando a escalar tanto productos como equipos de desarrollo.',
 			type: 'future',
 		},
 	])
@@ -100,50 +106,54 @@ export class AboutMe {
 	workStyles = signal<WorkStyle[]>([
 		{
 			icon: 'communication',
-			title: 'Comunicación Clara',
+			title: 'Comunicación Visual y Técnica',
 			description:
-				'Traduzco requerimientos técnicos a lenguaje de negocio y viceversa. Facilito la colaboración entre desarrolladores, diseñadores y stakeholders.',
+				'Mi lenguaje puente son los diagramas de flujo. Aprendí que la claridad nace de lo visual; por eso, acompaño cada definición técnica con esquemas que aseguran que desarrolladores, diseñadores y stakeholders visualicen la misma solución antes de ejecutarla.',
 		},
 		{
 			icon: 'problem-solving',
-			title: 'Resolución de Raíz',
+			title: 'Pensamiento Sistémico (El fin de los "parches")',
 			description:
-				'No parcheo síntomas, ataco la causa. Analizo el problema completo antes de escribir código, ahorrando tiempo y deuda técnica.',
+				'Priorizo la creación de funcionalidades sobre los parches temporales. Un ejemplo: ante la petición de "un campo extra" para seguros en finanzas, diseñé un módulo integral de gestión de obras. Mi enfoque es entender la entidad de negocio para construir módulos robustos que evitan la deuda técnica y escalan con la empresa.',
 		},
 		{
 			icon: 'learning',
-			title: 'Aprendizaje Continuo',
+			title: 'Mentoring y Cultura de Equipo',
 			description:
-				'Autodidacta por naturaleza. Me mantengo actualizado con las últimas tendencias y comparto conocimiento con la comunidad.',
+				'Creo en el crecimiento colectivo. Implementé dinámicas de transferencia de conocimiento semanal y sesiones de Live Coding / Code Review para nivelar las habilidades del equipo. No solo resuelvo el problema, sino que aprovecho cada desafío técnico como una oportunidad de mentoría para fortalecer la autonomía del equipo.',
 		},
 		{
 			icon: 'quality',
-			title: 'Obsesión por la Calidad',
+			title: 'Calidad Basada en Estándares',
 			description:
-				'Código limpio, tests, documentación. No entrego hasta que esté orgulloso del resultado. El detalle marca la diferencia.',
+				'Mi experiencia como Gerente y Tech Lead me ha enseñado que la rapidez sin calidad es un costo a futuro. Mantengo un compromiso firme con el Código Limpio y la Documentación, asegurando que el producto final sea un activo fácil de mantener y evolucionar.',
 		},
 	])
 
 	hobbies = signal<Hobby[]>([
 		{
 			icon: 'chess',
-			name: 'Cocina',
-			insight: 'Creatividad y disfrute',
+			name: 'Gastronomía',
+			insight:
+				'Más que cocinar, soy un entusiasta de la buena mesa. Disfruto descubrir nuevos sabores y experiencias culinarias; para mí, la comida es la mejor forma de conectar con las personas y entender las culturas locales.',
 		},
 		{
 			icon: 'reading',
-			name: 'Lectura',
-			insight: 'Aprendizaje constante',
+			name: 'Curiosidad Técnica',
+			insight:
+				'Mi lectura no está en las novelas, sino en la red. Me apasiona consumir documentación técnica, artículos de arquitectura y posts de colegas de la industria. Es mi manera de mantenerme actualizado y encontrar soluciones reales a problemas del día a día.',
 		},
 		{
 			icon: 'gaming',
 			name: 'Videojuegos',
-			insight: 'Resolución de puzzles',
+			insight:
+				'Me inclino por títulos que exigen estrategia y resolución de problemas bajo presión. Es una forma divertida de mantener activa la mente analítica fuera de la terminal.',
 		},
 		{
 			icon: 'music',
-			name: 'Música',
-			insight: 'Creatividad y flow',
+			name: 'Música | Ritmo y Concentración',
+			insight:
+				'Es el motor de mi Deep Work. Tocar o escuchar música me ayuda a encontrar el "flow" necesario para abordar tareas que requieren máxima concentración y creatividad.',
 		},
 	])
 }
