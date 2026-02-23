@@ -57,6 +57,12 @@ export class Home {
 	projects = computed(() => this.projectsRes.value()?.items ?? [])
 	posts = computed(() => this.postsRes.value()?.items ?? [])
 
+	testimonialGridCols = computed(() =>
+		this.testimonials().length <= 2
+			? 'grid gap-8 sm:grid-cols-2'
+			: 'grid gap-8 sm:grid-cols-2 lg:grid-cols-3'
+	)
+
 	techStack = signal<TechItem[]>([
 		{ name: 'Angular', icon: 'angular', img: '/icons/angular.svg' },
 		{ name: 'TypeScript', icon: 'typescript', img: '/icons/typescript.svg' },
@@ -69,25 +75,16 @@ export class Home {
 
 	testimonials = signal<Testimonial[]>([
 		{
-			quote: 'Gersom entregó un producto excepcional que superó nuestras expectativas. Su atención al detalle y capacidad para resolver problemas complejos fue impresionante.',
-			author: 'María García',
-			role: 'CTO',
-			company: 'TechStartup',
-			avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop',
+			quote: 'Durante el tiempo que formó parte de nuestra organización, se distinguió por su profesionalismo y compromiso, cumpliendo de manera responsable con las funciones y objetivos asignados a su cargo.',
+			author: 'Antonio López Hernandez',
+			role: 'Director General',
+			company: 'Aclara Tratamiento de agua',
 		},
 		{
-			quote: 'Trabajar con Gersom fue una experiencia increíble. Comunicación clara, entregas puntuales y código de alta calidad.',
-			author: 'Carlos Rodríguez',
-			role: 'Product Manager',
-			company: 'FinanceApp',
-			avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop',
-		},
-		{
-			quote: 'Su dominio de Angular y arquitectura frontend transformó completamente nuestra aplicación. Muy recomendado.',
-			author: 'Ana Martínez',
-			role: 'Engineering Lead',
-			company: 'DataCorp',
-			avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop',
+			quote: 'Gersom es un colaborador excepcional que ha demostrado con creces su experiencia técnica. Destaca por su capacidad para comprender requerimientos complejos, entregando siempre en tiempo y forma con una calidad de trabajo sobresaliente y una actitud que facilita la cohesión del equipo',
+			author: 'Héctor Manuel Gutierrez Gómez',
+			role: 'Project Manager',
+			company: 'Amentum',
 		},
 	])
 
