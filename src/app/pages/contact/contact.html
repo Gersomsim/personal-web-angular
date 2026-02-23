@@ -5,8 +5,8 @@
 	<div class="mx-auto max-w-5xl px-6 lg:px-8">
 		<app-section-header
 			tag="// Contacto"
-			title="Hablemos"
-			subtitle="¿Tienes un proyecto en mente o una oportunidad interesante? Me encantaría escucharte."
+			title="¿Construimos el siguiente nivel?"
+			subtitle="Si buscas un perfil que combine visión estratégica de liderazgo con ejecución técnica experta en Angular, hablemos. Estoy abierto a discutir oportunidades donde los desafíos de arquitectura y la escalabilidad sean la prioridad."
 		/>
 
 		<div class="grid gap-12 lg:grid-cols-[1fr_340px]">
@@ -87,16 +87,18 @@
 
 						<!-- Subject (Custom Select) -->
 						<div>
-							<label class="mb-2 block text-sm font-medium text-slate-900 dark:text-white">
-								Asunto
-							</label>
+							<label class="mb-2 block text-sm font-medium text-slate-900 dark:text-white">Asunto</label>
 							<div class="relative">
 								<button
 									#subjectTrigger
 									type="button"
 									(click)="toggleDropdown()"
 									class="flex w-full items-center justify-between rounded-md border border-slate-200/50 bg-slate-50 px-4 py-3 text-left text-sm outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-800/50 dark:bg-slate-900"
-									[class]="subject() ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-500'"
+									[class]="
+										subject()
+											? 'text-slate-900 dark:text-white'
+											: 'text-slate-400 dark:text-slate-500'
+									"
 								>
 									<span>{{ selectedLabel || 'Selecciona un asunto' }}</span>
 									<svg
@@ -225,14 +227,18 @@
 			<!-- ========== SIDEBAR - Contact Info ========== -->
 			<aside class="space-y-6">
 				<!-- Direct Contact -->
-				<div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
 					<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Contacto directo</h3>
 					<div class="mt-4 space-y-4">
 						<a
 							href="mailto:gersomhernandez@outlook.com"
 							class="flex items-center gap-3 text-sm text-slate-600 transition-colors hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-500"
 						>
-							<div class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+							<div
+								class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800"
+							>
 								<svg
 									class="size-4 text-slate-500"
 									fill="none"
@@ -256,7 +262,9 @@
 							rel="noopener"
 							class="flex items-center gap-3 text-sm text-slate-600 transition-colors hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-500"
 						>
-							<div class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+							<div
+								class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800"
+							>
 								<svg
 									class="size-4 text-slate-500"
 									fill="currentColor"
@@ -276,7 +284,9 @@
 							rel="noopener"
 							class="flex items-center gap-3 text-sm text-slate-600 transition-colors hover:text-emerald-500 dark:text-slate-400 dark:hover:text-emerald-500"
 						>
-							<div class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
+							<div
+								class="flex size-9 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800"
+							>
 								<svg
 									class="size-4 text-slate-500"
 									fill="currentColor"
@@ -293,21 +303,28 @@
 				</div>
 
 				<!-- Availability -->
-				<div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
 					<div class="flex items-center gap-2">
 						<span class="relative flex size-2.5">
-							<span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+							<span
+								class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"
+							></span>
 							<span class="relative inline-flex size-2.5 rounded-full bg-emerald-500"></span>
 						</span>
 						<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Disponible</h3>
 					</div>
 					<p class="mt-3 text-sm text-slate-600 dark:text-slate-400">
-						Actualmente acepto proyectos freelance y oportunidades full-time. Tiempo de respuesta habitual: 24-48 horas.
+						Actualmente acepto proyectos freelance y oportunidades full-time. Tiempo de respuesta habitual:
+						24-48 horas.
 					</p>
 				</div>
 
 				<!-- Preferred Stack -->
-				<div class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80">
+				<div
+					class="rounded-lg border border-slate-200/50 bg-white p-6 dark:border-slate-800/50 dark:bg-slate-900/80"
+				>
 					<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Stack preferido</h3>
 					<div class="mt-3 flex flex-wrap gap-2">
 						@for (tech of ['Angular', 'TypeScript', 'Tailwind', 'Node.js', 'PostgreSQL']; track tech) {
