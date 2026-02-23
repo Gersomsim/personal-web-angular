@@ -1,8 +1,15 @@
 {
+	"version": 2,
+	"public": true,
 	"rewrites": [
 		{
 			"source": "/(.*)",
-			"destination": "/index.html"
+			"destination": "/api/main"
 		}
-	]
+	],
+	"functions": {
+		"api/main.mjs": {
+			"runtime": "vercel-node@latest"
+		}
+	}
 }
