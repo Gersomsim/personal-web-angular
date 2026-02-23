@@ -27,10 +27,6 @@ export class MenuService {
 			label: 'Blog',
 			path: '/blog',
 		},
-		{
-			label: 'Contacto',
-			path: '/contact',
-		},
 	])
 	menuAuth = signal<IMenuItem[]>([
 		{
