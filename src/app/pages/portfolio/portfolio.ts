@@ -1,6 +1,8 @@
 import { Component, computed, inject, resource, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
+import { SeoService } from '@core/services'
+import { environment } from '@env/environment'
 import { ExperimentList } from '@features/projects/components'
 import { ProjectFeatured } from '@features/projects/components/project-featured/project-featured'
 import { ProjectsList } from '@features/projects/components/projects-list/projects-list'
@@ -23,6 +25,7 @@ interface FilterTab {
 })
 export class Portfolio {
 	private readonly projectService = inject(ProjectService)
+	private readonly seoService = inject(SeoService)
 
 	projectsRes = resource({
 		loader: () => this.projectService.getAll(),
@@ -44,6 +47,24 @@ export class Portfolio {
 	projects = computed(() => this.projectsRes.value()?.items ?? [])
 	featuredProject = computed(() => this.projects().find(p => p.featured))
 	Projects = computed(() => this.projects())
+
+	constructor() {
+		this.seoService.AddTags({
+			title: 'Portfolio de Ingeniería | Proyectos Angular y Fullstack de Gersom',
+			description:
+				'Casos de éxito y soluciones reales: desde el desarrollo de ERPs complejos hasta arquitecturas de alto rendimiento con Angular, NestJS y Laravel.',
+			keywords: [
+				'Portfolio Angular',
+				'Desarrollo de ERP',
+				'Casos de estudio Software',
+				'Arquitectura Fullstack',
+				'Soluciones de software empresarial',
+				'Aplicaciones escalables',
+			],
+			type: 'website',
+			url: `https://${environment.domain}/portfolio`,
+		})
+	}
 
 	setFilter(filter: CategoryFilter) {
 		this.activeFilter.set(filter)

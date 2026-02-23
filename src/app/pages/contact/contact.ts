@@ -1,5 +1,9 @@
-import { Component, signal, ElementRef, viewChild, HostListener } from '@angular/core'
+import { Component, ElementRef, HostListener, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+
+import { SeoService } from '@core/services'
+import { environment } from '@env/environment'
+
 import { SectionHeader } from '../../shared/components/section-header/section-header'
 
 interface SubjectOption {
@@ -14,6 +18,8 @@ interface SubjectOption {
 	styleUrl: './contact.css',
 })
 export class Contact {
+	private readonly seoService = inject(SeoService)
+
 	name = signal('')
 	email = signal('')
 	subject = signal('')
@@ -74,5 +80,16 @@ export class Contact {
 			this.message.set('')
 			this.sent.set(false)
 		}, 4000)
+	}
+
+	constructor() {
+		this.seoService.AddTags({
+			title: 'Contacto - Gersom',
+			description:
+				'Contactame para hablar sobre proyectos, freelance, full-time, consultoría técnica, colaboración o cualquier otra cosa.',
+			keywords: ['contacto', 'Gersom'],
+			type: 'article',
+			url: `https://${environment.domain}/contact`,
+		})
 	}
 }

@@ -1,6 +1,8 @@
 import { Component, computed, inject, resource, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
+import { SeoService } from '@core/services'
+import { environment } from '@env/environment'
 import { PostCard } from '@features/posts/components'
 import { Post } from '@features/posts/models'
 import { PostService } from '@features/posts/services'
@@ -25,6 +27,25 @@ interface TechItem {
 export class Home {
 	private readonly projectService = inject(ProjectService)
 	private readonly postService = inject(PostService)
+	private readonly seoService = inject(SeoService)
+
+	constructor() {
+		this.seoService.AddTags({
+			title: 'Gersom | Senior Frontend Engineer & Tech Lead - Angular Expert',
+			description:
+				'Ingeniero de Software con +10 años de experiencia. Especialista en arquitectura Angular y liderazgo técnico. Soluciones escalables para aplicaciones empresariales complejas.',
+			keywords: [
+				'Senior Frontend Engineer',
+				'Angular Expert',
+				'Software Architecture',
+				'TypeScript',
+				'Desarrollo Web Escalable',
+				'Tech Lead México',
+			],
+			type: 'website',
+			url: `https://${environment.domain}`,
+		})
+	}
 
 	projectsRes = resource({
 		loader: () => this.projectService.getAll({ limit: 3, featured: true }),

@@ -16,11 +16,11 @@ export class MenuService {
 			path: '/',
 		},
 		{
-			label: 'About',
+			label: 'Acerca de mí',
 			path: '/about-me',
 		},
 		{
-			label: 'Projects',
+			label: 'Proyectos',
 			path: '/portfolio',
 		},
 		{
@@ -28,7 +28,7 @@ export class MenuService {
 			path: '/blog',
 		},
 		{
-			label: 'Contact',
+			label: 'Contacto',
 			path: '/contact',
 		},
 	])

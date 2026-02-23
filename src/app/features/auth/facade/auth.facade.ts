@@ -1,4 +1,4 @@
-import { Injectable, computed, inject, signal } from '@angular/core'
+import { Injectable, afterNextRender, computed, inject, signal } from '@angular/core'
 
 import { User } from '@features/users/models'
 
@@ -24,8 +24,10 @@ export class AuthFacade {
 	readonly isAuthenticated = computed(() => !!this._token())
 
 	constructor() {
-		this.loadToken()
-		this.loadUser()
+		afterNextRender(() => {
+			this.loadToken()
+			this.loadUser()
+		})
 	}
 
 	async login(credentials: LoginFormData): Promise<void> {

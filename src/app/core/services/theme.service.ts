@@ -1,30 +1,29 @@
-import { Injectable, OnDestroy, computed, signal } from '@angular/core'
+import { Injectable, afterNextRender, signal } from '@angular/core'
 
 type ThemePreference = 'dark' | 'light' | null
 
 @Injectable({ providedIn: 'root' })
-export class ThemeService implements OnDestroy {
+export class ThemeService {
 	private readonly storageKey = 'color-theme'
-	private readonly mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+	private mediaQuery!: any
 
-	private _preference = signal<ThemePreference>(
-		localStorage.getItem(this.storageKey) as ThemePreference,
-	)
+	private _preference = signal<ThemePreference>(null)
 
-	isDark = computed(() => {
-		const pref = this._preference()
-		if (pref !== null) return pref === 'dark'
-		return this.mediaQuery.matches
-	})
+	isDark = signal<boolean>(false)
 
 	constructor() {
-		this.apply()
-		this.mediaQuery.addEventListener('change', this.onSystemChange)
+		afterNextRender(() => {
+			this.apply()
+			this.mediaQuery.addEventListener('change', this.onSystemChange)
+			this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+			this._preference.set(localStorage.getItem(this.storageKey) as ThemePreference)
+		})
 	}
 
 	toggle(): void {
 		const next = this.isDark() ? 'light' : 'dark'
 		this._preference.set(next)
+		this.isDark.set(next === 'dark')
 		localStorage.setItem(this.storageKey, next)
 		this.apply()
 	}
@@ -41,9 +40,5 @@ export class ThemeService implements OnDestroy {
 		if (this._preference() === null) {
 			this.apply()
 		}
-	}
-
-	ngOnDestroy(): void {
-		this.mediaQuery.removeEventListener('change', this.onSystemChange)
 	}
 }

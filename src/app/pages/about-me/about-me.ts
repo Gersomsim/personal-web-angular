@@ -1,6 +1,8 @@
 import { Component, computed, inject, resource, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
+import { SeoService } from '@core/services'
+import { environment } from '@env/environment'
 import { Category } from '@features/categories/models'
 import { CategoryService } from '@features/categories/services/category.service'
 import { SkillsList } from '@features/skills/components/skills-list/skills-list'
@@ -55,6 +57,7 @@ interface Hobby {
 })
 export class AboutMe {
 	private readonly categoryService = inject(CategoryService)
+	private readonly seoService = inject(SeoService)
 	categoryRes = resource({
 		loader: () => this.categoryService.get({ type: 'skill' }),
 	})
@@ -156,4 +159,22 @@ export class AboutMe {
 				'Es el motor de mi Deep Work. Tocar o escuchar música me ayuda a encontrar el "flow" necesario para abordar tareas que requieren máxima concentración y creatividad.',
 		},
 	])
+
+	constructor() {
+		this.seoService.AddTags({
+			title: 'Sobre Gersom | 10 años de Ingeniería y Liderazgo Técnico',
+			description:
+				'Conoce la trayectoria de Gersom: de desarrollador Fullstack a Gerente Técnico. Descubre mi filosofía de código limpio, mentoría de equipos y arquitectura de sistemas.',
+			keywords: [
+				'Trayectoria Tech Lead',
+				'Mentoría de Software',
+				'Clean Code',
+				'Arquitectura de Sistemas',
+				'Gestión de equipos de desarrollo',
+				'Historia profesional Gersom',
+			],
+			type: 'website',
+			url: `https://${environment.domain}/about-me`,
+		})
+	}
 }
