@@ -1,4 +1,4 @@
 export const environment = {
-	apiBaseUrl: 'http://localhost:3000/v1',
+	apiBaseUrl: 'https://personal-web-back-production.up.railway.app/v1',
 	domain: 'gersom.dev',
 }
