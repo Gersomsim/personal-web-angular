@@ -1,4 +1,5 @@
-import { Component, HostListener, inject, signal } from '@angular/core'
+import { isPlatformBrowser } from '@angular/common'
+import { Component, HostListener, PLATFORM_ID, inject, signal } from '@angular/core'
 import { RouterLink, RouterLinkActive } from '@angular/router'
 
 import { MenuService } from '@core/services/menu.service'
@@ -13,6 +14,7 @@ import { ThemeService } from '@core/services/theme.service'
 export class Header {
 	private menuService = inject(MenuService)
 	protected theme = inject(ThemeService)
+	private platformId = inject(PLATFORM_ID)
 
 	menu = this.menuService.menu
 	isScrolled = signal(false)
@@ -20,7 +22,9 @@ export class Header {
 
 	@HostListener('window:scroll')
 	onScroll() {
-		this.isScrolled.set(window.scrollY > 20)
+		if (isPlatformBrowser(this.platformId)) {
+			this.isScrolled.set(window.scrollY > 20)
+		}
 	}
 
 	toggleMobileMenu() {
