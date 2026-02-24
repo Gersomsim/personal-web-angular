@@ -176,6 +176,7 @@ export class AboutMe {
 			],
 			type: 'website',
 			url: `https://${environment.domain}/about-me`,
+			image: 'https://cms-gersom.s3.us-east-2.amazonaws.com/38233407.jpg',
 		})
 	}
 }

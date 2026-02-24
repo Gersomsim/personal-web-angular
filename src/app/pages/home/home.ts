@@ -45,6 +45,7 @@ export class Home {
 			],
 			type: 'website',
 			url: `https://${environment.domain}`,
+			image: 'https://cms-gersom.s3.us-east-2.amazonaws.com/38233407.jpg',
 		})
 	}
 
