@@ -114,13 +114,11 @@
 	<div class="rounded-lg border border-slate-200/50 p-5 dark:border-slate-800/50">
 		<p class="mb-4 font-mono text-[10px] uppercase tracking-widest text-emerald-500">// media</p>
 
-		<app-form-input
-			label="Imagen (URL)"
-			type="url"
-			placeholder="https://..."
+		<app-image-upload-single
+			label="Imagen de portada"
+			hint="Imagen principal del artículo — aparece en listados y cabecera"
 			formControlName="image"
-			[control]="f.image"
-			hint="URL de la imagen de portada del artículo"
+			[previewUrl]="post()?.image?.url ?? null"
 		/>
 	</div>
 

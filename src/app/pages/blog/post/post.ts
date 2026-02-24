@@ -73,7 +73,7 @@ export class PostPage {
 			keywords: post.keywordsSeo.split(','),
 			type: 'article',
 			url: `https://${environment.domain}/blog/${this.slug()}`,
-			image: post.image,
+			image: post.image?.url,
 		})
 	}
 }

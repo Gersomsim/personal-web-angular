@@ -7,11 +7,11 @@ import { Category } from '@features/categories/models'
 import { PostFormData } from '@features/posts/dto'
 import { Post } from '@features/posts/models'
 import { Tag } from '@features/tags/models'
-import { Combobox, ComboboxItem, ComboboxMulti, Editor, FormInput, FormTextarea, FormToggle } from '@shared/components'
+import { Combobox, ComboboxItem, ComboboxMulti, Editor, FormInput, FormTextarea, FormToggle, ImageUploadSingle } from '@shared/components'
 
 @Component({
 	selector: 'app-post-form',
-	imports: [ReactiveFormsModule, Editor, FormInput, FormTextarea, FormToggle, ComboboxMulti, Combobox],
+	imports: [ReactiveFormsModule, Editor, FormInput, FormTextarea, FormToggle, ComboboxMulti, Combobox, ImageUploadSingle],
 	templateUrl: './post-form.html',
 	styles: ``,
 })
@@ -107,9 +107,19 @@ export class PostForm implements OnInit {
 	setForm() {
 		const post = this.post()
 		if (post) {
-			this.form.patchValue(post)
-			this.form.patchValue({ tagsId: post.tags.map(t => t.id) })
-			this.form.patchValue({ categoryId: post.category.id })
+			this.form.patchValue({
+				title: post.title,
+				slug: post.slug,
+				excerpt: post.excerpt,
+				descriptionSeo: post.descriptionSeo,
+				keywordsSeo: post.keywordsSeo,
+				content: post.content,
+				readTime: post.readTime,
+				featured: post.featured,
+				image: post.image?.id ?? '',
+				categoryId: post.category.id,
+				tagsId: post.tags.map(t => t.id),
+			})
 		}
 	}
 

@@ -1,4 +1,5 @@
 import { Category } from '@features/categories/models'
+import { FileModel } from '@features/files/models'
 import { Tag } from '@features/tags/models'
 
 export interface Post {
@@ -11,7 +12,7 @@ export interface Post {
 	descriptionSeo: string
 	keywordsSeo: string
 	content: string
-	image: string
+	image?: FileModel
 	category: Category
 	tags: Tag[]
 	author: {

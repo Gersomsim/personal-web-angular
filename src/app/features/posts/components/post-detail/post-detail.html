@@ -200,15 +200,17 @@
 			</header>
 
 			<!-- Featured Image -->
-			<div class="mx-auto max-w-5xl px-6 lg:px-8">
-				<div class="aspect-[2/1] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
-					<img
-						[src]="article.image"
-						[alt]="article.title"
-						class="size-full object-cover"
-					/>
+			@if (article.image; as image) {
+				<div class="mx-auto max-w-5xl px-6 lg:px-8">
+					<div class="aspect-[2/1] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800">
+						<img
+							[src]="image.url"
+							[alt]="article.title"
+							class="size-full object-cover"
+						/>
+					</div>
 				</div>
-			</div>
+			}
 
 			<!-- ── Contenido del artículo ────────────────────────────────────── -->
 			<div class="mx-auto py-12">

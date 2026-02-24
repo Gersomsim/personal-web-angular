@@ -1,5 +1,6 @@
 export * from './combobox/combobox'
 export * from './image-upload/image-upload'
+export * from './image-upload-single/image-upload-single'
 export * from './combobox-multi/combobox-multi'
 export * from './editor/editor'
 export * from './error-card/error-card'
