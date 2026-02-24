@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { slugify } from '@core/utils'
+import { FileModel } from '@features/files/models'
 import { ProjectFormData } from '@features/projects/dto'
 import { Project, ProjectType } from '@features/projects/models'
 import {
@@ -13,11 +14,21 @@ import {
 	FormSelect,
 	FormTextarea,
 	FormToggle,
+	ImageUpload,
 } from '@shared/components'
 
 @Component({
 	selector: 'app-project-form',
-	imports: [ReactiveFormsModule, FormInput, FormTextarea, FormSelect, FormToggle, Combobox, ComboboxMulti],
+	imports: [
+		ReactiveFormsModule,
+		FormInput,
+		FormTextarea,
+		FormSelect,
+		FormToggle,
+		Combobox,
+		ComboboxMulti,
+		ImageUpload,
+	],
 	templateUrl: './project-form.html',
 	styles: ``,
 })
@@ -61,8 +72,7 @@ export class ProjectForm implements OnInit {
 		solution: ['', [Validators.required]],
 
 		// Media
-		image: ['', [Validators.required]],
-		gallery: new FormArray<FormControl<string>>([]),
+		images: new FormControl<FileModel[]>([], { nonNullable: true }),
 
 		// Enlace
 		slug: ['', [Validators.required]],
@@ -81,9 +91,6 @@ export class ProjectForm implements OnInit {
 
 	get f() {
 		return this.form.controls
-	}
-	get galleryControls() {
-		return this.f.gallery.controls
 	}
 	get featureControls() {
 		return this.f.features.controls
@@ -131,14 +138,6 @@ export class ProjectForm implements OnInit {
 		this.f.slug.setValue(slugify(this.f.title.value), { emitEvent: false })
 	}
 
-	// ── Gallery ────────────────────────────────────────────────────────────
-	addGallery(): void {
-		this.f.gallery.push(this.str())
-	}
-	removeGallery(i: number): void {
-		this.f.gallery.removeAt(i)
-	}
-
 	// ── Features ───────────────────────────────────────────────────────────
 	addFeature(): void {
 		this.f.features.push(this.str())
@@ -160,12 +159,12 @@ export class ProjectForm implements OnInit {
 			this.form.markAllAsTouched()
 			return
 		}
-		const v = this.form.getRawValue()
+		const { images, ...v } = this.form.getRawValue()
 		const data: ProjectFormData = {
 			...v,
+			images: images.map(i => i.id),
 			features: v.features.filter(f => f),
 			learnings: v.learnings.filter(l => l),
-			gallery: v.gallery.filter(g => g),
 			developedAt: new Date(v.developedAt),
 		}
 		this.formSubmit.emit(data)
@@ -197,7 +196,6 @@ export class ProjectForm implements OnInit {
 			description: p.description,
 			problem: p.problem ?? '',
 			solution: p.solution ?? '',
-			image: p.image,
 			slug: p.slug,
 			liveUrl: p.liveUrl ?? '',
 			repoUrl: p.repoUrl ?? '',
@@ -208,8 +206,7 @@ export class ProjectForm implements OnInit {
 			type: p.type ?? '',
 		})
 
-		this.f.gallery.clear()
-		p.gallery?.forEach(url => this.f.gallery.push(this.str(url)))
+		this.f.images.setValue(p.images ?? [])
 
 		this.f.features.clear()
 		p.features?.forEach(feat => this.f.features.push(this.str(feat)))
