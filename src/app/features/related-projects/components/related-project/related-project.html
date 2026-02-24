@@ -1,0 +1,41 @@
+@if (project()) {
+	<section class="border-t py-16 border-slate-200/50 bg-slate-50/50 dark:border-slate-800/50 dark:bg-slate-900/50">
+		<div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
+			<p class="font-mono text-sm text-emerald-500">// ¿Te gustó este enfoque?</p>
+			<h2 class="mt-2 text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
+				Mira cómo apliqué estas técnicas en un proyecto real
+			</h2>
+			<p class="mx-auto mt-4 max-w-xl text-slate-600 dark:text-slate-400">
+				En el ERP ECO-Suite optimicé múltiples consultas críticas usando estas mismas técnicas, logrando que el
+				sistema soporte a 3 empresas simultáneamente.
+			</p>
+			<div class="mt-8 flex flex-wrap justify-center gap-4">
+				<a
+					routerLink="/portfolio/ecosuite"
+					class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600"
+				>
+					Ver Caso de Estudio
+					<svg
+						class="size-4"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+						/>
+					</svg>
+				</a>
+				<a
+					routerLink="/blog"
+					class="inline-flex items-center gap-2 rounded-md border border-slate-300 px-6 py-3 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+				>
+					Más artículos
+				</a>
+			</div>
+		</div>
+	</section>
+}

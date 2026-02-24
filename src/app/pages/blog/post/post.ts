@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common'
 import { Component, DestroyRef, inject, signal } from '@angular/core'
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
-import { ActivatedRoute, RouterLink } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 
 import { SeoService } from '@core/services'
 import { environment } from '@env/environment'
@@ -9,11 +9,12 @@ import { WidgetAuthor, WidgetSharePost, WidgetToc } from '@features/blog/compone
 import { PostDetail } from '@features/posts/components'
 import { Post } from '@features/posts/models'
 import { PostService } from '@features/posts/services'
+import { RelatedProject } from '@features/related-projects/components/related-project/related-project'
 import { map, timer } from 'rxjs'
 
 @Component({
 	selector: 'app-post',
-	imports: [RouterLink, PostDetail, WidgetToc, WidgetSharePost, WidgetAuthor, NgClass],
+	imports: [PostDetail, WidgetToc, WidgetSharePost, WidgetAuthor, NgClass, RelatedProject],
 	templateUrl: './post.html',
 	styles: ``,
 })
