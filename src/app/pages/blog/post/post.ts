@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
-import { toSignal } from '@angular/core/rxjs-interop'
+import { Component, DestroyRef, inject, signal } from '@angular/core'
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, RouterLink } from '@angular/router'
 
 import { SeoService } from '@core/services'
@@ -9,7 +9,7 @@ import { WidgetAuthor, WidgetSharePost, WidgetToc } from '@features/blog/compone
 import { PostDetail } from '@features/posts/components'
 import { Post } from '@features/posts/models'
 import { PostService } from '@features/posts/services'
-import { map } from 'rxjs'
+import { map, timer } from 'rxjs'
 
 @Component({
 	selector: 'app-post',
@@ -21,6 +21,7 @@ export class PostPage {
 	private readonly postService = inject(PostService)
 	private readonly route = inject(ActivatedRoute)
 	private readonly seoService = inject(SeoService)
+	private readonly destroyRef = inject(DestroyRef)
 
 	withSideBar = ''
 	isLoading = signal(true)
@@ -37,9 +38,23 @@ export class PostPage {
 			this.isLoading.set(false)
 			this.post.set(post)
 			this.setTags()
+			this.autoRead()
 		} catch (error) {
 			this.isLoading.set(false)
 		}
+	}
+
+	autoRead() {
+		const SEG = 10000
+		timer(SEG)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe(() => {
+				this.markAsRead()
+			})
+	}
+
+	markAsRead() {
+		this.postService.markAsReaded(this.post()!.id!)
 	}
 
 	copied = signal(false)

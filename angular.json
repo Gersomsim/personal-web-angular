@@ -20,6 +20,13 @@
 				"build": {
 					"builder": "@angular/build:application",
 					"options": {
+						"allowedCommonJsDependencies": [
+							"codemirror",
+							"marked",
+							"easymde",
+							"pluralize",
+							"codemirror-spell-checker"
+						],
 						"browser": "src/main.ts",
 						"tsConfig": "tsconfig.app.json",
 						"assets": [
@@ -45,7 +52,7 @@
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "10kB",
+									"maximumWarning": "16kB",
 									"maximumError": "20kB"
 								}
 							],

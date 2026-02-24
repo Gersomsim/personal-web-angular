@@ -60,6 +60,21 @@ export const AdminRoutes: Routes = [
 		],
 	},
 	{
+		path: 'contacto',
+		children: [
+			{
+				path: '',
+				loadComponent: () =>
+					import('./contact/list-contacts-page/list-contacts-page').then(m => m.ListContactsPage),
+			},
+			{
+				path: ':id',
+				loadComponent: () =>
+					import('./contact/view-contact-page/view-contact-page').then(m => m.ViewContactPage),
+			},
+		],
+	},
+	{
 		path: '',
 		redirectTo: 'blog',
 		pathMatch: 'full',

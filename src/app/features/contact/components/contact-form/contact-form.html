@@ -1,0 +1,126 @@
+@if (sent()) {
+	<!-- Success State -->
+	<div
+		class="flex flex-col items-center justify-center rounded-lg border border-emerald-200 bg-emerald-50 px-6 py-16 text-center dark:border-emerald-500/20 dark:bg-emerald-500/10"
+	>
+		<div class="flex size-12 items-center justify-center rounded-full bg-emerald-500/10">
+			<svg
+				class="size-6 text-emerald-500"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="m4.5 12.75 6 6 9-13.5"
+				/>
+			</svg>
+		</div>
+		<h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-white">Mensaje enviado</h3>
+		<p class="mt-2 text-slate-600 dark:text-slate-400">Gracias por escribirme. Te responderé lo antes posible.</p>
+	</div>
+} @else {
+	<form
+		[formGroup]="contactForm"
+		(ngSubmit)="onSubmitForm()"
+		class="space-y-6"
+	>
+		<!-- Name & Email -->
+		<div class="grid gap-6 sm:grid-cols-2">
+			<div>
+				<app-form-input
+					label="Nombre"
+					formControlName="name"
+					placeholder="Tu nombre"
+				/>
+			</div>
+
+			<div>
+				<app-form-input
+					label="Email"
+					formControlName="email"
+					placeholder="tu@email.com"
+					type="email"
+				/>
+			</div>
+		</div>
+
+		<!-- Subject custom dropdown -->
+		<div>
+			<app-form-select
+				label="Asunto"
+				formControlName="subject"
+				[options]="subjects"
+			/>
+		</div>
+
+		<!-- Message -->
+		<div>
+			<app-form-textarea
+				label="Mensaje"
+				formControlName="message"
+				placeholder="Cuéntame sobre tu proyecto o idea..."
+				[rows]="6"
+			/>
+		</div>
+
+		<div
+			class="hidden"
+			aria-hidden="true"
+		>
+			<input
+				type="text"
+				name="hpField"
+				tabindex="-1"
+				autocomplete="off"
+			/>
+		</div>
+
+		<!-- Submit -->
+		<button
+			type="submit"
+			[disabled]="sending() || contactForm.invalid"
+			class="inline-flex items-center gap-2 rounded-md bg-emerald-500 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
+		>
+			@if (sending()) {
+				<svg
+					class="size-4 animate-spin"
+					fill="none"
+					viewBox="0 0 24 24"
+				>
+					<circle
+						class="opacity-25"
+						cx="12"
+						cy="12"
+						r="10"
+						stroke="currentColor"
+						stroke-width="4"
+					/>
+					<path
+						class="opacity-75"
+						fill="currentColor"
+						d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+					/>
+				</svg>
+				Enviando...
+			} @else {
+				Enviar mensaje
+				<svg
+					class="size-4"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+					/>
+				</svg>
+			}
+		</button>
+	</form>
+}

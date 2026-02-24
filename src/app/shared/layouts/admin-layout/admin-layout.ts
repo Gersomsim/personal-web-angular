@@ -40,6 +40,10 @@ export class AdminLayout {
 				{ label: 'Skills', path: '/admin/skills', icon: 'zap' },
 			],
 		},
+		{
+			tag: '// comunicación',
+			items: [{ label: 'Contacto', path: '/admin/contacto', icon: 'mail' }],
+		},
 	]
 
 	toggleSidebar() {

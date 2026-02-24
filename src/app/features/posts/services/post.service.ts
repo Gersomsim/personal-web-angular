@@ -78,12 +78,32 @@ export class PostService {
 		return res.data
 	}
 	async markAsReaded(postId: string): Promise<void> {
+		if (this.hasReaded(postId)) return
 		const response = await fetch(`${this.apiUrl}/${postId}/mark-as-readed`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 		})
+		this.setInLocalStorageReaded(postId)
 		const res: ApiResponse<void> = await response.json()
+	}
+	hasReaded(id: string) {
+		const readed = localStorage.getItem('readed')
+		if (readed) {
+			const readedArray = JSON.parse(readed)
+			return readedArray.includes(id)
+		}
+		return false
+	}
+	setInLocalStorageReaded(id: string) {
+		const readed = localStorage.getItem('readed')
+		if (readed) {
+			const readedArray = JSON.parse(readed)
+			readedArray.push(id)
+			localStorage.setItem('readed', JSON.stringify(readedArray))
+		} else {
+			localStorage.setItem('readed', JSON.stringify([id]))
+		}
 	}
 }

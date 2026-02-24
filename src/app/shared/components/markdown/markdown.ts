@@ -20,7 +20,6 @@ function stripTags(html: string): string {
 @Component({
 	selector: 'app-markdown',
 	template: `<div class="md-prose" [innerHTML]="safeHtml()" (click)="onProseClick($event)"></div>`,
-	styleUrl: './markdown.css',
 	encapsulation: ViewEncapsulation.None,
 })
 export class MarkdownRenderer {

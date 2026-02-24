@@ -1,0 +1,24 @@
+<!-- Page header -->
+<div class="mb-8 flex items-start justify-between">
+	<div>
+		<p class="font-mono text-xs text-emerald-500">// comunicación</p>
+		<h1 class="mt-1 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Contacto</h1>
+		@if (!loading() && !error()) {
+			<p class="mt-1 font-mono text-xs text-slate-400 dark:text-slate-600">
+				{{ messages().length }} mensajes
+				@if (unreadCount > 0) {
+					·
+					<span class="text-emerald-500">{{ unreadCount }} sin leer</span>
+				}
+			</p>
+		}
+	</div>
+</div>
+
+<!-- Contact list component -->
+<app-contact-list
+	[messages]="messages()"
+	[loading]="loading()"
+	[error]="error()"
+	(deleteRequested)="onDelete($event)"
+/>
