@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, resource } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, RouterLink } from '@angular/router'
 
 import { SeoService } from '@core/services'
 import { environment } from '@env/environment'
@@ -11,7 +11,7 @@ import { map } from 'rxjs'
 
 @Component({
 	selector: 'app-project-detail-page',
-	imports: [ProjectDetail],
+	imports: [ProjectDetail, RouterLink],
 	templateUrl: './project-detail-page.html',
 	styles: ``,
 })
