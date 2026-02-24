@@ -46,7 +46,7 @@ export class Portfolio {
 	experiments = computed(() => this.experimentsRes.value()?.items ?? [])
 	projects = computed(() => this.projectsRes.value()?.items ?? [])
 	featuredProject = computed(() => this.projects().find(p => p.featured))
-	Projects = computed(() => this.projects())
+	Projects = computed(() => this.projects().filter(p => p.id !== this.featuredProject()?.id))
 
 	constructor() {
 		this.seoService.AddTags({

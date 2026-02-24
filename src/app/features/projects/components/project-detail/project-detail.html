@@ -197,19 +197,21 @@
 	<!-- ============================================
 	     HERO IMAGE
 	     ============================================ -->
-	<section class="border-y border-slate-200/50 dark:border-slate-800/50">
-		<div class="mx-auto max-w-5xl px-6 lg:px-8">
-			<div
-				class="-my-px overflow-hidden rounded-xl border border-slate-200/50 bg-slate-100 dark:border-slate-800/50 dark:bg-slate-800"
-			>
-				<img
-					[src]="p.image"
-					[alt]="p.title"
-					class="aspect-video w-full object-cover"
-				/>
+	@if (mainImage(); as imageUrl) {
+		<section class="border-y border-slate-200/50 dark:border-slate-800/50">
+			<div class="mx-auto max-w-5xl px-6 lg:px-8">
+				<div
+					class="-my-px overflow-hidden rounded-xl border border-slate-200/50 bg-slate-100 dark:border-slate-800/50 dark:bg-slate-800"
+				>
+					<img
+						[src]="imageUrl"
+						[alt]="p.title"
+						class="aspect-video w-full object-cover"
+					/>
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	}
 
 	<!-- ============================================
 	     PROBLEMA Y SOLUCIÓN
@@ -370,7 +372,8 @@
 	<!-- ============================================
 	     GALLERY
 	     ============================================ -->
-	@if (p.gallery && p.gallery.length > 0) {
+	@if (galleryImages().length > 0) {
+		@let images = galleryImages();
 		<section
 			class="border-t border-slate-200/50 bg-slate-50/50 py-24 dark:border-slate-800/50 dark:bg-slate-900/30"
 		>
@@ -379,7 +382,7 @@
 				<h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">El producto en acción</h2>
 
 				<div class="mt-8 grid gap-4 sm:grid-cols-2">
-					@for (img of p.gallery; track img) {
+					@for (img of images; track img) {
 						<div
 							class="overflow-hidden rounded-lg border border-slate-200/50 bg-slate-100 dark:border-slate-800/50 dark:bg-slate-800"
 						>

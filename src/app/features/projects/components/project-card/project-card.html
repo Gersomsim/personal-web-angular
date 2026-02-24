@@ -29,11 +29,13 @@
 	>
 		<!-- Image -->
 		<div class="aspect-video overflow-hidden bg-slate-100 dark:bg-slate-800">
-			<img
-				[src]="project().image"
-				[alt]="project().title"
-				class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-			/>
+			@if (mainImage(); as imageUrl) {
+				<img
+					[src]="imageUrl"
+					[alt]="project().title"
+					class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+				/>
+			}
 		</div>
 
 		<!-- Content -->

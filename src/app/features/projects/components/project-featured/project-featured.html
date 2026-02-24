@@ -20,23 +20,25 @@
 
 			<div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
 				<!-- Imagen -->
-				<div
-					class="relative overflow-hidden rounded-xl border border-slate-200/50 bg-slate-100 dark:border-slate-800/50 dark:bg-slate-800"
-				>
-					<img
-						[src]="featured.image"
-						[alt]="featured.title"
-						class="aspect-video w-full object-cover"
-					/>
-					<!-- Overlay con métricas -->
-					@if (featured.metrics) {
-						<div
-							class="absolute bottom-4 left-4 rounded-lg bg-white/90 px-4 py-2 font-mono text-sm font-semibold text-emerald-600 backdrop-blur-sm dark:bg-slate-900/90 dark:text-emerald-400"
-						>
-							{{ featured.metrics }}
-						</div>
-					}
-				</div>
+				@if (mainImage(); as imageUrl) {
+					<div
+						class="relative overflow-hidden rounded-xl border border-slate-200/50 bg-slate-100 dark:border-slate-800/50 dark:bg-slate-800"
+					>
+						<img
+							[src]="imageUrl"
+							[alt]="featured.title"
+							class="aspect-video w-full object-cover"
+						/>
+						<!-- Overlay con métricas -->
+						@if (featured.metrics) {
+							<div
+								class="absolute bottom-4 left-4 rounded-lg bg-white/90 px-4 py-2 font-mono text-sm font-semibold text-emerald-600 backdrop-blur-sm dark:bg-slate-900/90 dark:text-emerald-400"
+							>
+								{{ featured.metrics }}
+							</div>
+						}
+					</div>
+				}
 
 				<!-- Contenido -->
 				<div>

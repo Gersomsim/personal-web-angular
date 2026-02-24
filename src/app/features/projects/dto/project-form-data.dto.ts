@@ -6,7 +6,7 @@ export interface ProjectFormData {
 	description: string
 	problem: string
 	solution: string
-	image: string
+	images: string[]
 	tagsId: string[]
 	slug: string
 	metrics: string
@@ -22,7 +22,6 @@ export interface ProjectFormData {
 	developedAt: Date
 	learnings: string[]
 	features: string[]
-	gallery: string[]
 	// Case study — managed separately in manage-project-page
 	challenges?: ProjectChallenge[]
 	results?: ProjectResult[]

@@ -42,7 +42,7 @@ export class ProjectDetailPage {
 			keywords: project.tags?.map(tag => tag.name) || [],
 			type: 'article',
 			url: `https://${environment.domain}/projects/${this.slug()}`,
-			image: project.image,
+			image: project.images[0].url,
 		})
 	}
 }

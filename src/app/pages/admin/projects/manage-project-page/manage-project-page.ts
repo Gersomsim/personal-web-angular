@@ -24,6 +24,7 @@ export class ManageProjectPage {
 	TechStack = linkedSignal(() => this.projectResource.value()?.techStack ?? [])
 	Challenges = linkedSignal(() => this.projectResource.value()?.challenges ?? [])
 	Results = linkedSignal(() => this.projectResource.value()?.results ?? [])
+	mainImage = linkedSignal(() => this.projectResource.value()?.images[0].url)
 
 	async onSaveChallenges(challenges: ProjectChallenge[]): Promise<void> {
 		const challengesSync = await this.projectService.syncChallenges(this.Project()!.id, challenges)

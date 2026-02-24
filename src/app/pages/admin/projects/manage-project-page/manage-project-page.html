@@ -102,9 +102,9 @@
 		<!-- Main row -->
 		<div class="flex items-start gap-4 p-5">
 			<!-- Thumbnail -->
-			@if (project.image) {
+			@if (mainImage(); as mainImage) {
 				<img
-					[src]="project.image"
+					[src]="mainImage"
 					[alt]="project.title"
 					class="size-16 shrink-0 rounded-md object-cover ring-1 ring-slate-200/50 dark:ring-slate-800/50"
 				/>

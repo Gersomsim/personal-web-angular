@@ -1,4 +1,5 @@
 import { Category } from '@features/categories/models'
+import { FileModel } from '@features/files/models'
 import { Tag } from '@features/tags/models'
 
 export interface ProjectChallenge {
@@ -23,7 +24,7 @@ export interface Project {
 	subtitle?: string
 	description: string
 	problem?: string
-	image: string
+	images: FileModel[]
 	slug: string
 	metrics?: string
 	type: ProjectType
@@ -44,7 +45,6 @@ export interface Project {
 	challenges?: ProjectChallenge[]
 	results?: ProjectResult[]
 	techStack?: ProjectTechStack[]
-	gallery?: string[]
 	learnings?: string[]
 }
 
