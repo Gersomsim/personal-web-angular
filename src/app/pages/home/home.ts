@@ -8,6 +8,7 @@ import { Post } from '@features/posts/models'
 import { PostService } from '@features/posts/services'
 import { ProjectCard } from '@features/projects/components'
 import { ProjectService } from '@features/projects/services'
+import { CvButton } from '@shared/components/cv-button/cv-button'
 
 import { SectionHeader } from '../../shared/components/section-header/section-header'
 import { Testimonial, TestimonialCard } from '../../shared/components/testimonial-card/testimonial-card'
@@ -20,7 +21,7 @@ interface TechItem {
 
 @Component({
 	selector: 'app-home',
-	imports: [RouterLink, SectionHeader, ProjectCard, TestimonialCard, PostCard],
+	imports: [RouterLink, SectionHeader, ProjectCard, TestimonialCard, PostCard, CvButton],
 	templateUrl: './home.html',
 	styles: ``,
 })
@@ -58,9 +59,7 @@ export class Home {
 	posts = computed(() => this.postsRes.value()?.items ?? [])
 
 	testimonialGridCols = computed(() =>
-		this.testimonials().length <= 2
-			? 'grid gap-8 sm:grid-cols-2'
-			: 'grid gap-8 sm:grid-cols-2 lg:grid-cols-3'
+		this.testimonials().length <= 2 ? 'grid gap-8 sm:grid-cols-2' : 'grid gap-8 sm:grid-cols-2 lg:grid-cols-3',
 	)
 
 	techStack = signal<TechItem[]>([

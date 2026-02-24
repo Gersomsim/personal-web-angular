@@ -7,6 +7,7 @@ import { Category } from '@features/categories/models'
 import { CategoryService } from '@features/categories/services/category.service'
 import { SkillsList } from '@features/skills/components/skills-list/skills-list'
 import { Skill } from '@features/skills/models/skill.model'
+import { CvButton } from '@shared/components/cv-button/cv-button'
 
 import { SectionHeader } from '../../shared/components/section-header/section-header'
 
@@ -37,7 +38,7 @@ interface Hobby {
 
 @Component({
 	selector: 'app-about-me',
-	imports: [RouterLink, SectionHeader, SkillsList],
+	imports: [RouterLink, SectionHeader, SkillsList, CvButton],
 	templateUrl: './about-me.html',
 	styles: `
 		@keyframes blink {
