@@ -28,7 +28,7 @@ export class Portfolio {
 	private readonly seoService = inject(SeoService)
 
 	projectsRes = resource({
-		loader: () => this.projectService.getAll(),
+		loader: () => this.projectService.getAll({ type: 'project' }),
 	})
 	experimentsRes = resource({
 		loader: () => this.projectService.getAll({ type: 'experiment' }),
